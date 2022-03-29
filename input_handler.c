@@ -6,19 +6,35 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/03/29 19:39:21 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/03/29 22:04:58 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	display_error(char **map)
+{
+	int32_t	i;
+
+	i = 0;
+	ft_printf("Error\n");
+	while (*map)
+	{
+		free(*map);
+		*map++;
+	}
+	return (NULL);
+}
+
 /**
  * @brief Checks if one line read contains the expected chararcters or not
  * @param line the line to be checked
  * @param check the string containing all expected characters
- * @return true if no characters from the check string have been found, otherwise false.
+ * @return true if no characters from the check string have been found, 
+ * otherwise false.
  */
-static bool	error_check(char *line, char *check, int linecount, int size)
+static bool	error_check(char *line, int linecount, int size,
+						struct s_checks checks)
 {
 	int32_t	i;
 
@@ -34,21 +50,24 @@ static bool	error_check(char *line, char *check, int linecount, int size)
 			if (line[i] != '1')
 				return (false);
 		}
-		else if (!(ft_strchr(check, line[i++])))
+		else if (!(ft_strchr("01CEP", line[i++])))
 			return (false);
+		else if (ft_strchr(line[i], 'C'))
+			checks.collectible++;
+		else if (ft_strchr(line[i], 'P'))
+			checks.start++;
+		else if (ft_strchr(line[i], 'E'))
+			checks.exit++;
 	}
 	return (true);
 }
 
-char	**input_handler(void)
+char	**input_handler(int fd, struct s_checks checks, char **map)
 {
-	int		fd;
-	int		i;
-	int		size;
-	char	*line;
-	char	**map;
+	int				i;
+	int				size;
+	char			*line;
 
-	fd = open("map.ber", O_RDONLY);
 	size = 0;
 	while (1)
 	{
@@ -59,22 +78,32 @@ char	**input_handler(void)
 		if (i == 0 || i > 1 && ft_strlen(line) == size)
 		{
 			size = ft_strlen(line);
-			*map = malloc(size * sizeof(char));
 			ft_strlcpy(map[i], line, size);
 		}
 		else
 			return (NULL);
-		error_check(line, "01CEP", i, size);
+		if (!(error_check(line, i, size, checks)))
+			display_error(map);
 		i++;
 	}
-	i = -1; // to have a check for the last line
-	error_check(line, "O1CEP", i, size);
+	error_check(line, -1, size, checks);
 	return (map);
 }
 
-int	main(int argc char **argv)
+int	main(int argc, char **argv)
 {
+	char			**map;
+	int				fd;
+	struct s_checks	checks;
 
+	if (argc == 2)
+	{
+		fd = open(argv[1], O_RDONLY);
+		input_handler(fd, checks, map);
+		if (!(checks.collectible >= 1 && checks.exit >= 1 && checks.start >= 1))
+			display_error(map);
+	}
+	return (0);
 }
 
 /**
