@@ -11,7 +11,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
-	make -C ./get_next_line/Make
+	make -C ./libft/srcs/Make
+
 clean: 
 	rm -rf $(OBJS)
 
