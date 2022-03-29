@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/03/29 22:04:58 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/03/29 22:32:43 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ void	display_error(char **map)
 
 /**
  * @brief Checks if one line read contains the expected chararcters or not
- * @param line the line to be checked
- * @param check the string containing all expected characters
- * @return true if no characters from the check string have been found, 
+ * @param line The line to be checked
+ * @param check The string containing all expected characters
+ * @return True if no characters from the check string have been found, 
  * otherwise false.
  */
-static bool	error_check(char *line, int linecount, int size,
+static bool	error_check(char *line, int32_t linecount, int32_t size,
 						struct s_checks checks)
 {
 	int32_t	i;
 
 	i = 0;
 	if (linecount <= 0 && !(ft_strchr(line, '1')))
-		return (false);
+		return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
 	else
 		return (true);
 	while (line[i])
@@ -48,10 +48,10 @@ static bool	error_check(char *line, int linecount, int size,
 		if (i == 0 || i == size - 1)
 		{
 			if (line[i] != '1')
-				return (false);
+				return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
 		}
 		else if (!(ft_strchr("01CEP", line[i++])))
-			return (false);
+			return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
 		else if (ft_strchr(line[i], 'C'))
 			checks.collectible++;
 		else if (ft_strchr(line[i], 'P'))
@@ -62,11 +62,11 @@ static bool	error_check(char *line, int linecount, int size,
 	return (true);
 }
 
-char	**input_handler(int fd, struct s_checks checks, char **map)
+char	**input_handler(int32_t fd, struct s_checks checks, char **map)
 {
-	int				i;
-	int				size;
-	char			*line;
+	int32_t				i;
+	int32_t				size;
+	char				*line;
 
 	size = 0;
 	while (1)
@@ -90,15 +90,20 @@ char	**input_handler(int fd, struct s_checks checks, char **map)
 	return (map);
 }
 
-int	main(int argc, char **argv)
+int32_t	main(int32_t argc, char **argv)
 {
 	char			**map;
-	int				fd;
+	int32_t			fd;
 	struct s_checks	checks;
 
 	if (argc == 2)
 	{
 		fd = open(argv[1], O_RDONLY);
+		if (fd == -1)
+		{
+			ft_putendl_fd("Error\n Invalid file\n", STDOUT_FILENO);
+			return (EXIT_FAILURE);
+		}
 		input_handler(fd, checks, map);
 		if (!(checks.collectible >= 1 && checks.exit >= 1 && checks.start >= 1))
 			display_error(map);
