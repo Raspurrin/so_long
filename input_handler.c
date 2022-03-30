@@ -6,22 +6,23 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/03/29 22:32:43 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/03/30 20:15:43 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "./libft/srcs/libft.h"
 
-void	display_error(char **map)
+char	*display_error(char **map)
 {
 	int32_t	i;
 
 	i = 0;
-	ft_printf("Error\n");
+	ft_putendl_fd("Error\n", STDOUT_FILENO);
 	while (*map)
 	{
 		free(*map);
-		*map++;
+		map++;
 	}
 	return (NULL);
 }
@@ -43,39 +44,37 @@ static bool	error_check(char *line, int32_t linecount, int32_t size,
 		return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
 	else
 		return (true);
-	while (line[i])
+	if (i == 0 || i == size - 1)
 	{
-		if (i == 0 || i == size - 1)
-		{
-			if (line[i] != '1')
-				return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
-		}
-		else if (!(ft_strchr("01CEP", line[i++])))
+		if (line[i] != '1')
 			return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
-		else if (ft_strchr(line[i], 'C'))
-			checks.collectible++;
-		else if (ft_strchr(line[i], 'P'))
-			checks.start++;
-		else if (ft_strchr(line[i], 'E'))
-			checks.exit++;
 	}
+	else if (!(ft_strchr("01CEP", line[i++])))
+		return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
+	else if (ft_strchr(line, 'C'))
+		checks.collectible++;
+	else if (ft_strchr(line, 'P'))
+		checks.start++;
+	else if (ft_strchr(line, 'E'))
+		checks.exit++;
 	return (true);
 }
 
 char	**input_handler(int32_t fd, struct s_checks checks, char **map)
 {
-	int32_t				i;
-	int32_t				size;
+	size_t				i;
+	size_t				size;
 	char				*line;
 
 	size = 0;
+	i = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
 		map = malloc(i * sizeof(char *));
-		if (i == 0 || i > 1 && ft_strlen(line) == size)
+		if (i == 0 || (i > 1 && ft_strlen(line) == size))
 		{
 			size = ft_strlen(line);
 			ft_strlcpy(map[i], line, size);
@@ -96,6 +95,10 @@ int32_t	main(int32_t argc, char **argv)
 	int32_t			fd;
 	struct s_checks	checks;
 
+	map = NULL;
+	checks.collectible = 0;
+	checks.exit = 0;
+	checks.start = 0;
 	if (argc == 2)
 	{
 		fd = open(argv[1], O_RDONLY);
@@ -125,13 +128,15 @@ int32_t	main(int32_t argc, char **argv)
  * Oorr... Put it in a linked list, so you don't need to know the length
  * Don't know how to do that though
  * 
- */
-
-/**
  * Have to make sure size will contain previous line value at first
  * Which is why line is first evaluated from strlen before being put
  * into the size variable
  * 
  * checking i to make sure one line has been read before
  * making comparisons in the if statement
+ * 
+ * Strjoin everything into one big string and then ft_split
+ * Just... Read everything? And then split. Array size problem possibly
+ * First count amount of lines before mallocing
+ * Linked lists
  */
