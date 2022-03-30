@@ -6,25 +6,20 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/03/30 00:41:52 by mialbert         ###   ########.fr        #
+#    Updated: 2022/03/30 20:00:50 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC= gcc
 CFLAGS = -Wall -Werror -Wextra
-NAME = so_long.a
-SRCS = game.c input_handler.c 
-OBJS = $(SRCS.c=.o)
+NAME = so_long
+SRCS = input_handler.c 
 
 all : $(NAME)
 
-# %.o : %.c 
-# 	$(CC) $(CFLAGS) -c $(SRCS) -o $(OBJS)
-
-$(NAME) : $(OBJS)
-	ar -rcs $(NAME) $(OBJS)
-	make -C libft/srcs
-	$(CC) $(CFLAGS) -c $(SRCS) -Llibft -o $(OBJS)
+$(NAME) :
+	$(MAKE) -C libft/srcs
+	$(CC) $(CFLAGS) -g $(SRCS) libft/srcs/libft.a -o $(NAME)
+#	#./so_long map.ber
 
 clean: 
 	rm -rf $(OBJS)
