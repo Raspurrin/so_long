@@ -6,103 +6,120 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/03/31 02:57:11 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/04 21:17:46 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "./libft/srcs/libft.h"
 
-char	*display_error(char **map)
+/**
+ * @brief Checks if the map contains walls.
+ * @param map The 2D array containing the map.
+ * @param linecount Amount of lines in the map.
+ * @param size Size of the lines.
+ * @param checks Counters for the elements of the map.
+ * @return True if it passes all error checks, otherwise false.
+ */
+static bool	check_walls(char **map, int32_t linecount, int32_t linesize)
 {
 	int32_t	i;
 
 	i = 0;
-	ft_putendl_fd("Error\n", STDOUT_FILENO);
+	if (!(ft_strchr(map[1], '1')) || !(ft_strchr(map[linecount], '1')))
+		return (ft_putendl_fd("Error\n Map is not surrounded by walls", \
+				STDOUT_FILENO), false);
 	while (*map)
 	{
-		free(*map);
-		map++;
+		if (*map[1] != '1' || *map[linesize] != '1')
+			return (ft_putendl_fd("Error\n Map is not surrounded by walls", \
+					STDOUT_FILENO), false);
+		*map++;	// expression result unused ??? 
 	}
-	return (NULL);
-}
-
-/**
- * @brief Checks if one line read contains the expected chararcters or not
- * @param line The line to be checked
- * @param check The string containing all expected characters
- * @return True if no characters from the check string have been found, 
- * otherwise false.
- */
-static bool	error_check(char *line, int32_t linecount, int32_t size,
-						struct s_checks checks)
-{
-	int32_t	i;
-
-	i = 0;
-	if (linecount <= 0 && !(ft_strchr(line, '1')))
-		return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
-	else
-		return (true);
-	if (i == 0 || i == size - 1)
-	{
-		if (line[i] != '1')
-			return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
-	}
-	else if (!(ft_strchr("01CEP", line[i++])))
-		return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
-	else if (ft_strchr(line, 'C'))
-		checks.collectible++;
-	else if (ft_strchr(line, 'P'))
-		checks.start++;
-	else if (ft_strchr(line, 'E'))
-		checks.exit++;
 	return (true);
 }
 
 /**
- * char **name; 
- * 
- * name[1] = "hello";
- * name[2] = "bro";
+ * @brief Checks if the map only contains the appropiate characters or not
+ * and if it contains at least one exit, collectible and starting position.
+ * 0: Empty space, 1:  wall, C: collectible, E: map exit, P: starting pos.
+ * @param line One big string containing the entire map.
+ * @param checks Struct to take track of the elements of the map.
+ * @return True if it passes all error checks, otherwise false.
  */
+static bool	check_cases(char *line)
+{
+	size_t	i;
 
-size_t	check_if_rectangular(char **map)
+	i = 0;
+	if (!(ft_strchr(line, 'C')) || !(ft_strchr(line, 'P')) \
+	|| !(ft_strchr(line, 'E')))
+		return (ft_putendl_fd("Error\n Does not contain at least 1 collectible, \
+				map exit and starting position", STDOUT_FILENO), false);
+	while (line[i])
+	{
+		if (!(ft_strchr("01CEP", line[i++])))
+			return (ft_putendl_fd("Error\n Contains input other than 01CEP", \
+					STDOUT_FILENO), false);
+	}
+	return (true);
+}
+
+/**
+ * @brief Checks if every line is the same size in the map.
+ * @param map The map.
+ * @return Amount of lines in the map.
+ */
+static size_t	check_if_rectangular(char **map, size_t *linesize)
 {
 	size_t	i;
 	size_t	size;
 
 	i = 0;
 	size = 0;
-
 	while (map[i])
 	{
-		size = ft_strlen(map[i++]);
-		if (size != ft_strlen(map[i++]))
-			return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
-		i++;
+		*linesize = ft_strlen(map[i++]);
+		if (*linesize != ft_strlen(map[i]))
+			return (ft_putendl_fd("Error\n Map is not rectangular", \
+					STDOUT_FILENO), false);
 	}
 	return (i);
 }
 
-char	**input_handler(int32_t fd, struct s_checks checks, char **map)
+/**
+ * @brief Reads the lines of the map. Both using one big string
+ * and a 2D array to check for different error cases in other functions.
+ * @param fd The file descriptor to be read from.
+ * @param checks Struct containing the different elements of the map.
+ * @param map The 2D array that will eventually contain the input. 
+ * @return The map in a 2D array.
+ */
+static char	**input_handler(int32_t fd, char **map)
 {
-	size_t				i;
-	size_t				size;
-	char				*line;
+	size_t				linesize;
+	size_t				linecount;
+	int32_t				buflen;
 	char				*buf;
+	char				*line;
 
-	size = 0;
-	i = 0;
-	while (1)
+	buflen = 5000;
+	buf = NULL;
+	line = NULL;
+	while (buflen == 5000)
 	{
-		map = ft_split(read(fd, buf, 5000), '\n');
-		check_if_rectangular(map);
-		if (!(error_check(line, i, size, checks)))
-			display_error(map); // now I have to rethink my error_check function
-		i++;
+		buflen = read(fd, buf, 5000);
+		if (buflen <= 0)
+			return (free (line), NULL);
+		line = malloc(buflen * sizeof(char));
+		line = gnl_strjoin(line, buf);
 	}
-	error_check(line, -1, size, checks);
+	map = ft_split(((const char *)line), '\n');
+	if (!(check_cases(line)))
+		free_2d(map);
+	linecount = check_if_rectangular(map, &linesize);
+	if (!(check_walls(map, linecount, linesize)))
+		free_2d(map);
 	return (map);
 }
 
@@ -110,23 +127,15 @@ int32_t	main(int32_t argc, char **argv)
 {
 	char			**map;
 	int32_t			fd;
-	struct s_checks	checks;
 
 	map = NULL;
-	checks.collectible = 0;
-	checks.exit = 0;
-	checks.start = 0;
 	if (argc == 2)
 	{
 		fd = open(argv[1], O_RDONLY);
 		if (fd == -1)
-		{
-			ft_putendl_fd("Error\n Invalid file\n", STDOUT_FILENO);
-			return (EXIT_FAILURE);
-		}
-		input_handler(fd, checks, map);
-		if (!(checks.collectible >= 1 && checks.exit >= 1 && checks.start >= 1))
-			display_error(map);
+			return (ft_putendl_fd("Error\n Invalid file\n", STDOUT_FILENO) \
+					, EXIT_FAILURE);
+		input_handler(fd, map);
 	}
 	return (0);
 }
@@ -168,126 +177,4 @@ int32_t	main(int32_t argc, char **argv)
  * elements to count the size
  */
 
-
-
-
-
-
 // just in case:
-
-
-
-
-// #include "so_long.h"
-// #include "./libft/srcs/libft.h"
-
-// char	*display_error(char **map)
-// {
-// 	int32_t	i;
-
-// 	i = 0;
-// 	ft_putendl_fd("Error\n", STDOUT_FILENO);
-// 	while (*map)
-// 	{
-// 		free(*map);
-// 		map++;
-// 	}
-// 	return (NULL);
-// }
-
-/**
- * @brief Checks if one line read contains the expected chararcters or not
- * @param line The line to be checked
- * @param check The string containing all expected characters
- * @return True if no characters from the check string have been found, 
- * otherwise false.
- */
-
-// static bool	error_check(char *line, int32_t linecount, int32_t size,
-// 						struct s_checks checks)
-// {
-// 	int32_t	i;
-
-// 	i = 0;
-// 	if (linecount <= 0 && !(ft_strchr(line, '1')))
-// 		return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
-// 	else
-// 		return (true);
-// 	if (i == 0 || i == size - 1)
-// 	{
-// 		if (line[i] != '1')
-// 			return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
-// 	}
-// 	else if (!(ft_strchr("01CEP", line[i++])))
-// 		return (ft_putendl_fd("Error\n", STDOUT_FILENO), false);
-// 	else if (ft_strchr(line, 'C'))
-// 		checks.collectible++;
-// 	else if (ft_strchr(line, 'P'))
-// 		checks.start++;
-// 	else if (ft_strchr(line, 'E'))
-// 		checks.exit++;
-// 	return (true);
-// }
-
-// size_t	get_line_number(int32_t fd, char *line)
-// {
-// 	char	*line;
-
-	
-// 	}
-	
-// }
-
-// char	**input_handler(int32_t fd, struct s_checks checks, char **map)
-// {
-// 	size_t				i;
-// 	size_t				size;
-// 	char				*line;
-
-// 	size = 0;
-// 	i = 0;
-// 	while (1)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (!line)
-// 			break ;
-// 		map = malloc(i * sizeof(char *));
-// 		if (i == 0 || (i > 1 && ft_strlen(line) == size))
-// 		{
-// 			size = ft_strlen(line);
-// 			ft_strlcpy(map[i], line, size);
-// 		}
-// 		else
-// 			return (NULL);
-// 		if (!(error_check(line, i, size, checks)))
-// 			display_error(map);
-// 		i++;
-// 	}
-// 	error_check(line, -1, size, checks);
-// 	return (map);
-// }
-
-// int32_t	main(int32_t argc, char **argv)
-// {
-// 	char			**map;
-// 	int32_t			fd;
-// 	struct s_checks	checks;
-
-// 	map = NULL;
-// 	checks.collectible = 0;
-// 	checks.exit = 0;
-// 	checks.start = 0;
-// 	if (argc == 2)
-// 	{
-// 		fd = open(argv[1], O_RDONLY);
-// 		if (fd == -1)
-// 		{
-// 			ft_putendl_fd("Error\n Invalid file\n", STDOUT_FILENO);
-// 			return (EXIT_FAILURE);
-// 		}
-// 		input_handler(fd, checks, map);
-// 		if (!(checks.collectible >= 1 && checks.exit >= 1 && checks.start >= 1))
-// 			display_error(map);
-// 	}
-// 	return (0);
-// }
