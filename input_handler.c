@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/04 21:17:46 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/04 23:40:46 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static bool	check_walls(char **map, int32_t linecount, int32_t linesize)
 		if (*map[1] != '1' || *map[linesize] != '1')
 			return (ft_putendl_fd("Error\n Map is not surrounded by walls", \
 					STDOUT_FILENO), false);
-		*map++;	// expression result unused ??? 
+		(*map)++;
 	}
 	return (true);
 }
@@ -104,8 +104,7 @@ static char	**input_handler(int32_t fd, char **map)
 	char				*line;
 
 	buflen = 5000;
-	buf = NULL;
-	line = NULL;
+	buf = malloc(5000 * sizeof(char));
 	while (buflen == 5000)
 	{
 		buflen = read(fd, buf, 5000);
@@ -115,13 +114,16 @@ static char	**input_handler(int32_t fd, char **map)
 		line = gnl_strjoin(line, buf);
 	}
 	map = ft_split(((const char *)line), '\n');
-	if (!(check_cases(line)))
-		free_2d(map);
+	if (!map)
+		return (ft_putendl_fd("Error\n Invalid map", STDOUT_FILENO), NULL);
 	linecount = check_if_rectangular(map, &linesize);
-	if (!(check_walls(map, linecount, linesize)))
+	if (!(check_cases(line)) || !(check_walls(map, linecount, linesize) \
+		|| linecount == 0))
 		free_2d(map);
 	return (map);
 }
+
+#include <stdio.h>
 
 int32_t	main(int32_t argc, char **argv)
 {
@@ -137,6 +139,8 @@ int32_t	main(int32_t argc, char **argv)
 					, EXIT_FAILURE);
 		input_handler(fd, map);
 	}
+	while (*map)
+		printf("%s", *map++);
 	return (0);
 }
 
