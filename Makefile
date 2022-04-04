@@ -6,13 +6,13 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/03/30 20:00:50 by mialbert         ###   ########.fr        #
+#    Updated: 2022/04/04 21:43:12 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Werror -Wextra
 NAME = so_long
-SRCS = input_handler.c 
+SRCS = input_handler.c free.c
 
 all : $(NAME)
 
