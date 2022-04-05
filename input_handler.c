@@ -6,12 +6,41 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/04 23:40:46 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/05 19:05:29 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "./libft/srcs/libft.h"
+#include <stdio.h>
+
+/**
+ * @brief Checks if a file name contains the right extension.
+ * @param file_name The file name to be checked.
+ * @param ext The extension it should have.
+ * @return true if it contains the requested extension, otherwise false.
+ */
+static bool	check_ext(char *file_name, char *ext)
+{
+	size_t	ext_len;
+	size_t	name_len;
+
+	if (!ext)
+		return (ft_putendl_fd("Error\nYou are not checking for an extension", \
+				STDOUT_FILENO), false);
+	if (!file_name)
+		return (ft_putendl_fd("Error\nThere is no file name", \
+				STDOUT_FILENO), false);
+	ext_len = ft_strlen(ext);
+	name_len = ft_strlen(file_name);
+	while (ext_len > 0)
+	{
+		if (file_name[name_len--] != ext[ext_len--])
+			return (ft_putendl_fd("Error\nWrong file extension", \
+					STDOUT_FILENO), false);
+	}
+	return (true);
+}
 
 /**
  * @brief Checks if the map contains walls.
@@ -21,20 +50,25 @@
  * @param checks Counters for the elements of the map.
  * @return True if it passes all error checks, otherwise false.
  */
-static bool	check_walls(char **map, int32_t linecount, int32_t linesize)
+static bool	check_walls(char **map, int32_t linecount, size_t linesize)
 {
-	int32_t	i;
+	size_t	i;
 
 	i = 0;
-	if (!(ft_strchr(map[1], '1')) || !(ft_strchr(map[linecount], '1')))
-		return (ft_putendl_fd("Error\n Map is not surrounded by walls", \
-				STDOUT_FILENO), false);
-	while (*map)
+	ft_strchr(map[linecount], '1');
+	while (i < linesize)
 	{
-		if (*map[1] != '1' || *map[linesize] != '1')
-			return (ft_putendl_fd("Error\n Map is not surrounded by walls", \
+		if (map[0][i] != '1' || map[linecount][i++] != '1')
+			return (ft_putendl_fd("Error\nMap is not surrounded by walls", \
 					STDOUT_FILENO), false);
-		(*map)++;
+	}
+	i = 0;
+	while (map[i])
+	{
+		if (map[i][0] != '1' || map[i][linesize - 1] != '1')
+			return (ft_putendl_fd("Error\nMap is not surrounded by walls", \
+					STDOUT_FILENO), false);
+		i++;
 	}
 	return (true);
 }
@@ -54,12 +88,12 @@ static bool	check_cases(char *line)
 	i = 0;
 	if (!(ft_strchr(line, 'C')) || !(ft_strchr(line, 'P')) \
 	|| !(ft_strchr(line, 'E')))
-		return (ft_putendl_fd("Error\n Does not contain at least 1 collectible, \
+		return (ft_putendl_fd("Error\nDoes not contain at least 1 collectible, \
 				map exit and starting position", STDOUT_FILENO), false);
 	while (line[i])
 	{
-		if (!(ft_strchr("01CEP", line[i++])))
-			return (ft_putendl_fd("Error\n Contains input other than 01CEP", \
+		if (!(ft_strchr("01CEP\n", line[i++])))
+			return (ft_putendl_fd("Error\nContains input other than 01CEP", \
 					STDOUT_FILENO), false);
 	}
 	return (true);
@@ -77,11 +111,11 @@ static size_t	check_if_rectangular(char **map, size_t *linesize)
 
 	i = 0;
 	size = 0;
-	while (map[i])
+	while (map[i + 1])
 	{
 		*linesize = ft_strlen(map[i++]);
 		if (*linesize != ft_strlen(map[i]))
-			return (ft_putendl_fd("Error\n Map is not rectangular", \
+			return (ft_putendl_fd("Error\nMap is not rectangular", \
 					STDOUT_FILENO), false);
 	}
 	return (i);
@@ -113,17 +147,16 @@ static char	**input_handler(int32_t fd, char **map)
 		line = malloc(buflen * sizeof(char));
 		line = gnl_strjoin(line, buf);
 	}
+	free(buf);
 	map = ft_split(((const char *)line), '\n');
 	if (!map)
-		return (ft_putendl_fd("Error\n Invalid map", STDOUT_FILENO), NULL);
+		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
 	linecount = check_if_rectangular(map, &linesize);
 	if (!(check_cases(line)) || !(check_walls(map, linecount, linesize) \
 		|| linecount == 0))
 		free_2d(map);
 	return (map);
 }
-
-#include <stdio.h>
 
 int32_t	main(int32_t argc, char **argv)
 {
@@ -135,12 +168,18 @@ int32_t	main(int32_t argc, char **argv)
 	{
 		fd = open(argv[1], O_RDONLY);
 		if (fd == -1)
-			return (ft_putendl_fd("Error\n Invalid file\n", STDOUT_FILENO) \
+			return (ft_putendl_fd("Error\n Invalid file", STDOUT_FILENO) \
 					, EXIT_FAILURE);
+		if (!check_ext(argv[1], ".ber"))
+			return (EXIT_FAILURE);
 		input_handler(fd, map);
 	}
-	while (*map)
-		printf("%s", *map++);
+	else if (argc > 2)
+		return (ft_putendl_fd("Error\nToo many arguments dude", \
+				STDOUT_FILENO), EXIT_FAILURE);
+	else
+		return (ft_putendl_fd("Error\nNot enough arguments dude", \
+				STDOUT_FILENO), EXIT_FAILURE);
 	return (0);
 }
 
