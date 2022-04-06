@@ -1,5 +1,6 @@
 
 #include "so_long.h"
+#include "MLX42.h"
 
 int32_t	main(int32_t argc, char **argv)
 {
@@ -23,5 +24,6 @@ int32_t	main(int32_t argc, char **argv)
 	else
 		return (ft_putendl_fd("Error\nNot enough arguments dude", \
 				STDOUT_FILENO), EXIT_FAILURE);
+	graphics();
 	return (0);
 }
