@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/05 22:34:10 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:42:33 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,47 +142,8 @@ char	**input_handler(int32_t fd, char **map)
 	linecount = check_if_rectangular(map, &linesize, &errors);
 	check_cases(line, &errors);
 	check_walls(map, linecount, linesize, &errors);
+	error_output(&errors, linecount);
 	if (errors.error == true)
 		free_2d(map);
-	error_output(&errors, linecount);
 	return (map);
 }
-
-/**
- *  
- * Determine length of 2D array first, so it can be malloced
- * First you check amount of lines and then length of lines
- * if lines aren't all the same size, then return error
- * 
- * BUT you have to read it in order to get this information
- * Which means you have to store the information before knowing
- * the length? Perhaps adjust length and malloc every time? 
- * Seems inefficient
- * 
- * Oorr... Put it in a linked list, so you don't need to know the length
- * Don't know how to do that though
- * 
- * Have to make sure size will contain previous line value at first
- * Which is why line is first evaluated from strlen before being put
- * into the size variable
- * 
- * checking i to make sure one line has been read before
- * making comparisons in the if statement
- * 
- * Strjoin everything into one big string and then ft_split
- * Just... Read everything? And then split. Array size problem possibly
- * First count amount of lines before mallocing
- * Linked lists
- * 
- * Option 1:
- * First read line by line using get_next_line to get the number of lines
- * And *then* malloc appropiate number of pointers and initialize everything
- * 
- * OR 
- * 
- * Option 2:
- * get everything into one big string, use ft_split and then go through the outer
- * elements to count the size
- */
-
-// just in case:
