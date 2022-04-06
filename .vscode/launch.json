@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/Users/mialbert/Documents/so_long/repo/so_long",
-            "args": ["map.ber"],
+            "args": ["input/map.ber"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
