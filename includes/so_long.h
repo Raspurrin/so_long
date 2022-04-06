@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/05 22:40:29 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/06 22:09:59 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 # define SO_LONG_H
 
 # include "libft.h"
+# include "MLX42.h"
 # include <stdio.h>
+
+typedef struct image_data
+{
+	mlx_t			*mlx;
+	mlx_key_data_t	*keydata;
+	mlx_image_t		*img;
+}	t_imgdata;
 
 typedef struct error_cases
 {
@@ -37,5 +45,6 @@ void	free_2d(char **map);
 bool	check_ext(char *file_name, char *ext);
 char	**input_handler(int32_t fd, char **map);
 void	error_output(t_error *errors, size_t linecount);
+int32_t	graphics(void);
 
 #endif
