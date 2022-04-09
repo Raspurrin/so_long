@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/06 22:09:59 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/09 21:42:25 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,28 @@ typedef struct image_data
 {
 	mlx_t			*mlx;
 	mlx_key_data_t	*keydata;
-	mlx_image_t		*img;
+	xpm_t			*xpm_char;
+	xpm_t			*xpm_bg;
+	xpm_t			*xpm_slime;
+	xpm_t			*xpm_tile;
+	xpm_t			*xpm_wall;
+	xpm_t			*xpm_pickup;
+	xpm_t			*xpm_brick;
+	mlx_image_t		*character;
+	mlx_image_t		*slime;
+	mlx_image_t		*bg;
+	mlx_image_t		*tile;
+	mlx_image_t		*wall;
+	mlx_image_t		*pickup;
+	mlx_image_t		*brick;
+	uint8_t			*startingpoint;
 }	t_imgdata;
+
+typedef struct line
+{
+	size_t	count;
+	size_t	size;
+}	t_line;
 
 typedef struct error_cases
 {
@@ -32,6 +52,7 @@ typedef struct error_cases
 	bool	cpe;
 	bool	different_input;
 	bool	rectangular;
+	bool	morecharacters;
 }	t_error;
 
 /**
@@ -39,12 +60,12 @@ typedef struct error_cases
  * @param map 2D array
  * @return NULL
  */
-
 char	*read_file(int32_t fd, char *line);
 void	free_2d(char **map);
 bool	check_ext(char *file_name, char *ext);
-char	**input_handler(int32_t fd, char **map);
-void	error_output(t_error *errors, size_t linecount);
-int32_t	graphics(void);
-
+char	**input_handler(int32_t fd, char ***map, t_line *line);
+void	error_output(t_error *errors, t_line *line);
+int32_t	graphics(char ***map, t_line *line);
+void	images_to_window(t_imgdata *data, char **map, \
+						t_line *line);
 #endif

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/06 15:42:33 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/09 21:53:41 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,22 @@ bool	check_ext(char *file_name, char *ext)
  * @param checks Counters for the elements of the map.
  * @return True if it passes all error checks, otherwise false.
  */
-static bool	check_walls(char **map, int32_t linecount, size_t linesize, \
+static bool	check_walls(char **map, t_line *line, \
 						t_error *errors)
 {
 	size_t	i;
 
 	i = 0;
-	ft_strchr(map[linecount], '1');
-	while (i < linesize)
+	ft_strchr(map[line->count], '1');
+	while (i < line->size)
 	{
-		if (map[0][i] != '1' || map[linecount][i++] != '1')
+		if (map[0][i] != '1' || map[line->count][i++] != '1')
 			return (errors->walls = true, false);
 	}
 	i = 0;
 	while (map[i])
 	{
-		if (map[i][0] != '1' || map[i][linesize - 1] != '1')
+		if (map[i][0] != '1' || map[i][line->size - 1] != '1')
 			return (errors->walls = true, false);
 		i++;
 	}
@@ -81,8 +81,15 @@ static bool	check_walls(char **map, int32_t linecount, size_t linesize, \
 static bool	check_cases(char *line, t_error *errors)
 {
 	size_t	i;
+	char	*foundchar;
 
 	i = 0;
+	foundchar = ft_strchr(line, 'P') + 1;
+	if (foundchar)
+	{
+		if (ft_strchr(foundchar, 'P'))
+			errors->morecharacters = true;
+	}
 	if (!(ft_strchr(line, 'C')) || !(ft_strchr(line, 'P')) \
 	|| !(ft_strchr(line, 'E')))
 		errors->cpe = true;
@@ -101,7 +108,7 @@ static bool	check_cases(char *line, t_error *errors)
  * @param map The map.
  * @return Amount of lines in the map.
  */
-static size_t	check_if_rectangular(char **map, size_t *linesize, \
+static size_t	check_if_rectangular(char **map, t_line *line, \
 									t_error *errors)
 {
 	size_t	i;
@@ -109,10 +116,11 @@ static size_t	check_if_rectangular(char **map, size_t *linesize, \
 
 	i = 0;
 	size = 0;
-	while (map[i + 1])
+	printf("%s", map[0]);
+	while (map[i + 1]) // it not work so function returns nothing
 	{
-		*linesize = ft_strlen(map[i++]);
-		if (*linesize != ft_strlen(map[i]))
+		line->size = ft_strlen(map[i++]);
+		if (line->size != ft_strlen(map[i]))
 			errors->rectangular = true;
 	}
 	return (i);
@@ -126,24 +134,22 @@ static size_t	check_if_rectangular(char **map, size_t *linesize, \
  * @param map The 2D array that will eventually contain the input. 
  * @return The map in a 2D array.
  */
-char	**input_handler(int32_t fd, char **map)
+char	**input_handler(int32_t fd, char ***map, t_line *line)
 {
-	size_t				linesize;
-	size_t				linecount;
-	char				*line;
+	char				*bigass;
 	t_error				errors;
 
-	line = NULL;
+	bigass = NULL;
 	ft_bzero(&errors, sizeof(t_error));
-	line = read_file(fd, line);
-	map = ft_split(((const char *)line), '\n');
-	if (!map)
+	bigass = read_file(fd, bigass);
+	*map = ft_split(((const char *)bigass), '\n');
+	if (!*map)
 		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
-	linecount = check_if_rectangular(map, &linesize, &errors);
-	check_cases(line, &errors);
-	check_walls(map, linecount, linesize, &errors);
-	error_output(&errors, linecount);
+	line->count = check_if_rectangular(*map, line, &errors);
+	check_cases(bigass, &errors);
+	check_walls(*map, line, &errors);
+	error_output(&errors, line);
 	if (errors.error == true)
-		free_2d(map);
-	return (map);
+		return (free_2d(*map), NULL);
+	return (*map);
 }

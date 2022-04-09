@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:09:44 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/05 22:32:31 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/09 21:52:38 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ char	*read_file(int32_t fd, char *line)
 	return (line);
 }
 
-void	error_output(t_error *errors, size_t linecount)
+void	error_output(t_error *errors, t_line *line)
 {
 	if (errors->cpe == true || errors->different_input == true \
 		|| errors->file_name == true || errors->rectangular == true \
-		|| errors->walls == true || linecount == 0)
+		|| errors->walls == true || errors->morecharacters == true \
+		|| line->count == 0)
 	{
 		errors->error = true;
 		ft_putendl_fd("Error", STDOUT_FILENO);
@@ -49,5 +50,7 @@ map exit and starting position", STDOUT_FILENO);
 		ft_putendl_fd("Map is not rectangular", STDOUT_FILENO);
 	if (errors->walls == true)
 		ft_putendl_fd("Map is not surrounded by walls", STDOUT_FILENO);
+	if (errors->morecharacters == true)
+		ft_putendl_fd("Map contains too many characters", STDOUT_FILENO);
 	return ;
 }
