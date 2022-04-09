@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/09 21:42:25 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/10 01:23:36 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ char	**input_handler(int32_t fd, char ***map, t_line *line);
 void	error_output(t_error *errors, t_line *line);
 int32_t	graphics(char ***map, t_line *line);
 void	images_to_window(t_imgdata *data, char **map, \
-						t_line *line);
+						t_line *line, size_t blocksize);
 #endif

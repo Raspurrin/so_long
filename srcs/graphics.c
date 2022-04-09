@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/09 22:06:45 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/10 01:24:09 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int32_t	graphics(char ***map, t_line *line) // get these params
 	if (!imgdata.mlx)
 		return (0);
 	loading_images(&imgdata);
-	images_to_window(&imgdata, *map, line);
+	images_to_window(&imgdata, *map, line, 32);
 	// imgdata.startingpoint = imgdata.character->pixels;
 	mlx_loop_hook(imgdata.mlx, &hooks, &imgdata);
 	mlx_loop(imgdata.mlx);
