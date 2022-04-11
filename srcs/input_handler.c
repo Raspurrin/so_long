@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/09 21:53:41 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/11 15:38:52 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ static size_t	check_if_rectangular(char **map, t_line *line, \
 
 	i = 0;
 	size = 0;
-	printf("%s", map[0]);
 	while (map[i + 1]) // it not work so function returns nothing
 	{
 		line->size = ft_strlen(map[i++]);
