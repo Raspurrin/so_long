@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/11 15:38:52 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/12 19:45:01 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 /**
  * @brief Checks if a file name contains the right extension.
@@ -81,15 +81,15 @@ static bool	check_walls(char **map, t_line *line, \
 static bool	check_cases(char *line, t_error *errors)
 {
 	size_t	i;
-	char	*foundchar;
+	// char	*foundchar;
 
 	i = 0;
-	foundchar = ft_strchr(line, 'P') + 1;
-	if (foundchar)
-	{
-		if (ft_strchr(foundchar, 'P'))
-			errors->morecharacters = true;
-	}
+	// foundchar = ft_strchr(line, 'P') + 1;
+	// if (foundchar)
+	// {
+	// 	if (ft_strchr(foundchar, 'P'))
+	// 		errors->morecharacters = true;
+	// }
 	if (!(ft_strchr(line, 'C')) || !(ft_strchr(line, 'P')) \
 	|| !(ft_strchr(line, 'E')))
 		errors->cpe = true;
@@ -116,7 +116,7 @@ static size_t	check_if_rectangular(char **map, t_line *line, \
 
 	i = 0;
 	size = 0;
-	while (map[i + 1]) // it not work so function returns nothing
+	while (map[i + 1])
 	{
 		line->size = ft_strlen(map[i++]);
 		if (line->size != ft_strlen(map[i]))
@@ -138,14 +138,14 @@ char	**input_handler(int32_t fd, char ***map, t_line *line)
 	char				*bigass;
 	t_error				errors;
 
-	bigass = NULL;
 	ft_bzero(&errors, sizeof(t_error));
-	bigass = read_file(fd, bigass);
+	bigass = read_file(fd);
 	*map = ft_split(((const char *)bigass), '\n');
 	if (!*map)
 		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
 	line->count = check_if_rectangular(*map, line, &errors);
 	check_cases(bigass, &errors);
+	free (bigass);
 	check_walls(*map, line, &errors);
 	error_output(&errors, line);
 	if (errors.error == true)

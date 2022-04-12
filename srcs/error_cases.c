@@ -6,30 +6,55 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:09:44 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/11 15:19:05 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/12 20:07:52 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
-char	*read_file(int32_t fd, char *line)
+char	*read_file(int32_t fd)
 {
-	int32_t				buflen;
-	char				*buf;
+	char	*bigass;
 
-	buflen = 5000;
-	buf = malloc(5000 * sizeof(char));
-	while (buflen == 5000)
-	{
-		buflen = read(fd, buf, 5000);
-		if (buflen <= 0)
-			return (free (line), NULL);
-		line = malloc(buflen * sizeof(char));
-		line = gnl_strjoin(line, buf);
-	}
-	free(buf);
-	return (line);
+	bigass = ft_calloc(500, 1);
+	read(fd, bigass, 500);
+	return (bigass);
 }
+
+// char	*read_file(int32_t fd)
+// {
+// 	char	*buf;
+// 	char	*bigass;
+
+// 	bigass = malloc(1);
+// 	bigass[0] = '\0';
+// 	while (1)
+// 	{
+// 		buf = get_next_line(fd);
+// 		if (!buf)
+// 			break ;
+// 		bigass = gnl_strjoin(bigass, buf);
+// 	}
+// 	return (bigass);
+// }
+	// int32_t				buflen;
+	// char				*buf;
+	// int					i;
+
+	// buflen = 500;
+	// buf = malloc(501 * sizeof(char));
+	// i = 1;
+	// while (buflen == 500)
+	// {
+	// 	buflen = read(fd, buf, 500);
+	// 	if (buflen <= 0 && *line)
+	// 		return (free (line), NULL);
+	// 	buf[buflen] = '\0';
+	// 	line = malloc((buflen * i++) * sizeof(char));
+	// 	line = gnl_strjoin(line, buf);
+	// }
+	// free (buf);
+	// return (line);
 
 void	error_output(t_error *errors, t_line *line)
 {

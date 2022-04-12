@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/04/09 05:29:34 by mialbert         ###   ########.fr        #
+#    Updated: 2022/04/12 18:52:00 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,9 @@ $(NAME) : $(SRCS)
 	$(MAKE) -C ./libs/MLX42
 	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX42/include/MLX42 \
 	-framework Cocoa -framework OpenGL, -framework IOKit $(SRCS) ./libs/MLX42/libmlx42.a \
-	 ./libs/libft/srcs/libft.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" -o $(NAME)
+	 ./libs/libft/srcs/libft.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"  -o $(NAME)
 
+# -fsanitize=address
 # ./libs/MLX42/lib-x86_64/libglfw3.a
 clean: 
 	rm -rf $(OBJS)

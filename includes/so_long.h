@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/10 01:50:17 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/12 19:10:02 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct error_cases
  * @param map 2D array
  * @return NULL
  */
-char	*read_file(int32_t fd, char *line);
+char	*read_file(int32_t fd);
 void	free_2d(char **map);
 bool	check_ext(char *file_name, char *ext);
 char	**input_handler(int32_t fd, char ***map, t_line *line);

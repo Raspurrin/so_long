@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/11 14:53:07 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/12 19:46:07 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 #include "MLX42.h"
 
 void	images_to_window(t_imgdata *data, char **map, \

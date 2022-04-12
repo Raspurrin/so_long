@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/11 15:48:36 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/12 19:50:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 #include "MLX42.h"
 
 static bool	loading_images(t_imgdata *data)
@@ -18,21 +18,21 @@ static bool	loading_images(t_imgdata *data)
 	uint32_t		xy[] = {50, 50};
 	uint32_t		wh2[] = {50, 30};
 
-	data->xpm_bg = mlx_load_xpm42("/Users/mialbert/Documents/so_long/repo/textures/merged.xpm42");
+	data->xpm_bg = mlx_load_xpm42("textures/merged.xpm42");
 	if (!data->xpm_bg)
-		return (ft_putendl_fd("bg could not be found", STDOUT_FILENO), false);
-	data->xpm_char = mlx_load_xpm42("/Users/mialbert/Documents/so_long/repo/textures/main.xpm42");
+		return (ft_putendl_fd("bg was not found", STDOUT_FILENO), false);
+	data->xpm_char = mlx_load_xpm42("textures/main.xpm42");
 	if (!data->xpm_char)
-		return (ft_putendl_fd("char could not be found", STDOUT_FILENO), false);
-	data->xpm_tile = mlx_load_xpm42("/Users/mialbert/Documents/so_long/repo/textures/tile.xpm42");
+		return (ft_putendl_fd("char was not found", STDOUT_FILENO), false);
+	data->xpm_tile = mlx_load_xpm42("textures/tile.xpm42");
 	if (!data->xpm_tile)
-		return (ft_putendl_fd("tile could not be found", STDOUT_FILENO), false);
-	data->xpm_wall = mlx_load_xpm42("/Users/mialbert/Documents/so_long/repo/textures/wall.xpm42");
+		return (ft_putendl_fd("tile was not found", STDOUT_FILENO), false);
+	data->xpm_wall = mlx_load_xpm42("textures/wall.xpm42");
 	if (!data->xpm_wall)
-		return (ft_putendl_fd("wall could not be found", STDOUT_FILENO), false);
-	data->xpm_pickup = mlx_load_xpm42("/Users/mialbert/Documents/so_long/repo/textures/pickup.xpm42");
+		return (ft_putendl_fd("wall was not found", STDOUT_FILENO), false);
+	data->xpm_pickup = mlx_load_xpm42("textures/pickup.xpm42");
 	if (!data->xpm_pickup)
-		return (ft_putendl_fd("pickup could not be found", STDOUT_FILENO), false);
+		return (ft_putendl_fd("pickup was not found", STDOUT_FILENO), false);
 	data->bg = mlx_texture_to_image(data->mlx, &data->xpm_bg->texture);
 	data->character = mlx_texture_area_to_image(data->mlx, \
 											&data->xpm_char->texture, xy, wh2);
