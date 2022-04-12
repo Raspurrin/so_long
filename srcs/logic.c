@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/12 19:46:07 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/12 21:43:05 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,8 @@ void	images_to_window(t_imgdata *data, char **map, \
 		y++;
 	}
 }
+
+/**
+ * 
+ * 
+ */
