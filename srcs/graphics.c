@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/13 21:14:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/14 00:17:05 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,49 @@ static bool	loading_images(t_imgdata *data)
 static void	hooks(void	*data)
 {
 	t_imgdata *const	data2 = data;
+	int32_t				x;
+	int32_t				y;
 
+	x = (data2->character->instances[0].x / data2->blok);
+	y = (data2->character->instances[0].y / data2->blok);
 	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data2->mlx);
-	if (mlx_is_key_down(data2->mlx, MLX_KEY_S))
-		data2->character->instances[0].y += data2->blok;
-	else if (mlx_is_key_down(data2->mlx, MLX_KEY_W))
-		data2->character->instances[0].y -= data2->blok;
-	else if (mlx_is_key_down(data2->mlx, MLX_KEY_A))
-		data2->character->instances[0].x -= data2->blok;
-	else if (mlx_is_key_down(data2->mlx, MLX_KEY_D))
-		data2->character->instances[0].x += data2->blok;
+// 	if (data->map[y][x] == 'C')
+// 	{
+// 		mlx_delete_image(data->mlx, data->pickup->instance[i++]);
+// 		data->collect--;
+// 	}
+// 	if (data->map[y][x] == 'E' && data->collect == 0)
+// 		mlx_close_window(data2->mlx);
+	{	
+		if (mlx_is_key_down(data2->mlx, MLX_KEY_S) && data2->map[y + 1][x] != '1')
+			data2->character->instances[0].y += data2->blok;
+		else if (mlx_is_key_down(data2->mlx, MLX_KEY_W) && data2->map[y - 1][x] != '1')
+			data2->character->instances[0].y -= data2->blok;
+		else if (mlx_is_key_down(data2->mlx, MLX_KEY_A) && data2->map[y][x - 1] != '1')
+			data2->character->instances[0].x -= data2->blok;
+		else if (mlx_is_key_down(data2->mlx, MLX_KEY_D) && data2->map[y][x + 1] != '1')
+			data2->character->instances[0].x += data2->blok;
+	}
 }
 
 int32_t	graphics(t_imgdata *data, t_line *line)
 {
 	int32_t			colour;
 	int32_t			i;
+	size_t			width;
+	size_t			height;
 
 	i = 0;
 	colour = 0;
 	data->blok = 32;
-	data->mlx = mlx_init(670, 190, "yoooo", true);
+	width = line->size * data->blok;
+	if (width > 960)
+		width = 960;
+	height = (line->count * (data->blok)) + data->blok;
+	if (height > 475)
+		height = 475;
+	data->mlx = mlx_init(width, height, "yoooo", true);
 	if (!data->mlx)
 		return (0);
 	if (!loading_images(data))
