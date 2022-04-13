@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/13 20:54:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/13 21:14:11 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct image_data
 	size_t			block;
 	uint8_t			*startingpoint;
 	size_t			blok;
+	char			**map;
 }	t_imgdata;
 
 typedef struct line
@@ -65,9 +66,9 @@ typedef struct error_cases
 char	*read_file(int32_t fd);
 void	free_2d(char **map);
 bool	check_ext(char *file_name, char *ext);
-char	**input_handler(int32_t fd, char ***map, t_line *line);
+char	**input_handler(int32_t fd, t_imgdata *data, t_line *line);
 void	error_output(t_error *errors, t_line *line);
-int32_t	graphics(char ***map, t_line *line);
-void	images_to_window(t_imgdata *data, char **map, \
+int32_t	graphics(t_imgdata *data, t_line *line);
+void	images_to_window(t_imgdata *data, \
 						t_line *line, size_t bs);
 #endif

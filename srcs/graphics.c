@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/13 20:55:39 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/13 21:14:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,23 @@ static void	hooks(void	*data)
 		data2->character->instances[0].x += data2->blok;
 }
 
-int32_t	graphics(char ***map, t_line *line)
+int32_t	graphics(t_imgdata *data, t_line *line)
 {
-	t_imgdata		data;
 	int32_t			colour;
 	int32_t			i;
 
 	i = 0;
 	colour = 0;
-	ft_bzero(&data, sizeof(t_imgdata));
-	data.blok = 32;
-	data.mlx = mlx_init(670, 190, "yoooo", true);
-	if (!data.mlx)
+	data->blok = 32;
+	data->mlx = mlx_init(670, 190, "yoooo", true);
+	if (!data->mlx)
 		return (0);
-	if (!loading_images(&data))
+	if (!loading_images(data))
 		return (0);
-	mlx_image_to_window(data.mlx, data.bg, 0, 0);
-	images_to_window(&data, *map, line, data.blok);
-	mlx_loop_hook(data.mlx, &hooks, &data);
-	mlx_loop(data.mlx);
-	mlx_terminate(data.mlx);
+	mlx_image_to_window(data->mlx, data->bg, 0, 0);
+	images_to_window(data, line, data->blok);
+	mlx_loop_hook(data->mlx, &hooks, data);
+	mlx_loop(data->mlx);
+	mlx_terminate(data->mlx);
 	return (0);
 }

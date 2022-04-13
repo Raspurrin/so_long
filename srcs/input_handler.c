@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/12 19:45:01 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/13 21:10:42 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,22 +133,22 @@ static size_t	check_if_rectangular(char **map, t_line *line, \
  * @param map The 2D array that will eventually contain the input. 
  * @return The map in a 2D array.
  */
-char	**input_handler(int32_t fd, char ***map, t_line *line)
+char	**input_handler(int32_t fd, t_imgdata *data, t_line *line)
 {
 	char				*bigass;
 	t_error				errors;
 
 	ft_bzero(&errors, sizeof(t_error));
 	bigass = read_file(fd);
-	*map = ft_split(((const char *)bigass), '\n');
-	if (!*map)
+	data->map = ft_split(((const char *)bigass), '\n');
+	if (!data->map)
 		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
-	line->count = check_if_rectangular(*map, line, &errors);
+	line->count = check_if_rectangular(data->map, line, &errors);
 	check_cases(bigass, &errors);
 	free (bigass);
-	check_walls(*map, line, &errors);
+	check_walls(data->map, line, &errors);
 	error_output(&errors, line);
 	if (errors.error == true)
-		return (free_2d(*map), NULL);
-	return (*map);
+		return (free_2d(data->map), NULL);
+	return (data->map);
 }

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/12 20:03:39 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/13 21:06:13 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 int32_t	main(int32_t argc, char **argv)
 {
-	char			**map;
+	t_imgdata		data;
 	t_line			line;
 	int32_t			fd;
 
-	map = NULL;
+	ft_bzero(&data, sizeof(t_imgdata));
 	ft_bzero(&line, sizeof(t_line));
 	if (argc == 2)
 	{
@@ -29,7 +29,7 @@ int32_t	main(int32_t argc, char **argv)
 					, EXIT_FAILURE);
 		if (!check_ext(argv[1], ".ber"))
 			return (EXIT_FAILURE);
-		if (!(input_handler(fd, &map, &line)))
+		if (!(input_handler(fd, &data, &line)))
 			return (0);
 	}
 	else if (argc > 2)
@@ -38,6 +38,6 @@ int32_t	main(int32_t argc, char **argv)
 	else
 		return (ft_putendl_fd("Error\nNot enough arguments dude", \
 				STDOUT_FILENO), EXIT_FAILURE);
-	graphics(&map, &line);
+	graphics(&data, &line);
 	return (0);
 }

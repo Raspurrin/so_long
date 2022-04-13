@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:09:44 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/13 18:02:41 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/13 21:00:47 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,41 +33,6 @@ char	*read_file(int32_t fd)
 	}
 	return (line);
 }
-
-// char	*read_file(int32_t fd)
-// {
-// 	char	*buf;
-// 	char	*bigass;
-
-// 	bigass = malloc(1);
-// 	bigass[0] = '\0';
-// 	while (1)
-// 	{
-// 		buf = get_next_line(fd);
-// 		if (!buf)
-// 			break ;
-// 		bigass = gnl_strjoin(bigass, buf);
-// 	}
-// 	return (bigass);
-// }
-	// int32_t				buflen;
-	// char				*buf;
-	// int					i;
-
-	// buflen = 500;
-	// buf = malloc(501 * sizeof(char));
-	// i = 1;
-	// while (buflen == 500)
-	// {
-	// 	buflen = read(fd, buf, 500);
-	// 	if (buflen <= 0 && *line)
-	// 		return (free (line), NULL);
-	// 	buf[buflen] = '\0';
-	// 	line = malloc((buflen * i++) * sizeof(char));
-	// 	line = gnl_strjoin(line, buf);
-	// }
-	// free (buf);
-	// return (line);
 
 void	error_output(t_error *errors, t_line *line)
 {
