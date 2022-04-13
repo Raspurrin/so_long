@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/12 19:50:14 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/13 20:55:39 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,39 +42,41 @@ static bool	loading_images(t_imgdata *data)
 	return (true);
 }
 
-static void	hooks(void	*imgdata)
+static void	hooks(void	*data)
 {
-	t_imgdata *const	imgdata2 = imgdata;
+	t_imgdata *const	data2 = data;
 
-	if (mlx_is_key_down(imgdata2->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(imgdata2->mlx);
-	if (mlx_is_key_down(imgdata2->mlx, MLX_KEY_S))
-		imgdata2->character->instances[0].y += 32;
-	else if (mlx_is_key_down(imgdata2->mlx, MLX_KEY_W))
-		imgdata2->character->instances[0].y -= 32;
-	else if (mlx_is_key_down(imgdata2->mlx, MLX_KEY_A))
-		imgdata2->character->instances[0].x -= 32;
-	else if (mlx_is_key_down(imgdata2->mlx, MLX_KEY_D))
-		imgdata2->character->instances[0].x += 32;
+	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(data2->mlx);
+	if (mlx_is_key_down(data2->mlx, MLX_KEY_S))
+		data2->character->instances[0].y += data2->blok;
+	else if (mlx_is_key_down(data2->mlx, MLX_KEY_W))
+		data2->character->instances[0].y -= data2->blok;
+	else if (mlx_is_key_down(data2->mlx, MLX_KEY_A))
+		data2->character->instances[0].x -= data2->blok;
+	else if (mlx_is_key_down(data2->mlx, MLX_KEY_D))
+		data2->character->instances[0].x += data2->blok;
 }
 
 int32_t	graphics(char ***map, t_line *line)
 {
-	t_imgdata		imgdata;
+	t_imgdata		data;
 	int32_t			colour;
 	int32_t			i;
 
 	i = 0;
 	colour = 0;
-	ft_bzero(&imgdata, sizeof(t_imgdata));
-	imgdata.mlx = mlx_init(670, 190, "yoooo", true);
-	if (!imgdata.mlx)
+	ft_bzero(&data, sizeof(t_imgdata));
+	data.blok = 32;
+	data.mlx = mlx_init(670, 190, "yoooo", true);
+	if (!data.mlx)
 		return (0);
-	if (!loading_images(&imgdata))
+	if (!loading_images(&data))
 		return (0);
-	images_to_window(&imgdata, *map, line);
-	mlx_loop_hook(imgdata.mlx, &hooks, &imgdata);
-	mlx_loop(imgdata.mlx);
-	mlx_terminate(imgdata.mlx);
+	mlx_image_to_window(data.mlx, data.bg, 0, 0);
+	images_to_window(&data, *map, line, data.blok);
+	mlx_loop_hook(data.mlx, &hooks, &data);
+	mlx_loop(data.mlx);
+	mlx_terminate(data.mlx);
 	return (0);
 }

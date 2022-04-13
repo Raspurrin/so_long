@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/12 21:43:05 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/13 20:55:22 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 #include "MLX42.h"
 
 void	images_to_window(t_imgdata *data, char **map, \
-						t_line *line)
+						t_line *line, size_t bs)
 {
 	size_t	x;
 	size_t	y;
 
 	x = 0;
 	y = 0;
-	mlx_image_to_window(data->mlx, data->bg, 0, 0);
 	while (map[y])
 	{
 		while (map[y][x])
@@ -29,20 +28,16 @@ void	images_to_window(t_imgdata *data, char **map, \
 			if (map[y][x] == '1')
 			{
 				if (x == 0 || y == 0 || y == line->count || x == line->size - 1)
-				{
-					mlx_image_to_window(data->mlx, data->wall, x * 32, y * 32);
-					// mlx_set_instance_depth(&data->wall->instances[a], 20);
-				}
+					mlx_image_to_window(data->mlx, data->wall, x * bs, y * bs);
 				else
-					mlx_image_to_window(data->mlx, data->tile, x * 32, y * 32);
+					mlx_image_to_window(data->mlx, data->tile, x * bs, y * bs);
 			}
 			if (map[y][x] == 'C')
-				mlx_image_to_window(data->mlx, data->pickup, x * 32, y * 32);
+				mlx_image_to_window(data->mlx, data->pickup, x * bs, y * bs);
 			if (map[y][x] == 'E')
-				mlx_image_to_window(data->mlx, data->pickup, x * 32, y * 32);
-			if (map[y][x] == 'P')
-				mlx_image_to_window(data->mlx, data->character, x * 32, y * 32);
-			x++;
+				mlx_image_to_window(data->mlx, data->pickup, x * bs, y * bs);
+			if (map[y][x++] == 'P')
+				mlx_image_to_window(data->mlx, data->character, x * bs, y * bs);
 		}
 		x = 0;
 		y++;

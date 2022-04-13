@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/12 19:10:02 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/13 20:54:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct image_data
 	mlx_image_t		*brick;
 	size_t			block;
 	uint8_t			*startingpoint;
+	size_t			blok;
 }	t_imgdata;
 
 typedef struct line
@@ -68,5 +69,5 @@ char	**input_handler(int32_t fd, char ***map, t_line *line);
 void	error_output(t_error *errors, t_line *line);
 int32_t	graphics(char ***map, t_line *line);
 void	images_to_window(t_imgdata *data, char **map, \
-						t_line *line);
+						t_line *line, size_t bs);
 #endif

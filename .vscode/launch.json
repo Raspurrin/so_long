@@ -8,7 +8,7 @@
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/Users/mialbert/Documents/so_long/repo/so_long",
+            "program": "/Users/mialbert/Documents/test/so_long",
             "args": ["input/map.ber"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
