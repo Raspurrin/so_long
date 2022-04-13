@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/13 21:10:42 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/14 00:26:15 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static bool	check_walls(char **map, t_line *line, \
  * @param checks Struct to take track of the elements of the map.
  * @return True if it passes all error checks, otherwise false.
  */
-static bool	check_cases(char *line, t_error *errors)
+static bool	check_cases(char *line, t_error *errors, t_imgdata *data)
 {
 	size_t	i;
 	// char	*foundchar;
@@ -95,6 +95,8 @@ static bool	check_cases(char *line, t_error *errors)
 		errors->cpe = true;
 	while (line[i])
 	{
+		if (line[i] == 'C')
+			data->collect++;
 		if (!(ft_strchr("01CEP\n", line[i++])))
 			errors->different_input = true;
 	}
@@ -144,7 +146,7 @@ char	**input_handler(int32_t fd, t_imgdata *data, t_line *line)
 	if (!data->map)
 		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
 	line->count = check_if_rectangular(data->map, line, &errors);
-	check_cases(bigass, &errors);
+	check_cases(bigass, &errors, data);
 	free (bigass);
 	check_walls(data->map, line, &errors);
 	error_output(&errors, line);

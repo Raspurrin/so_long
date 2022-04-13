@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/13 21:14:11 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/14 01:04:20 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # include "libft.h"
 # include "MLX42.h"
 # include <stdio.h>
+
+typedef struct xpm
+{
+	
+} t_xpm;
 
 typedef struct image_data
 {
@@ -39,6 +44,9 @@ typedef struct image_data
 	uint8_t			*startingpoint;
 	size_t			blok;
 	char			**map;
+	size_t			collect;
+	size_t			width;
+	size_t			height;
 }	t_imgdata;
 
 typedef struct line
