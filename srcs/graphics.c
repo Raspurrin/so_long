@@ -6,75 +6,112 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/14 00:49:40 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/15 00:27:25 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 #include "MLX42.h"
 
-static bool	loading_images(t_imgdata *data)
+static bool	loading_images(t_imgdata *data, xpm_t **xpm)
 {
 	uint32_t		xy[] = {50, 50};
 	uint32_t		wh2[] = {50, 30};
 
-	data->xpm_bg = mlx_load_xpm42("textures/merged.xpm42");
-	if (!data->xpm_bg)
+	xpm[BG] = mlx_load_xpm42("textures/merged.xpm42");
+	if (!xpm[BG])
 		return (ft_putendl_fd("bg was not found", STDOUT_FILENO), false);
-	data->xpm_char = mlx_load_xpm42("textures/main.xpm42");
-	if (!data->xpm_char)
+	xpm[CHAR] = mlx_load_xpm42("textures/main.xpm42");
+	if (!xpm[CHAR])
 		return (ft_putendl_fd("char was not found", STDOUT_FILENO), false);
-	data->xpm_tile = mlx_load_xpm42("textures/tile.xpm42");
-	if (!data->xpm_tile)
+	xpm[TILE] = mlx_load_xpm42("textures/tile.xpm42");
+	if (!xpm[TILE])
 		return (ft_putendl_fd("tile was not found", STDOUT_FILENO), false);
-	data->xpm_wall = mlx_load_xpm42("textures/wall.xpm42");
-	if (!data->xpm_wall)
+	xpm[WALL] = mlx_load_xpm42("textures/wall.xpm42");
+	if (!xpm[WALL])
 		return (ft_putendl_fd("wall was not found", STDOUT_FILENO), false);
-	data->xpm_pickup = mlx_load_xpm42("textures/pickup.xpm42");
-	if (!data->xpm_pickup)
+	xpm[PICKUP] = mlx_load_xpm42("textures/pickup.xpm42");
+	if (!xpm[PICKUP])
 		return (ft_putendl_fd("pickup was not found", STDOUT_FILENO), false);
-	data->bg = mlx_texture_to_image(data->mlx, &data->xpm_bg->texture);
-	data->character = mlx_texture_area_to_image(data->mlx, \
-											&data->xpm_char->texture, xy, wh2);
-	data->tile = mlx_texture_to_image(data->mlx, &data->xpm_tile->texture);
-	data->wall = mlx_texture_to_image(data->mlx, &data->xpm_wall->texture);
-	data->pickup = mlx_texture_to_image(data->mlx, &data->xpm_pickup->texture);
+	data->img[BG] = mlx_texture_to_image(data->mlx, &xpm[BG]->texture);
+	data->img[CHAR] = mlx_texture_area_to_image(data->mlx, \
+											&xpm[CHAR]->texture, xy, wh2);
+	data->img[TILE] = mlx_texture_to_image(data->mlx, &xpm[TILE]->texture);
+	data->img[WALL] = mlx_texture_to_image(data->mlx, &xpm[WALL]->texture);
+	data->img[PICKUP] = mlx_texture_to_image(data->mlx, &xpm[PICKUP]->texture);
 	return (true);
 }
+
+// static void	physics(void *data)
+// {
+// 	t_imgdata *const	data2 = data;
+// 	int32_t				x;
+// 	int32_t				y;
+// 	size_t				i;
+
+// 	i = 0;
+// 	x = (data2->character->instances[0].x / data2->blok);
+// 	y = (data2->character->instances[0].y / data2->blok);
+// 	if (data2->map[y - 1][x] != '1')
+// 		data2->character->instances[0].y += data2->blok;
+// }
+
+// static void	pickups(void *data)
+// {
+// 	t_imgdata *const	data2 = data;
+// 	int32_t				x;
+// 	int32_t				y;
+// 	size_t				i;
+
+// 	i = 0;
+// 	x = (data2->character->instances[0].x / data2->blok);
+// 	y = (data2->character->instances[0].y / data2->blok);
+// 	if (data2->map[y][x] == 'C')
+// 	{
+// 		data2->map[y][x] = '0';
+// 		mlx_image_to_window(data2->mlx, data2->bg, 0, 0);
+// 		data2->collect--;
+// 	}
+// 	if (data2->map[y][x] == 'E' && data2->collect == 0)
+// 		mlx_close_window(data2->mlx);
+// }
 
 static void	hooks(void	*data)
 {
 	t_imgdata *const	data2 = data;
-	int32_t				x;
-	int32_t				y;
+	size_t				x;
+	size_t				y;
 	size_t				i;
 
 	i = 0;
-	x = (data2->character->instances[0].x / data2->blok);
-	y = (data2->character->instances[0].y / data2->blok);
-	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(data2->mlx);
+	x = (data2->img[CHAR]->instances[0].x / data2->blok);
+	y = (data2->img[CHAR]->instances[0].y / data2->blok);
 	if (data2->map[y][x] == 'C')
 	{
-		data2->pickup->instances[0].x += data2->width;
+		while ((y != data2->c_xy[i]->x || x != data2->c_xy[i]->x) && \
+				(data2->c_xy[i]->y && data2->c_xy[i]->x))
+			i++;
+		data2->img[PICKUP]->instances[i].y += data2->width;
 		data2->collect--;
+		data2->map[y][x] = '0';
+		i = 0;
 	}
 	if (data2->map[y][x] == 'E' && data2->collect == 0)
 		mlx_close_window(data2->mlx);
-	{	
-		if (mlx_is_key_down(data2->mlx, MLX_KEY_S) \
-							&& data2->map[y + 1][x] != '1')
-			data2->character->instances[0].y += data2->blok;
-		else if (mlx_is_key_down(data2->mlx, MLX_KEY_W) \
-								&& data2->map[y - 1][x] != '1')
-			data2->character->instances[0].y -= data2->blok;
-		else if (mlx_is_key_down(data2->mlx, MLX_KEY_A) \
-								&& data2->map[y][x - 1] != '1')
-			data2->character->instances[0].x -= data2->blok;
-		else if (mlx_is_key_down(data2->mlx, MLX_KEY_D) \
-								&& data2->map[y][x + 1] != '1')
-			data2->character->instances[0].x += data2->blok;
-	}
+	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(data2->mlx);
+	if (mlx_is_key_down(data2->mlx, MLX_KEY_S) \
+						&& data2->map[y + 1][x] != '1')
+		data2->img[CHAR]->instances[0].y += data2->blok / 2;
+	else if (mlx_is_key_down(data2->mlx, MLX_KEY_W) \
+							&& data2->map[y - 1][x] != '1')
+		data2->img[CHAR]->instances[0].y -= data2->blok / 2;
+	else if (mlx_is_key_down(data2->mlx, MLX_KEY_A) \
+							&& data2->map[y][x - 1] != '1')
+		data2->img[CHAR]->instances[0].x -= data2->blok / 2;
+	else if (mlx_is_key_down(data2->mlx, MLX_KEY_D) \
+							&& data2->map[y][x + 1] != '1')
+		data2->img[CHAR]->instances[0].x += data2->blok / 2;
 }
 
 int32_t	graphics(t_imgdata *data, t_line *line)
@@ -94,11 +131,13 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 	data->mlx = mlx_init(data->width, data->height, "yoooo", true);
 	if (!data->mlx)
 		return (0);
-	if (!loading_images(data))
+	if (!loading_images(data, data->xpm))
 		return (0);
-	mlx_image_to_window(data->mlx, data->bg, 0, 0);
-	images_to_window(data, line, data->blok);
+	mlx_image_to_window(data->mlx, data->img[BG], 0, 0);
+	images_to_window(data, data->img, line, data->blok);
 	mlx_loop_hook(data->mlx, &hooks, data);
+	// mlx_loop_hook(data->mlx, &physics, data);
+	// mlx_loop_hook(data->mlx, &pickups, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 	return (0);
