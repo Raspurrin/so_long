@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/15 14:53:20 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/15 17:35:09 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static bool	check_walls(char **map, t_line *line, \
  * @param checks Struct to take track of the elements of the map.
  * @return True if it passes all error checks, otherwise false.
  */
-static bool	check_cases(char *bigass, t_error *errors, t_imgdata *data, t_line *line)
+static bool	check_cases(t_error *errors, t_imgdata *data)
 {
 	size_t	i;
 	size_t	count;
@@ -93,34 +93,16 @@ static bool	check_cases(char *bigass, t_error *errors, t_imgdata *data, t_line *
 	// 	if (ft_strchr(foundchar, 'P'))
 	// 		errors->morecharacters = true;
 	// }
-	if (!(ft_strchr(bigass, 'C')) || !(ft_strchr(bigass, 'P')) \
-	|| !(ft_strchr(bigass, 'E')))
+	if (!(ft_strchr(data->bigass, 'C')) || !(ft_strchr(data->bigass, 'P')) \
+	|| !(ft_strchr(data->bigass, 'E')))
 		errors->cpe = true;
-	while (bigass[i])
+	while (data->bigass[i])
 	{
-		if (bigass[i] == 'C')
-			collect++;
-		if (!(ft_strchr("01CEP\n", bigass[i++])))
+		if (data->bigass[i] == 'C')
+			data->collect++;
+		if (!(ft_strchr("01CEP\n", data->bigass[i++])))
 			errors->different_input = true;
 	}
-	printf("%zu %zu", line->count, data->blok);
-	// data = malloc(collect * (sizeof(t_pickup) + sizeof(t_imgdata)));
-	// data->collect = collect;
-	// i = 0;
-	// line->size += 1;
-	// printf("%zu", data->c_xy[count]->x);
-	// while (bigass[i])
-	// {	
-	// 	if (bigass[i] == 'C')
-	// 	{
-	// 		data->c_xy[count]->x = (i / (line->size + 1));
-	// 		data->c_xy[count++]->y = (i % (line->size + 1));
-	// 	}
-	// 	i++;
-	// }
-	// printf("y[0]: %zd\n", data->c_xy[0]);
-	// printf("y[1]: %zd\n", data->c_xy[1]);
-	// printf("y[2]: %zd\n", data->c_xy[2]);
 	if (errors->cpe == true || errors->different_input == true)
 		return (false);
 	return (true);
@@ -158,17 +140,16 @@ static size_t	check_if_rectangular(char **map, t_line *line, \
  */
 char	**input_handler(int32_t fd, t_imgdata *data, t_line *line)
 {
-	char				*bigass;
 	t_error				errors;
 
 	ft_bzero(&errors, sizeof(t_error));
-	bigass = read_file(fd);
-	data->map = ft_split(((const char *)bigass), '\n');
+	data->bigass = read_file(fd);
+	data->map = ft_split(((const char *)data->bigass), '\n');
 	if (!data->map)
 		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
 	line->count = check_if_rectangular(data->map, line, &errors);
-	check_cases(bigass, &errors, data, line);
-	free (bigass);
+	check_cases(&errors, data);
+	free (data->bigass);
 	check_walls(data->map, line, &errors);
 	error_output(&errors, line);
 	if (errors.error == true)

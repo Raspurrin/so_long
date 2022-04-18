@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/15 14:55:11 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/18 19:13:26 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,6 @@
 # include "libft.h"
 # include "MLX42.h"
 # include <stdio.h>
-
-typedef struct s_line
-{
-	size_t	count;
-	size_t	size;
-}	t_line;
-
-typedef struct s_pickup
-{
-	size_t	x;
-	size_t	y;
-}	t_pickup;
 
 typedef enum mlx_images
 {
@@ -41,18 +29,25 @@ typedef enum mlx_images
 	IMG_COUNT,
 }	t_images;
 
+typedef struct line
+{
+	size_t	count;
+	size_t	size;
+}	t_line;
+
 typedef struct image_data
 {
 	mlx_t				*mlx;
 	mlx_key_data_t		*keydata;
 	xpm_t				*xpm[IMG_COUNT];
 	mlx_image_t			*img[IMG_COUNT];
+	t_line				line;
 	size_t				blok;
 	size_t				collect;
 	size_t				width;
 	size_t				height;
 	char				**map;
-	t_pickup			*c_xy[];
+	char				*bigass;
 }	t_imgdata;
 
 typedef struct error_cases
@@ -79,4 +74,5 @@ void	error_output(t_error *errors, t_line *line);
 int32_t	graphics(t_imgdata *data, t_line *line);
 void	images_to_window(t_imgdata *data, mlx_image_t **img, \
 						t_line *line, size_t bs);
+int32_t	find_instance(t_imgdata *data, size_t x_max, size_t y_max);
 #endif

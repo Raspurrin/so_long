@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/15 00:27:25 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/18 20:05:47 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static bool	loading_images(t_imgdata *data, xpm_t **xpm)
 {
-	uint32_t		xy[] = {50, 50};
-	uint32_t		wh2[] = {50, 30};
+	uint32_t		xy[] = {60, 40};
+	uint32_t		wh2[] = {32, 32};
 
 	xpm[BG] = mlx_load_xpm42("textures/merged.xpm42");
 	if (!xpm[BG])
@@ -82,19 +82,25 @@ static void	hooks(void	*data)
 	size_t				x;
 	size_t				y;
 	size_t				i;
+	size_t				jump;
+	float				vel;
 
 	i = 0;
+	vel = 50;
+	jump = 0;
 	x = (data2->img[CHAR]->instances[0].x / data2->blok);
 	y = (data2->img[CHAR]->instances[0].y / data2->blok);
+	if (data2->map[y + 1][x] != '1')
+		data2->img[CHAR]->instances[0].y += 3;
+
+	// && y != data2->line.count - 2&& y != data2->line.count - 2
 	if (data2->map[y][x] == 'C')
 	{
-		while ((y != data2->c_xy[i]->x || x != data2->c_xy[i]->x) && \
-				(data2->c_xy[i]->y && data2->c_xy[i]->x))
-			i++;
-		data2->img[PICKUP]->instances[i].y += data2->width;
-		data2->collect--;
-		data2->map[y][x] = '0';
-		i = 0;
+		// printf("x: %zu y: %zu\n", x, y);
+		i = find_instance((t_imgdata *)data2, x, y);
+		// printf("i: %zu\n", i);
+		data2->map[y][x] = 'K';
+		mlx_set_instance_depth(&data2->img[PICKUP]->instances[i], -1);
 	}
 	if (data2->map[y][x] == 'E' && data2->collect == 0)
 		mlx_close_window(data2->mlx);
@@ -102,10 +108,32 @@ static void	hooks(void	*data)
 		mlx_close_window(data2->mlx);
 	if (mlx_is_key_down(data2->mlx, MLX_KEY_S) \
 						&& data2->map[y + 1][x] != '1')
-		data2->img[CHAR]->instances[0].y += data2->blok / 2;
+			data2->img[CHAR]->instances[0].y += data2->blok / 2;
+	// if (mlx_is_key_down(data2->mlx, MLX_KEY_W) && data2->map[y - 1][x] != '1')
+	// 		data2->img[CHAR]->instances[0].y -= data2->blok / 2;
+	else if (mlx_is_key_down(data2->mlx, MLX_KEY_W) && mlx_is_key_down(data2->mlx, MLX_KEY_D)
+							&& data2->map[y - 1][x] != '1' \
+							&& data2->map[y + 1][x] == '1')
+	{
+		while (jump < 100 && data2->map[y - 1][x] != '1')
+		{
+			data2->img[CHAR]->instances[0].y -= vel;
+			data2->img[CHAR]->instances[0].x += vel;
+			vel *= 0.7;
+			jump++;
+		}
+	}
 	else if (mlx_is_key_down(data2->mlx, MLX_KEY_W) \
-							&& data2->map[y - 1][x] != '1')
+							&& data2->map[y - 1][x] != '1' && y - 1 != 0)
 		data2->img[CHAR]->instances[0].y -= data2->blok / 2;
+	// {
+	// 	while (jump < 10 && data2->map[y - 1][x] != '1')
+	// 	{
+	// 		data2->img[CHAR]->instances[0].y -= 10;
+	// 		jump++;
+	// 		// sleep(1);
+	// 	}
+	// }
 	else if (mlx_is_key_down(data2->mlx, MLX_KEY_A) \
 							&& data2->map[y][x - 1] != '1')
 		data2->img[CHAR]->instances[0].x -= data2->blok / 2;
