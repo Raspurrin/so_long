@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/15 21:22:01 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/19 20:55:25 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int32_t	main(int32_t argc, char **argv)
 	else
 		return (ft_putendl_fd("Error\nNot enough arguments dude", \
 				STDOUT_FILENO), EXIT_FAILURE);
-	graphics(&data, &data.line);
+	get_enemy_spawn(&data);
+	// graphics(&data, &data.line);
 	return (0);
 }

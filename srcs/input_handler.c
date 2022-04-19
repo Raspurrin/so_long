@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/15 17:35:09 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/19 20:34:10 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,17 @@ static bool	check_cases(t_error *errors, t_imgdata *data)
 	size_t	i;
 	size_t	count;
 	size_t	collect;
-	// char	*foundchar;
+	char	*foundchar;
+
 	i = 0;
 	count = 0;
 	collect = 0;
-	// foundchar = ft_strchr(line, 'P') + 1;
-	// if (foundchar)
-	// {
-	// 	if (ft_strchr(foundchar, 'P'))
-	// 		errors->morecharacters = true;
-	// }
+	foundchar = ft_strchr(data->bigass, 'P');
+	if (foundchar)
+	{
+		if (ft_strchr(foundchar + 1, 'P'))
+			errors->morecharacters = true;
+	}
 	if (!(ft_strchr(data->bigass, 'C')) || !(ft_strchr(data->bigass, 'P')) \
 	|| !(ft_strchr(data->bigass, 'E')))
 		errors->cpe = true;
@@ -127,6 +128,8 @@ static size_t	check_if_rectangular(char **map, t_line *line, \
 		if (line->size != ft_strlen(map[i]))
 			errors->rectangular = true;
 	}
+	if (line->size == i)
+		errors->rectangular = true;
 	return (i);
 }
 

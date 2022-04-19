@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/18 19:13:26 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/19 21:14:25 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef enum mlx_images
 	WALL,
 	PICKUP,
 	BRICK,
+	DOOR,
+	GHOST,
 	IMG_COUNT,
 }	t_images;
 
@@ -37,6 +39,7 @@ typedef struct line
 
 typedef struct image_data
 {
+	int					*nbrs;
 	mlx_t				*mlx;
 	mlx_key_data_t		*keydata;
 	xpm_t				*xpm[IMG_COUNT];
@@ -48,6 +51,9 @@ typedef struct image_data
 	size_t				height;
 	char				**map;
 	char				*bigass;
+	int32_t				movecount;
+	size_t				enemy_x[2];
+	size_t				enemy_y[2];
 }	t_imgdata;
 
 typedef struct error_cases
@@ -75,4 +81,5 @@ int32_t	graphics(t_imgdata *data, t_line *line);
 void	images_to_window(t_imgdata *data, mlx_image_t **img, \
 						t_line *line, size_t bs);
 int32_t	find_instance(t_imgdata *data, size_t x_max, size_t y_max);
+void	get_enemy_spawn(t_imgdata *data);
 #endif
