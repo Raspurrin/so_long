@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/19 21:14:25 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/20 19:34:22 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 # include "libft.h"
 # include "MLX42.h"
 # include <stdio.h>
+# define BLOK 32
+# define ENEMYCOUNT 5
+
+typedef enum player
+{
+	X,
+	Y,
+	XY,
+}	t_player;
 
 typedef enum mlx_images
 {
@@ -39,7 +48,6 @@ typedef struct line
 
 typedef struct image_data
 {
-	int					*nbrs;
 	mlx_t				*mlx;
 	mlx_key_data_t		*keydata;
 	xpm_t				*xpm[IMG_COUNT];
@@ -51,9 +59,12 @@ typedef struct image_data
 	size_t				height;
 	char				**map;
 	char				*bigass;
+	char				*movestr;
 	int32_t				movecount;
-	size_t				enemy_x[2];
-	size_t				enemy_y[2];
+	size_t				enemy_x[ENEMYCOUNT];
+	size_t				enemy_y[ENEMYCOUNT];
+	size_t				move[ENEMYCOUNT];
+	int32_t				test;
 }	t_imgdata;
 
 typedef struct error_cases

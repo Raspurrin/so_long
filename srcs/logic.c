@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/19 21:27:40 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:39:55 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,20 @@
 void	get_enemy_spawn(t_imgdata *data)
 {
 	size_t	i;
-	bool	found;
+	size_t	index;
 
 	i = 0;
-	found = false;
-	while (i < 2)
+	while (i < ENEMYCOUNT)
 	{
-		while (found == false)
+		index = rand() % ((data->line.size + 2) * (data->line.count - 1));
+		while (data->bigass[index] != '0')
 		{
-			data->enemy_x[i] = rand() % (data->line.size - 1) + 1;
-			data->enemy_y[i] = rand() % (data->line.count - 1) + 1;
-			if (ft_strchr(data->bigass + data->enemy_y[i] * data->line.size + data->enemy_x[i], '0'))
-				found = true;
+			index++;
+			if (!(data->bigass[index]))
+				index = 0;
 		}
-		printf("x: %zu\n", data->enemy_x[i]);
-		printf("y: %zu\n", data->enemy_y[i]);
+		data->enemy_x[i] = index % data->line.size;
+		data->enemy_y[i] = index / data->line.size;
 		i++;
 	}
 }
@@ -40,10 +39,11 @@ void	images_to_window(t_imgdata *data, mlx_image_t **img, \
 {
 	size_t	x;
 	size_t	y;
+	size_t	i;
 
 	x = 0;
 	y = 0;
-	data->nbrs = malloc(7 * sizeof(int));
+	i = 0;
 	while (data->map[y])
 	{
 		while (data->map[y][x])
@@ -55,12 +55,20 @@ void	images_to_window(t_imgdata *data, mlx_image_t **img, \
 				else
 					mlx_image_to_window(data->mlx, img[TILE], x * bs, y * bs);
 			}
-			if (data->map[y][x] == 'C')
+			else if (data->map[y][x] == 'C')
 				mlx_image_to_window(data->mlx, img[PICKUP], x * bs, y * bs);
-			if (data->map[y][x] == 'P')
+			else if (data->map[y][x] == 'P')
 				mlx_image_to_window(data->mlx, img[CHAR], x * bs, y * bs);
-			if (data->map[y][x++] == 'E')
+			else if (data->map[y][x] == 'E')
 				mlx_image_to_window(data->mlx, img[DOOR], x * bs, y * bs);
+			while (i < ENEMYCOUNT)
+			{
+				if (y == data->enemy_y[i] && x == data->enemy_x[i] && i < ENEMYCOUNT)
+					mlx_image_to_window(data->mlx, img[GHOST], x * bs, y * bs);
+				i++;
+			}
+			i = 0;
+			x++;
 		}
 		x = 0;
 		y++;

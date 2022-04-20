@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/19 20:34:10 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/19 23:44:23 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ char	**input_handler(int32_t fd, t_imgdata *data, t_line *line)
 		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
 	line->count = check_if_rectangular(data->map, line, &errors);
 	check_cases(&errors, data);
-	free (data->bigass);
 	check_walls(data->map, line, &errors);
 	error_output(&errors, line);
 	if (errors.error == true)
