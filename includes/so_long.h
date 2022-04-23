@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/23 02:04:46 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/23 02:33:21 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # define BLOK 32
 # define ENEMYCOUNT 0
+# define LIVES 3;
 
 typedef enum move
 {
@@ -42,6 +43,13 @@ typedef enum mlx_images
 	IMG_COUNT,
 }	t_images;
 
+typedef enum string
+{
+	LIVES,
+	MOVE,
+	STR_COUNT,
+}	t_string;
+
 typedef struct line
 {
 	size_t	count;
@@ -52,7 +60,8 @@ typedef struct image_data
 {
 	char				**map;
 	char				*bigass;
-	char				*movestr;
+	char				*str[STR_COUNT];
+	size_t				lives[STR_COUNT];
 	mlx_t				*mlx;
 	mlx_key_data_t		*keydata;
 	mlx_texture_t		*ghost;

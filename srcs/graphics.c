@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/23 02:17:35 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/23 02:25:48 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	utils(void	*data)
 	if ((data2->map[y][x] == 'E' && data2->collect == 0))
 	{
 		display_message(data2, false);
-		mlx_key_hook(data2->mlx, &end, data2);
+		// mlx_key_hook(data2->mlx, &end, data2);
 	}
 }
 
@@ -102,13 +102,14 @@ static void	death(void	*data)
 		mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
 		{
 			if (player[X] == x && player[Y] == y)
-				display_message(data2, true);
-			else if (data2->collect == 0)
-				display_message(data2, false);
-			// mlx_close_window(data2->mlx);
+				data2->lives--;
 		}
+		if (data2->lives == 0)
+			display_message(data2, true);
 		i++;
 	}
+	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(data2->mlx);
 }
 
 int32_t	graphics(t_imgdata *data, t_line *line)
