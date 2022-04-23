@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/19 23:44:23 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/22 21:11:25 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,11 @@ static bool	check_cases(t_error *errors, t_imgdata *data)
 	size_t	i;
 	size_t	count;
 	size_t	collect;
-	char	*foundchar;
 
 	i = 0;
 	count = 0;
 	collect = 0;
-	foundchar = ft_strchr(data->bigass, 'P');
-	if (foundchar)
-	{
-		if (ft_strchr(foundchar + 1, 'P'))
-			errors->morecharacters = true;
-	}
+	check_player_amount(errors, data);
 	if (!(ft_strchr(data->bigass, 'C')) || !(ft_strchr(data->bigass, 'P')) \
 	|| !(ft_strchr(data->bigass, 'E')))
 		errors->cpe = true;
@@ -118,10 +112,8 @@ static size_t	check_if_rectangular(char **map, t_line *line, \
 									t_error *errors)
 {
 	size_t	i;
-	size_t	size;
 
 	i = 0;
-	size = 0;
 	while (map[i + 1])
 	{
 		line->size = ft_strlen(map[i++]);
@@ -143,7 +135,8 @@ static size_t	check_if_rectangular(char **map, t_line *line, \
  */
 char	**input_handler(int32_t fd, t_imgdata *data, t_line *line)
 {
-	t_error				errors;
+	t_error	errors;
+	size_t	walls;
 
 	ft_bzero(&errors, sizeof(t_error));
 	data->bigass = read_file(fd);
@@ -151,6 +144,11 @@ char	**input_handler(int32_t fd, t_imgdata *data, t_line *line)
 	if (!data->map)
 		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
 	line->count = check_if_rectangular(data->map, line, &errors);
+	walls = getncount(data->bigass, '1');
+	data->enemy_max = ((data->line.size) * (data->line.count + 1)) \
+									- (data->collect + 2 + walls);
+	if (ENEMYCOUNT > data->enemy_max)
+		errors.enemyoverflow = true;
 	check_cases(&errors, data);
 	check_walls(data->map, line, &errors);
 	error_output(&errors, line);
