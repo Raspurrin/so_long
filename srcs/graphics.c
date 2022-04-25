@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/25 21:37:58 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/25 22:03:03 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ static void	utils(void	*data)
 	y = (data2->img[CHAR]->instances[0].y / BLOK);
 	if (data2->map[y + 1][x] != '1')
 		data2->img[CHAR]->instances[0].y += 3;
-	mlx_delete_image(data2->mlx, data2->img[STRMOVE]);
-	data2->str[MOVE] = ft_itoa(data2->count[MOVE]);
-	data2->combstr[MOVE] = ft_strjoin("movement: ", data2->str[MOVE]);
-	data2->img[STRMOVE] = mlx_put_string(data2->mlx, data2->combstr[MOVE], 10, 0);
-	free (data2->str[MOVE]);
+	// mlx_delete_image(data2->mlx, data2->img[STRMOVE]);
+	// data2->str[MOVE] = ft_itoa(data2->count[MOVE]);
+	// data2->combstr[MOVE] = ft_strjoin("movement: ", data2->str[MOVE]);
+	// data2->img[STRMOVE] = mlx_put_string(data2->mlx, data2->combstr[MOVE], 10, 0);
+	// free (data2->str[MOVE]);
 	if (data2->map[y][x] == 'C')
 	{
 		i = find_c_instance((t_imgdata *)data2, x, y);
@@ -90,20 +90,25 @@ static void	death(void	*data)
 	size_t				y;
 
 	i = 0;
+	// mlx_delete_image(data2->mlx, data2->img[STRLIFE]);
+	// data2->str[LIFE] = ft_itoa(data2->count[LIFE]);
+	// data2->combstr[LIFE] = ft_strjoin("lives: ", data2->str[LIFE]);
+	// data2->img[STRLIFE] = mlx_put_string(data2->mlx, data2->combstr[LIFE], 200, 0);
+	// free (data2->str[LIFE]);
 	player[X] = (data2->img[CHAR]->instances[0].x / BLOK);
 	player[Y] = (data2->img[CHAR]->instances[0].y / BLOK);
 	while (i < ENEMYCOUNT)
 	{
 		x = (data2->img[GHOST]->instances[i].x / BLOK);
 		y = (data2->img[GHOST]->instances[i].y / BLOK);
-		if ((player[X] == x && player[Y] == y) || \
-		mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
-		{
-			if (player[X] == x && player[Y] == y)
-				data2->lives--;
-		}
-		if (data2->lives == 0)
-			display_message(data2, true);
+		// if ((player[X] == x && player[Y] == y) || \
+		// mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
+		// {
+		// 	if (player[X] == x && player[Y] == y)
+		// 		data2->count[LIFE]--;
+		// }
+		// if (data2->count[LIFE] == 0)
+		// 	display_message(data2, true);
 		i++;
 	}
 	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
@@ -117,6 +122,7 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 	texture_to_image(data, data->xpm);
 	mlx_image_to_window(data->mlx, data->img[BG], 0, 0);
 	images_to_window(data, data->img, line, 0);
+	data->count[LIFE] = LIVES;
 	data->pid = fork();
 	// if (data->pid == 0)
 	// 	system("afplay --volume 0 \

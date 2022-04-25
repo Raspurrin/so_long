@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/25 21:38:38 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/25 21:52:27 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum mlx_images
 	DOOR,
 	GHOST,
 	STRMOVE,
+	STRLIFE,
 	SCREEN,
 	GREY,
 	IMG_COUNT,
@@ -62,18 +63,16 @@ typedef struct image_data
 	mlx_key_data_t		*keydata;
 	char				**map;
 	char				*bigass;
+	xpm_t				*xpm[IMG_COUNT];
+	mlx_image_t			*img[IMG_COUNT];
 	int32_t				count[STR_COUNT];
 	char				*str[STR_COUNT];
 	char				*combstr[STR_COUNT];
-	size_t				lives;
-
-	mlx_texture_t		*ghost;
-	xpm_t				*xpm[IMG_COUNT];
-	mlx_image_t			*img[IMG_COUNT];
-	t_line				line;
 	size_t				enemy_x[ENEMYCOUNT];
 	size_t				enemy_y[ENEMYCOUNT];
 	size_t				move[ENEMYCOUNT];
+	t_line				line;
+	mlx_texture_t		*ghost;
 	size_t				blok;
 	size_t				collect;
 	size_t				width;
