@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/26 00:55:16 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/26 01:39:29 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include <stdio.h>
 # define BLOK 32
-# define ENEMYCOUNT 10
+# define ENEMYCOUNT 1
 # define LIVES 3
 
 typedef enum move
@@ -123,5 +123,5 @@ void	get_enemy_spawn(t_imgdata *data);
 void	enemy_to_window(t_imgdata *data, size_t *x, size_t *y);
 void	check_player_amount(t_error *errors, t_imgdata *data);
 void	enemy_move(void	*data);
-void	display_message(t_imgdata *data, bool death);
+void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod);
 #endif

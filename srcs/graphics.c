@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/26 00:57:17 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/26 01:28:23 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@ static void	char_move(void	*data)
 	}
 }
 
-// static void	end(mlx_key_data_t keydata, void *data)
-// {
-// 	t_imgdata *const	data2 = data;
+static void	end(mlx_key_data_t keydata, void *data)
+{
+	t_imgdata *const	data2 = data;
 
-// 	mlx_close_window(data2->mlx);
-// }
+	if (mlx_is_key_down(data2->mlx, keydata.key))
+		mlx_close_window(data2->mlx);
+}
 
 static void	utils(void	*data)
 {
@@ -82,8 +83,8 @@ static void	utils(void	*data)
 	}
 	if ((data2->map[y][x] == 'E' && data2->collect == 0))
 	{
-		display_message(data2, false);
-		// mlx_key_hook(data2->mlx, &end, data2);
+		display_message(data2, false, 3, 3);
+		mlx_key_hook(data2->mlx, &end, data2);
 	}
 }
 
@@ -122,7 +123,10 @@ static void	death(void	*data)
 			}
 		}
 		if (data2->count[LIFE] == 0)
-			display_message(data2, true);
+		{
+			display_message(data2, true, 3.5, 3);
+			mlx_key_hook(data2->mlx, &end, data2);
+		}
 		i++;
 	}
 	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
