@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/25 22:03:03 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/26 00:57:17 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ static void	char_move(void	*data)
 		(data2->mlx, MLX_KEY_D) || mlx_is_key_down \
 		(data2->mlx, MLX_KEY_A) || mlx_is_key_down(data2->mlx, MLX_KEY_W))
 	{	
-		data2->count[MOVE]++;
+		if (x == data2->old_x + 1 || x == data2->old_x - 1 \
+			|| y == data2->old_y + 1 || y == data2->old_y - 1)
+		{
+			data2->old_x = x;
+			data2->old_y = y;
+			data2->count[MOVE]++;
+		}
 		if (mlx_is_key_down(data2->mlx, MLX_KEY_S) \
 							&& data2->map[y + 1][x] != '1')
 				data2->img[CHAR]->instances[0].y += BLOK / 3;
@@ -42,17 +48,16 @@ static void	char_move(void	*data)
 	}
 }
 
-static void	end(mlx_key_data_t keydata, void *data)
-{
-	t_imgdata *const	data2 = data;
+// static void	end(mlx_key_data_t keydata, void *data)
+// {
+// 	t_imgdata *const	data2 = data;
 
-	mlx_close_window(data2->mlx);
-}
+// 	mlx_close_window(data2->mlx);
+// }
 
 static void	utils(void	*data)
 {
 	t_imgdata *const	data2 = data;
-	char				*movecount;
 	size_t				x;
 	size_t				y;
 	size_t				i;
@@ -62,11 +67,12 @@ static void	utils(void	*data)
 	y = (data2->img[CHAR]->instances[0].y / BLOK);
 	if (data2->map[y + 1][x] != '1')
 		data2->img[CHAR]->instances[0].y += 3;
-	// mlx_delete_image(data2->mlx, data2->img[STRMOVE]);
-	// data2->str[MOVE] = ft_itoa(data2->count[MOVE]);
-	// data2->combstr[MOVE] = ft_strjoin("movement: ", data2->str[MOVE]);
-	// data2->img[STRMOVE] = mlx_put_string(data2->mlx, data2->combstr[MOVE], 10, 0);
-	// free (data2->str[MOVE]);
+	if (data2->img[STRMOVE])
+		mlx_delete_image(data2->mlx, data2->img[STRMOVE]);
+	data2->str[MOVE] = ft_itoa(data2->count[MOVE]);
+	data2->combstr[MOVE] = ft_strjoin("movement: ", data2->str[MOVE]);
+	data2->img[STRMOVE] = mlx_put_string(data2->mlx, data2->combstr[MOVE], 10, 0);
+	free (data2->str[MOVE]);
 	if (data2->map[y][x] == 'C')
 	{
 		i = find_c_instance((t_imgdata *)data2, x, y);
@@ -90,25 +96,33 @@ static void	death(void	*data)
 	size_t				y;
 
 	i = 0;
-	// mlx_delete_image(data2->mlx, data2->img[STRLIFE]);
-	// data2->str[LIFE] = ft_itoa(data2->count[LIFE]);
-	// data2->combstr[LIFE] = ft_strjoin("lives: ", data2->str[LIFE]);
-	// data2->img[STRLIFE] = mlx_put_string(data2->mlx, data2->combstr[LIFE], 200, 0);
-	// free (data2->str[LIFE]);
+	if (data2->img[STRLIFE])
+		mlx_delete_image(data2->mlx, data2->img[STRLIFE]);
+	data2->str[LIFE] = ft_itoa(data2->count[LIFE]);
+	data2->combstr[LIFE] = ft_strjoin("lives: ", data2->str[LIFE]);
+	data2->img[STRLIFE] = mlx_put_string(data2->mlx, data2->combstr[LIFE], 200, 0);
+	free (data2->str[LIFE]);
 	player[X] = (data2->img[CHAR]->instances[0].x / BLOK);
 	player[Y] = (data2->img[CHAR]->instances[0].y / BLOK);
+	data2->current_time = mlx_get_time();
+	if (data2->time_lock == true && data2->current_time == (data2->enemy_time + 2))
+		data2->time_lock = false;
 	while (i < ENEMYCOUNT)
 	{
 		x = (data2->img[GHOST]->instances[i].x / BLOK);
 		y = (data2->img[GHOST]->instances[i].y / BLOK);
-		// if ((player[X] == x && player[Y] == y) || \
-		// mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
-		// {
-		// 	if (player[X] == x && player[Y] == y)
-		// 		data2->count[LIFE]--;
-		// }
-		// if (data2->count[LIFE] == 0)
-		// 	display_message(data2, true);
+		if ((player[X] == x && player[Y] == y) || \
+		mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
+		{
+			if (player[X] == x && player[Y] == y && data2->time_lock == false)
+			{
+				data2->enemy_time = mlx_get_time();
+				data2->time_lock = true;
+				data2->count[LIFE]--;
+			}
+		}
+		if (data2->count[LIFE] == 0)
+			display_message(data2, true);
 		i++;
 	}
 	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
@@ -123,21 +137,24 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 	mlx_image_to_window(data->mlx, data->img[BG], 0, 0);
 	images_to_window(data, data->img, line, 0);
 	data->count[LIFE] = LIVES;
+	data->time_lock = false;
+	data->old_x = (data->img[CHAR]->instances[0].x / BLOK);
+	data->old_y = (data->img[CHAR]->instances[0].y / BLOK);
 	data->pid = fork();
-	// if (data->pid == 0)
-	// 	system("afplay --volume 0 \
-	// 			/Users/mialbert/Documents/test/audio/scape.mp3");
-	// else
-	// {
-	mlx_loop_hook(data->mlx, &char_move, data);
-	mlx_loop_hook(data->mlx, &enemy_move, data);
-	mlx_loop_hook(data->mlx, &utils, data);
-	mlx_loop_hook(data->mlx, &death, data);
-	mlx_loop(data->mlx);
-	mlx_delete_image(data->mlx, data->img[GREY]);
-	mlx_delete_image(data->mlx, data->img[SCREEN]);
-	mlx_terminate(data->mlx);
-	kill(0, SIGKILL);
-	// }
+	if (data->pid == 0)
+		system("afplay --volume 0 \
+				/Users/mialbert/Documents/test/audio/scape.mp3");
+	else
+	{
+		mlx_loop_hook(data->mlx, &char_move, data);
+		mlx_loop_hook(data->mlx, &enemy_move, data);
+		mlx_loop_hook(data->mlx, &utils, data);
+		mlx_loop_hook(data->mlx, &death, data);
+		mlx_loop(data->mlx);
+		mlx_delete_image(data->mlx, data->img[GREY]);
+		mlx_delete_image(data->mlx, data->img[SCREEN]);
+		mlx_terminate(data->mlx);
+		kill(0, SIGKILL);
+	}
 	return (0);
 }

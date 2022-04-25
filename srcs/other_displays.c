@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:51:24 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/25 20:15:54 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/25 23:30:54 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	display_message(t_imgdata *data, bool death)
 	}
 	if (death == true)
 		data->xpm[SCREEN] = mlx_load_xpm42("textures/gameover.xpm42");
-	if (death == false)
+	else
 		data->xpm[SCREEN] = mlx_load_xpm42("textures/youwon.xpm42");
 	data->img[SCREEN] = mlx_texture_to_image(data->mlx, &data->xpm[SCREEN]->texture);
 	mlx_image_to_window(data->mlx, data->img[SCREEN], data->width / 3.5, \

@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/04/23 02:17:38 by mialbert         ###   ########.fr        #
+#    Updated: 2022/04/25 22:24:15 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ all : $(NAME)
 $(NAME) : $(SRCS)
 	$(MAKE) -C ./libs/libft/srcs
 	$(MAKE) -C ./libs/MLX42
-	$(CC) -g -I includes -I libs/libft/srcs -I libs/MLX42/include/MLX42 \
+	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX42/include/MLX42 \
 	-framework Cocoa -framework OpenGL, -framework IOKit $(SRCS) ./libs/MLX42/libmlx42.a \
 	 ./libs/libft/srcs/libft.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" -fsanitize=address -o $(NAME)
 

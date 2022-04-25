@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/25 21:52:27 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/26 00:55:16 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include <stdio.h>
 # define BLOK 32
-# define ENEMYCOUNT 0
+# define ENEMYCOUNT 10
 # define LIVES 3
 
 typedef enum move
@@ -79,6 +79,13 @@ typedef struct image_data
 	size_t				height;
 	size_t				counter;
 	size_t				enemy_max;
+	size_t				enemy_time;
+	size_t				current_time;
+	size_t				old_x;
+	size_t				old_y;
+	bool				time_lock;
+	bool				counter_lock;
+	size_t				tile_move;
 	int32_t				pid;
 }	t_imgdata;
 
