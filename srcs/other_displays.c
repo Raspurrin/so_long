@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:51:24 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/23 01:48:38 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/25 20:15:54 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	display_message(t_imgdata *data, bool death)
 
 	x = 0;
 	y = 0;
-
 	data->img[GREY] = mlx_new_image(data->mlx, data->width, data->height);
 	mlx_image_to_window(data->mlx, data->img[GREY], 0, 0);
 	while (y < data->height)

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/23 02:33:21 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/25 21:38:38 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # define BLOK 32
 # define ENEMYCOUNT 0
-# define LIVES 3;
+# define LIVES 3
 
 typedef enum move
 {
@@ -37,7 +37,7 @@ typedef enum mlx_images
 	BRICK,
 	DOOR,
 	GHOST,
-	STR,
+	STRMOVE,
 	SCREEN,
 	GREY,
 	IMG_COUNT,
@@ -45,7 +45,7 @@ typedef enum mlx_images
 
 typedef enum string
 {
-	LIVES,
+	LIFE,
 	MOVE,
 	STR_COUNT,
 }	t_string;
@@ -58,12 +58,15 @@ typedef struct line
 
 typedef struct image_data
 {
-	char				**map;
-	char				*bigass;
-	char				*str[STR_COUNT];
-	size_t				lives[STR_COUNT];
 	mlx_t				*mlx;
 	mlx_key_data_t		*keydata;
+	char				**map;
+	char				*bigass;
+	int32_t				count[STR_COUNT];
+	char				*str[STR_COUNT];
+	char				*combstr[STR_COUNT];
+	size_t				lives;
+
 	mlx_texture_t		*ghost;
 	xpm_t				*xpm[IMG_COUNT];
 	mlx_image_t			*img[IMG_COUNT];
@@ -77,7 +80,6 @@ typedef struct image_data
 	size_t				height;
 	size_t				counter;
 	size_t				enemy_max;
-	int32_t				movecount;
 	int32_t				pid;
 }	t_imgdata;
 

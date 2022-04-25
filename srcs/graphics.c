@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/23 02:25:48 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/25 21:37:58 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	char_move(void	*data)
 		(data2->mlx, MLX_KEY_D) || mlx_is_key_down \
 		(data2->mlx, MLX_KEY_A) || mlx_is_key_down(data2->mlx, MLX_KEY_W))
 	{	
-		data2->movecount++;
+		data2->count[MOVE]++;
 		if (mlx_is_key_down(data2->mlx, MLX_KEY_S) \
 							&& data2->map[y + 1][x] != '1')
 				data2->img[CHAR]->instances[0].y += BLOK / 3;
@@ -62,11 +62,11 @@ static void	utils(void	*data)
 	y = (data2->img[CHAR]->instances[0].y / BLOK);
 	if (data2->map[y + 1][x] != '1')
 		data2->img[CHAR]->instances[0].y += 3;
-	mlx_delete_image(data2->mlx, data2->img[STR]);
-	movecount = ft_itoa(data2->movecount);
-	data2->movestr = ft_strjoin("movement: ", movecount);
-	data2->img[STR] = mlx_put_string(data2->mlx, data2->movestr, 10, 0);
-	free (data2->movestr);
+	mlx_delete_image(data2->mlx, data2->img[STRMOVE]);
+	data2->str[MOVE] = ft_itoa(data2->count[MOVE]);
+	data2->combstr[MOVE] = ft_strjoin("movement: ", data2->str[MOVE]);
+	data2->img[STRMOVE] = mlx_put_string(data2->mlx, data2->combstr[MOVE], 10, 0);
+	free (data2->str[MOVE]);
 	if (data2->map[y][x] == 'C')
 	{
 		i = find_c_instance((t_imgdata *)data2, x, y);
@@ -80,8 +80,6 @@ static void	utils(void	*data)
 		// mlx_key_hook(data2->mlx, &end, data2);
 	}
 }
-
-
 
 static void	death(void	*data)
 {
