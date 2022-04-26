@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/04/26 15:09:38 by mialbert         ###   ########.fr        #
+#    Updated: 2022/04/26 22:11:57 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = ./srcs/input_handler.c \
 		./srcs/read_map.c \
 		./srcs/other_displays.c \
 		./srcs/hook_utils.c \
+		./srcs/hook_utils2.c
 
 all : $(NAME)
 

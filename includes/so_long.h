@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/26 15:18:02 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/26 23:53:08 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include <stdio.h>
 # define BLOK 32
-# define ENEMYCOUNT 1
-# define LIVES 3
+# define ENEMYCOUNT 0
+# define LIVES 1
+# define ACCEL 1
 
 typedef enum move
 {
@@ -43,6 +44,13 @@ typedef enum mlx_images
 	GREY,
 	IMG_COUNT,
 }	t_images;
+
+typedef enum sounds
+{
+	SCAPE,
+	JUMP,
+	AUDIO_COUNT,
+}	t_sound;
 
 typedef enum string
 {
@@ -71,6 +79,8 @@ typedef struct image_data
 	size_t				enemy_x[ENEMYCOUNT];
 	size_t				enemy_y[ENEMYCOUNT];
 	size_t				move[ENEMYCOUNT];
+	size_t				excep[ENEMYCOUNT];
+	size_t				excep_count;
 	t_line				line;
 	mlx_texture_t		*ghost;
 	size_t				blok;
@@ -86,7 +96,10 @@ typedef struct image_data
 	bool				time_lock;
 	bool				counter_lock;
 	size_t				tile_move;
-	int32_t				pid;
+	int32_t				pid[AUDIO_COUNT];
+	bool				jump_lock;
+	size_t				jump_time;
+	float				accel;
 }	t_imgdata;
 
 typedef struct error_cases
@@ -128,4 +141,5 @@ void	movecounter(t_imgdata *data, size_t x, size_t y);
 void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str);
 void	collect(t_imgdata *data, size_t x, size_t y);
 void	end(mlx_key_data_t keydata, void *data);
+void	gravity(t_imgdata *data, size_t x, size_t y);
 #endif
