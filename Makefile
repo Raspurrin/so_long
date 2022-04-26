@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/04/25 22:24:15 by mialbert         ###   ########.fr        #
+#    Updated: 2022/04/26 15:09:38 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ SRCS = ./srcs/input_handler.c \
 		./srcs/enemy.c \
 		./srcs/collectible_instance.c \
 		./srcs/read_map.c \
-		./srcs/more_hooks.c \
-		./srcs/other_displays.c
+		./srcs/other_displays.c \
+		./srcs/hook_utils.c \
 
 all : $(NAME)
 

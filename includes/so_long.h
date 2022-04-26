@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/26 01:39:29 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/26 15:18:02 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef enum move
 
 typedef enum mlx_images
 {
+	STRLIFE,
+	STRMOVE,
 	CHAR,
 	SLIME,
 	BG,
@@ -37,8 +39,6 @@ typedef enum mlx_images
 	BRICK,
 	DOOR,
 	GHOST,
-	STRMOVE,
-	STRLIFE,
 	SCREEN,
 	GREY,
 	IMG_COUNT,
@@ -122,6 +122,10 @@ int32_t	find_c_instance(t_imgdata *data, size_t x_max, size_t y_max);
 void	get_enemy_spawn(t_imgdata *data);
 void	enemy_to_window(t_imgdata *data, size_t *x, size_t *y);
 void	check_player_amount(t_error *errors, t_imgdata *data);
-void	enemy_move(void	*data);
 void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod);
+void	movement(t_imgdata *data, size_t x, size_t y);
+void	movecounter(t_imgdata *data, size_t x, size_t y);
+void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str);
+void	collect(t_imgdata *data, size_t x, size_t y);
+void	end(mlx_key_data_t keydata, void *data);
 #endif

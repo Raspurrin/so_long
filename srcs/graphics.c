@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/26 01:28:23 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/26 15:30:48 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,121 +14,81 @@
 #include "MLX42.h"
 #include <signal.h>
 
-static void	char_move(void	*data)
-{
-	t_imgdata *const	data2 = data;
-	size_t				x;
-	size_t				y;
 
-	x = (data2->img[CHAR]->instances[0].x / BLOK);
-	y = (data2->img[CHAR]->instances[0].y / BLOK);
-	if (mlx_is_key_down(data2->mlx, MLX_KEY_S) || mlx_is_key_down \
-		(data2->mlx, MLX_KEY_D) || mlx_is_key_down \
-		(data2->mlx, MLX_KEY_A) || mlx_is_key_down(data2->mlx, MLX_KEY_W))
-	{	
-		if (x == data2->old_x + 1 || x == data2->old_x - 1 \
-			|| y == data2->old_y + 1 || y == data2->old_y - 1)
-		{
-			data2->old_x = x;
-			data2->old_y = y;
-			data2->count[MOVE]++;
-		}
-		if (mlx_is_key_down(data2->mlx, MLX_KEY_S) \
-							&& data2->map[y + 1][x] != '1')
-				data2->img[CHAR]->instances[0].y += BLOK / 3;
-		else if (mlx_is_key_down(data2->mlx, MLX_KEY_W) \
-								&& data2->map[y - 1][x] != '1' && y - 1 != 0)
-			data2->img[CHAR]->instances[0].y -= BLOK / 3;
-		else if (mlx_is_key_down(data2->mlx, MLX_KEY_A) \
-								&& data2->map[y][x - 1] != '1')
-			data2->img[CHAR]->instances[0].x -= BLOK / 3;
-		else if (mlx_is_key_down(data2->mlx, MLX_KEY_D) \
-								&& data2->map[y][x + 1] != '1')
-			data2->img[CHAR]->instances[0].x += BLOK / 3;
+static void	enemy_move(t_imgdata *data, size_t x, size_t y, size_t i)
+{
+	if (data->counter % 18 == 0)
+		data->move[i] = rand() % 4;
+	if (data->move[i] == 0 \
+							&& data->map[y + 1][x] != '1')
+				data->img[GHOST]->instances[i].y += BLOK / 20;
+	else if (data->move[i] == 1 \
+							&& data->map[y - 1][x] != '1' && y - 1 != 0)
+		data->img[GHOST]->instances[i].y -= BLOK / 20;
+	else if (data->move[i] == 2 \
+							&& data->map[y][x - 1] != '1')
+		data->img[GHOST]->instances[i].x -= BLOK / 20;
+	else if (data->move[i] == 3 \
+							&& data->map[y][x + 1] != '1')
+		data->img[GHOST]->instances[i].x += BLOK / 20;
+	data->counter++;
+}
+
+static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
+{
+	size_t	ghost_x;
+	size_t	ghost_y;
+
+	ghost_x = (data->img[GHOST]->instances[i].x / BLOK);
+	ghost_y = (data->img[GHOST]->instances[i].y / BLOK);
+	if (y == (ghost_y - 1) && x == ghost_x)
+		mlx_set_instance_depth(&data->img[GHOST]->instances[i], -999);
+	else if ((x == ghost_x && y == ghost_y) && data->time_lock == false)
+	{
+		data->enemy_time = mlx_get_time();
+		data->time_lock = true;
+		data->count[LIFE]--;
+	}
+	if (data->count[LIFE] == 0)
+	{
+		display_message(data, true, 3.5, 3);
+		mlx_key_hook(data->mlx, &end, data);
 	}
 }
 
-static void	end(mlx_key_data_t keydata, void *data)
+void	enemies(t_imgdata *data, size_t x, size_t y)
 {
-	t_imgdata *const	data2 = data;
+	size_t	i;
 
-	if (mlx_is_key_down(data2->mlx, keydata.key))
-		mlx_close_window(data2->mlx);
+	i = 0;
+	while (i < ENEMYCOUNT)
+	{
+		enemy_move(data, x, y, i);
+		death(data, x, y, i);
+		i++;
+	}
 }
 
-static void	utils(void	*data)
+static void	hook(void	*data)
 {
 	t_imgdata *const	data2 = data;
 	size_t				x;
 	size_t				y;
-	size_t				i;
 
-	i = 0;
 	x = (data2->img[CHAR]->instances[0].x / BLOK);
 	y = (data2->img[CHAR]->instances[0].y / BLOK);
 	if (data2->map[y + 1][x] != '1')
 		data2->img[CHAR]->instances[0].y += 3;
-	if (data2->img[STRMOVE])
-		mlx_delete_image(data2->mlx, data2->img[STRMOVE]);
-	data2->str[MOVE] = ft_itoa(data2->count[MOVE]);
-	data2->combstr[MOVE] = ft_strjoin("movement: ", data2->str[MOVE]);
-	data2->img[STRMOVE] = mlx_put_string(data2->mlx, data2->combstr[MOVE], 10, 0);
-	free (data2->str[MOVE]);
-	if (data2->map[y][x] == 'C')
-	{
-		i = find_c_instance((t_imgdata *)data2, x, y);
-		data2->map[y][x] = 'K';
-		mlx_set_instance_depth(&data2->img[PICKUP]->instances[i], -1);
-		data2->collect--;
-	}
-	if ((data2->map[y][x] == 'E' && data2->collect == 0))
-	{
-		display_message(data2, false, 3, 3);
-		mlx_key_hook(data2->mlx, &end, data2);
-	}
-}
-
-static void	death(void	*data)
-{
-	t_imgdata *const	data2 = data;
-	size_t				player[2];
-	size_t				i;
-	size_t				x;
-	size_t				y;
-
-	i = 0;
-	if (data2->img[STRLIFE])
-		mlx_delete_image(data2->mlx, data2->img[STRLIFE]);
-	data2->str[LIFE] = ft_itoa(data2->count[LIFE]);
-	data2->combstr[LIFE] = ft_strjoin("lives: ", data2->str[LIFE]);
-	data2->img[STRLIFE] = mlx_put_string(data2->mlx, data2->combstr[LIFE], 200, 0);
-	free (data2->str[LIFE]);
-	player[X] = (data2->img[CHAR]->instances[0].x / BLOK);
-	player[Y] = (data2->img[CHAR]->instances[0].y / BLOK);
 	data2->current_time = mlx_get_time();
-	if (data2->time_lock == true && data2->current_time == (data2->enemy_time + 2))
+	if (data2->time_lock == true && \
+		data2->current_time == (data2->enemy_time + 2))
 		data2->time_lock = false;
-	while (i < ENEMYCOUNT)
-	{
-		x = (data2->img[GHOST]->instances[i].x / BLOK);
-		y = (data2->img[GHOST]->instances[i].y / BLOK);
-		if ((player[X] == x && player[Y] == y) || \
-		mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
-		{
-			if (player[X] == x && player[Y] == y && data2->time_lock == false)
-			{
-				data2->enemy_time = mlx_get_time();
-				data2->time_lock = true;
-				data2->count[LIFE]--;
-			}
-		}
-		if (data2->count[LIFE] == 0)
-		{
-			display_message(data2, true, 3.5, 3);
-			mlx_key_hook(data2->mlx, &end, data2);
-		}
-		i++;
-	}
+	movement(data2, x, y);
+	movecounter(data2, x, y);
+	display_string(data2, MOVE, 10, "movement: ");
+	display_string(data2, LIFE, 200, "lives: ");
+	collect(data2, x, y);
+	enemies(data2, x, y);
 	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data2->mlx);
 }
@@ -150,10 +110,7 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 				/Users/mialbert/Documents/test/audio/scape.mp3");
 	else
 	{
-		mlx_loop_hook(data->mlx, &char_move, data);
-		mlx_loop_hook(data->mlx, &enemy_move, data);
-		mlx_loop_hook(data->mlx, &utils, data);
-		mlx_loop_hook(data->mlx, &death, data);
+		mlx_loop_hook(data->mlx, &hook, data);
 		mlx_loop(data->mlx);
 		mlx_delete_image(data->mlx, data->img[GREY]);
 		mlx_delete_image(data->mlx, data->img[SCREEN]);
