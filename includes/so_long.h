@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/27 22:41:31 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 00:31:08 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@
 # include "MLX42/MLX42.h"
 # include <stdio.h>
 # define BLOK 32
-# define ENEMYCOUNT 0
+# define ENEMYCOUNT 10
 # define LIVES 1
 # define FLY 0
 # define ACCEL 1
 # define ACCEL_MOD 1.3
 # define JUMP_CAP 100
 # define FATASS 8
+# define FATBOO 3
+# define SPEED 5
 
 typedef enum move
 {
@@ -148,4 +150,5 @@ void	collect(t_imgdata *data, size_t x, size_t y);
 void	end(mlx_key_data_t keydata, void *data);
 void	gravity(t_imgdata *data, size_t x, size_t y);
 void	animation(t_imgdata *data, size_t x, size_t y);
+void	enemies(t_imgdata *data, size_t x, size_t y);
 #endif

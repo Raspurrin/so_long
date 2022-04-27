@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook_utils.c                                       :+:      :+:    :+:   */
+/*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/26 14:06:05 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/27 22:41:41 by mialbert         ###   ########.fr       */
+/*   Created: 2022/04/28 00:37:26 by mialbert          #+#    #+#             */
+/*   Updated: 2022/04/28 00:50:24 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,42 +41,5 @@ void	movecounter(t_imgdata *data, size_t x, size_t y)
 			data->old_y = y;
 			data->count[MOVE]++;
 		}
-	}
-}
-
-void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str)
-{
-	if (data->img[str_img])
-		mlx_delete_image(data->mlx, data->img[str_img]);
-	data->str[str_img] = ft_itoa(data->count[str_img]);
-	data->combstr[str_img] = ft_strjoin(str, data->str[str_img]);
-	data->img[str_img] = mlx_put_string(data->mlx, \
-								data->combstr[str_img], x, 0);
-}
-
-void	end(mlx_key_data_t keydata, void *data)
-{
-	t_imgdata *const	data2 = data;
-
-	if (mlx_is_key_down(data2->mlx, keydata.key))
-		mlx_close_window(data2->mlx);
-}
-
-void	collect(t_imgdata *data, size_t x, size_t y)
-{
-	size_t	i;
-
-	i = 0;
-	if (data->map[y][x] == 'C')
-	{
-		i = find_c_instance((t_imgdata *)data, x, y);
-		data->map[y][x] = 'K';
-		mlx_set_instance_depth(&data->img[PICKUP]->instances[i], -1);
-		data->collect--;
-	}
-	if ((data->map[y][x] == 'E' && data->collect == 0))
-	{
-		display_message(data, false, 3, 3);
-		mlx_key_hook(data->mlx, &end, data);
 	}
 }

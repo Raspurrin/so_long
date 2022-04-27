@@ -6,16 +6,12 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/27 22:36:55 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 00:32:24 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
-// data->map[y - (BLOK / data->accel)][x]  != '1'
-//  && y - BLOK / data->accel > 1
-// 	while (data->jump_lock == true)
 static void	jump(t_imgdata *data)
 {
 	if (data->jump_lock == false)
@@ -49,13 +45,10 @@ void	gravity(t_imgdata *data, size_t x, size_t y)
 	}
 }
 
-// if ((mlx_is_key_down(data->mlx, MLX_KEY_W) && data->map[y + 1][x] == '1') || \
-// 		(mlx_get_time() >= (data->jump_time + 1) && mlx_is_key_down(data->mlx, MLX_KEY_W)))
-
 void	animation(t_imgdata *data, size_t x, size_t y)
 {
-	uint32_t	wh2[] = {32, 32};
-	
+	const uint32_t	wh2[] = {32, 32};
+
 	if ((data->xy[0] - data->char_start) == 200)
 		data->xy[0] = data->char_start;
 	mlx_delete_image(data->mlx, data->img[CHAR]);
@@ -66,29 +59,4 @@ void	animation(t_imgdata *data, size_t x, size_t y)
 	if (data->counter % 5 == 0)
 		data->xy[0] += 50;
 	data->counter++;
-	// data->startingpoint = *data->img[CHAR]->pixels;
-	// while ((*data->img[CHAR]->pixels - data->startingpoint) <= 40)
-	// 	data->img[CHAR]->pixels += ((uint8_t)(mlx_get_time() % 4 * 10));
-	// *data->img[CHAR]->pixels += 50;
-	// *data->xpm[CHAR]->pixels += ((uint8_t)(mlx_get_time() % 4 * 10));
-	// data->img[CHAR]->pixels += 40;
 }
-	// uint8_t		*startingpoint;
-
- 	// startingpoint = data->img[CHAR]->pixels;
- 	// uint8_t	test = ((uint8_t)(mlx_get_time() % 4 * 10));
- 	// printf("%d", mlx_get_time() % 4 * 10);
-	//  if ((*data->img[CHAR]->pixels - data->startingpoint) >= 60)
-	// 		data->img[CHAR]->pixels = &data->startingpoint;
-	// data->img[CHAR]->pixels += ((uint8_t)(mlx_get_time() % 4 * 10));
-	// ---------------------------------------
-	// uint8_t	nbr;
-	// uint8_t	*pixel = &nbr;
-
-	// nbr = 50;
-	// while (*pixel <= 40)
-	// {
-	// 	*pixel = (mlx_get_time() * 10) % 40;
-		// printf("%hhu", *pixel);
-	// data->img[CHAR]->pixels = &nbr;
-	// }

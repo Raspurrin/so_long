@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:46:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/22 21:25:56 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 00:49:28 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "so_long.h"
 
 void	free_2d(char **map)
 {

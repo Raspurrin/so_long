@@ -6,12 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/20 16:08:36 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:49:11 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
-#include "MLX42.h"
+#include "so_long.h"
 
 int32_t	main(int32_t argc, char **argv)
 {
