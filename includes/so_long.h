@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/26 23:53:08 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/27 18:04:30 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 # define BLOK 32
 # define ENEMYCOUNT 0
 # define LIVES 1
+# define FLY 1
 # define ACCEL 1
+# define ACCEL_MOD 1.3
+# define JUMP_CAP 100
 
 typedef enum move
 {
@@ -44,13 +47,6 @@ typedef enum mlx_images
 	GREY,
 	IMG_COUNT,
 }	t_images;
-
-typedef enum sounds
-{
-	SCAPE,
-	JUMP,
-	AUDIO_COUNT,
-}	t_sound;
 
 typedef enum string
 {
@@ -96,10 +92,16 @@ typedef struct image_data
 	bool				time_lock;
 	bool				counter_lock;
 	size_t				tile_move;
-	int32_t				pid[AUDIO_COUNT];
+	int32_t				pid;
 	bool				jump_lock;
-	size_t				jump_time;
+	int32_t				jump_time;
 	float				accel;
+	uint8_t				*pixel;
+	uint8_t				startingpoint;
+	bool				fly;
+	uint32_t			char_start;
+	uint32_t			xy[2];
+	size_t				i;
 }	t_imgdata;
 
 typedef struct error_cases
@@ -142,4 +144,5 @@ void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str);
 void	collect(t_imgdata *data, size_t x, size_t y);
 void	end(mlx_key_data_t keydata, void *data);
 void	gravity(t_imgdata *data, size_t x, size_t y);
+void	animation(t_imgdata *data);
 #endif

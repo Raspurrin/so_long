@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/22 23:49:53 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/27 18:04:56 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,14 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm)
 
 void	texture_to_image(t_imgdata *data, xpm_t **xpm)
 {
-	const uint32_t		xy[] = {60, 40};
 	const uint32_t		wh2[] = {32, 32};
 
+	data->xy[0] = 60;
+	data->xy[1] = 40;
+	data->char_start = data->xy[0];
 	data->img[BG] = mlx_texture_to_image(data->mlx, &xpm[BG]->texture);
 	data->img[CHAR] = mlx_texture_area_to_image(data->mlx, \
-						&xpm[CHAR]->texture, (uint32_t *)xy, (uint32_t *)wh2);
+						&xpm[CHAR]->texture, data->xy, (uint32_t *)wh2);
 	data->img[TILE] = mlx_texture_to_image(data->mlx, &xpm[TILE]->texture);
 	data->img[WALL] = mlx_texture_to_image(data->mlx, &xpm[WALL]->texture);
 	data->img[PICKUP] = mlx_texture_to_image(data->mlx, &xpm[PICKUP]->texture);
