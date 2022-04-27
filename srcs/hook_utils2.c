@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/27 18:11:18 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:36:55 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ void	gravity(t_imgdata *data, size_t x, size_t y)
 
 void	animation(t_imgdata *data, size_t x, size_t y)
 {
-	uint32_t		wh2[] = {32, 32};
-
-
+	uint32_t	wh2[] = {32, 32};
+	
 	if ((data->xy[0] - data->char_start) == 200)
 		data->xy[0] = data->char_start;
 	mlx_delete_image(data->mlx, data->img[CHAR]);
 	data->img[CHAR] = mlx_texture_area_to_image(data->mlx, \
 						&data->xpm[CHAR]->texture, data->xy, (uint32_t *)wh2);
-	mlx_image_to_window(data->mlx, data->img[CHAR], 100, 100);
+	mlx_image_to_window(data->mlx, data->img[CHAR], x, y);
+	mlx_set_instance_depth(data->img[CHAR]->instances, 200);
 	if (data->counter % 5 == 0)
 		data->xy[0] += 50;
 	data->counter++;

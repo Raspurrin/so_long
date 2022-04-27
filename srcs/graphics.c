@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/27 17:46:34 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:36:29 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,23 +83,25 @@ void	enemies(t_imgdata *data, size_t x, size_t y)
 static void	hook(void	*data)
 {
 	t_imgdata *const	data2 = data;
-	// size_t				x;
-	// size_t				y;
+	size_t				x;
+	size_t				y;
 
-	// x = (data2->img[CHAR]->instances[0].x / BLOK);
-	// y = (data2->img[CHAR]->instances[0].y / BLOK);
-	// data2->current_time = mlx_get_time();
-	// if (data2->time_lock == true && \
-	// 	data2->current_time == (data2->enemy_time + 2))
-	// 	data2->time_lock = false;
-	// movement(data2, x, y);
-	// movecounter(data2, x, y);
-	// display_string(data2, MOVE, 10, "movement: ");
-	// display_string(data2, LIFE, 200, "lives: ");
-	// collect(data2, x, y);
-	// enemies(data2, x, y);
-	// gravity(data2, x, y);
-	animation(data2);
+	x = (data2->img[CHAR]->instances[0].x / BLOK);
+	y = (data2->img[CHAR]->instances[0].y / BLOK);
+	movement(data2, x, y);
+	data2->current_time = mlx_get_time();
+	if (data2->time_lock == true && \
+		data2->current_time == (data2->enemy_time + 2))
+		data2->time_lock = false;
+	movecounter(data2, x, y);
+	display_string(data2, MOVE, 10, "movement: ");
+	display_string(data2, LIFE, 200, "lives: ");
+	collect(data2, x, y);
+	enemies(data2, x, y);
+	gravity(data2, x, y);
+	x = (data2->img[CHAR]->instances[0].x);
+	y = (data2->img[CHAR]->instances[0].y);
+	animation(data2, x, y);
 	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(data2->mlx);

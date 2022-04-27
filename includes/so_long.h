@@ -6,23 +6,24 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/27 18:04:30 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:41:31 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../libs/libft/srcs/libft.h"
-# include "../libs/MLX42/include/MLX42/MLX42.h"
+# include "libft.h"
+# include "MLX42/MLX42.h"
 # include <stdio.h>
 # define BLOK 32
 # define ENEMYCOUNT 0
 # define LIVES 1
-# define FLY 1
+# define FLY 0
 # define ACCEL 1
 # define ACCEL_MOD 1.3
 # define JUMP_CAP 100
+# define FATASS 8
 
 typedef enum move
 {
@@ -102,6 +103,8 @@ typedef struct image_data
 	uint32_t			char_start;
 	uint32_t			xy[2];
 	size_t				i;
+	size_t				char_x;
+	size_t				char_y;
 }	t_imgdata;
 
 typedef struct error_cases
@@ -144,5 +147,5 @@ void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str);
 void	collect(t_imgdata *data, size_t x, size_t y);
 void	end(mlx_key_data_t keydata, void *data);
 void	gravity(t_imgdata *data, size_t x, size_t y);
-void	animation(t_imgdata *data);
+void	animation(t_imgdata *data, size_t x, size_t y);
 #endif
