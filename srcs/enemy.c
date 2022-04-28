@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/28 05:58:42 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 08:56:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 static void	enemy_move(t_imgdata *data, size_t i)
 {
-	const size_t	x = (data->img[GHOST]->instances[i].x / BLOK);
-	const size_t	y = (data->img[GHOST]->instances[i].y / BLOK);
+	size_t	x = (data->img[GHOST]->instances[i].x / BLOK);
+	size_t	y = (data->img[GHOST]->instances[i].y / BLOK);
+
+	if (data->img[GHOST]->instances[0].x >= 33 && data->img[GHOST]->instances[0].x <= 63)
+		x = 2;
+	if (data->img[GHOST]->instances[0].y >= 33 && data->img[GHOST]->instances[0].y <= 63)
+		y = 2;
 
 	if (data->counter % SPEED == 0)
 		data->move[i] = rand() % 4;
@@ -35,14 +40,15 @@ static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
 	const size_t	ghost_x = (data->img[GHOST]->instances[i].x / BLOK);
 	const size_t	ghost_y = (data->img[GHOST]->instances[i].y / BLOK);
 
-	if (y == (ghost_y - 1) && x == ghost_x)
+	if (y == (ghost_y - 1) && x == ghost_x && KILL == 1)
 	{
-		if (data->map[y - 1][x] != '1')
+		if (data->map[y - 1][x] != '1' && y - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
 		mlx_set_instance_depth(&data->img[GHOST]->instances[i], -999);
 		data->excep[data->excep_count++] = i;
 	}
-	else if ((x == ghost_x && y == ghost_y) && data->time_lock == false)
+	else if ((x == ghost_x && y == ghost_y) && data->time_lock == false \
+														&& IMMORTAL == 0)
 	{
 		data->enemy_time = mlx_get_time();
 		data->time_lock = true;
@@ -76,6 +82,8 @@ void	enemies(t_imgdata *data, size_t x, size_t y)
 	data->counter++;
 }
 
+
+
 void	get_enemy_spawn(t_imgdata *data)
 {
 	size_t	i;
@@ -84,7 +92,8 @@ void	get_enemy_spawn(t_imgdata *data)
 	i = 0;
 	while (i < ENEMYCOUNT && i < data->enemy_max)
 	{
-		index = rand() % ((data->line.size + 1) * (data->line.count - 1));
+		index = (rand() % ((data->line.size + 1) * (data->line.count - 1))) \
+													+ data->line.size + 1;
 		while (data->bigass[index] != '0' && data->bigass[index])
 		{
 			index++;
@@ -93,8 +102,8 @@ void	get_enemy_spawn(t_imgdata *data)
 		}
 		if (index != 0)
 		{
-			data->enemy_x[i] = index % data->line.size;
-			data->enemy_y[i] = index / data->line.size;
+			data->enemy_x[i] = index % (data->line.size + 1);
+			data->enemy_y[i] = index / (data->line.size + 1);
 			i++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:37:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/28 02:07:24 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 09:18:16 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	movement(t_imgdata *data, size_t x, size_t y)
 {
+	if (data->img[CHAR]->instances[0].x >= 33 && data->img[CHAR]->instances[0].x <= 63)
+		x = 2;
+	if (data->img[CHAR]->instances[0].y >= 33 && data->img[CHAR]->instances[0].y <= 63)
+		y = 2;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) \
 						&& data->map[y + 1][x] != '1')
 		data->img[CHAR]->instances[0].y += BLOK / FATASS;
@@ -24,8 +28,9 @@ void	movement(t_imgdata *data, size_t x, size_t y)
 							&& data->map[y][x + 1] != '1')
 		data->img[CHAR]->instances[0].x += BLOK / FATASS;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_W) \
-		&& data->map[y - 1][x] != '1' && data->fly == true)
-		data->img[CHAR]->instances[0].y -= BLOK / 4;
+		&& data->map[y - 1][x] != '1' && (data->fly == true || 
+		GRAV == 0))
+		data->img[CHAR]->instances[0].y -= BLOK / FATASS;
 }
 
 void	movecounter(t_imgdata *data, size_t x, size_t y)

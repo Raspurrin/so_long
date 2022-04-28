@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/28 05:15:43 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 09:41:18 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@
 # include <stdio.h>
 # include <signal.h>
 # define BLOK 32
-# define ENEMYCOUNT 2
-# define LIVES 2000
+# define ENEMYCOUNT 20
+# define LIVES 1
 # define ACCEL 1
 # define ACCEL_MOD 1.3
 # define JUMP_CAP 100
-# define FATASS 8
-# define FATBOO 20
-# define SPEED 2
+# define FATASS 10
+# define FATBOO 200
+# define SPEED 6
+# define IMMORTAL 0
+# define KILL 1
+# define GRAV 1
 
 typedef enum move
 {
@@ -66,47 +69,47 @@ typedef struct line
 
 typedef struct image_data
 {
-	mlx_t				*mlx;
-	mlx_key_data_t		*keydata;
-	char				**map;
-	char				*bigass;
-	xpm_t				*xpm[IMG_COUNT];
-	mlx_image_t			*img[IMG_COUNT];
-	int32_t				count[STR_COUNT];
-	char				*str[STR_COUNT];
-	char				*combstr[STR_COUNT];
-	size_t				enemy_x[ENEMYCOUNT];
-	size_t				enemy_y[ENEMYCOUNT];
-	size_t				move[ENEMYCOUNT];
-	size_t				excep[ENEMYCOUNT];
-	size_t				excep_count;
-	t_line				line;
-	mlx_texture_t		*ghost;
-	size_t				blok;
-	size_t				collect;
-	size_t				width;
-	size_t				height;
-	size_t				counter;
-	size_t				enemy_max;
-	size_t				enemy_time;
-	size_t				current_time;
-	size_t				old_x;
-	size_t				old_y;
-	bool				time_lock;
-	bool				counter_lock;
-	size_t				tile_move;
-	int32_t				pid;
-	bool				jump_lock;
-	int32_t				jump_time;
 	float				accel;
-	uint8_t				*pixel;
-	uint8_t				startingpoint;
-	bool				fly;
+	char				*bigass;
+	size_t				blok;
 	uint32_t			char_start;
-	uint32_t			xy[2];
-	size_t				i;
 	size_t				char_x;
 	size_t				char_y;
+	size_t				counter;
+	size_t				collect;
+	char				*combstr[STR_COUNT];
+	int32_t				count[STR_COUNT];
+	bool				counter_lock;
+	size_t				current_time;
+	size_t				excep[ENEMYCOUNT];
+	size_t				excep_count;
+	size_t				enemy_max;
+	size_t				enemy_time;
+	size_t				enemy_x[ENEMYCOUNT];
+	size_t				enemy_y[ENEMYCOUNT];
+	bool				fly;
+	mlx_texture_t		*ghost;
+	size_t				height;
+	size_t				i;
+	mlx_image_t			*img[IMG_COUNT];
+	mlx_key_data_t		*keydata;
+	bool				jump_lock;
+	int32_t				jump_time;
+	t_line				line;
+	char				**map;
+	size_t				move[ENEMYCOUNT];
+	mlx_t				*mlx;
+	size_t				old_x;
+	size_t				old_y;
+	int32_t				pid;
+	uint8_t				*pixel;
+	uint8_t				startingpoint;
+	char				*str[STR_COUNT];
+	bool				time_lock;
+	size_t				tile_move;
+	size_t				width;
+	xpm_t				*xpm[IMG_COUNT];
+	uint32_t			xy[2];
 }	t_imgdata;
 
 typedef struct error_cases

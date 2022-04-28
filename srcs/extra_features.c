@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/28 06:03:38 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 09:00:50 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static void	jump(t_imgdata *data)
 void	gravity(t_imgdata *data, size_t x, size_t y)
 {
 	jump(data);
-	if (data->map[y + 1][x] != '1')
+	if (data->map[y + 1][x] != '1' && GRAV == 1)
 		data->img[CHAR]->instances[0].y += 3;
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_W) \
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_W) && GRAV == 1 \
 			&& data->map[y - 1][x] != '1' && data->map[y + 1][x] == '1')
 	{
 			data->jump_lock = true;
@@ -61,7 +61,7 @@ void	animation(t_imgdata *data, size_t x, size_t y)
 	data->img[CHAR] = mlx_texture_area_to_image(data->mlx, \
 						&data->xpm[CHAR]->texture, data->xy, (uint32_t *)wh2);
 	mlx_image_to_window(data->mlx, data->img[CHAR], x, y);
-		// (free_close_window(data, data->img[CHAR], "image_to_window failed"));
+	// (free_close_window(data, data->img[CHAR], "image_to_window failed"));
 	mlx_set_instance_depth(data->img[CHAR]->instances, 200);
 	if (data->counter % 5 == 0)
 		data->xy[0] += 50;
