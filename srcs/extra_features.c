@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook_utils2.c                                      :+:      :+:    :+:   */
+/*   extra_features.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/28 00:32:24 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 06:03:38 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 
 static void	jump(t_imgdata *data)
 {
+	size_t	y;
+
+	y = data->img[CHAR]->instances[0].y - (BLOK / data->accel);
 	if (data->jump_lock == false)
 		data->accel = ACCEL;
 	else
 	{
-		if (data->accel >= JUMP_CAP)
+		if (data->accel >= JUMP_CAP || y <= 1)
 			data->jump_lock = false;
-		data->img[CHAR]->instances[0].y -= BLOK / data->accel;
-		data->accel *= ACCEL_MOD;
+		else
+		{
+			data->img[CHAR]->instances[0].y -= BLOK / data->accel;
+			data->accel *= ACCEL_MOD;
+		}
 	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_ENTER) && FLY == 1)
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ENTER))
 	{
 		if (data->fly == false)
 			data->fly = true;
@@ -55,6 +61,7 @@ void	animation(t_imgdata *data, size_t x, size_t y)
 	data->img[CHAR] = mlx_texture_area_to_image(data->mlx, \
 						&data->xpm[CHAR]->texture, data->xy, (uint32_t *)wh2);
 	mlx_image_to_window(data->mlx, data->img[CHAR], x, y);
+		// (free_close_window(data, data->img[CHAR], "image_to_window failed"));
 	mlx_set_instance_depth(data->img[CHAR]->instances, 200);
 	if (data->counter % 5 == 0)
 		data->xy[0] += 50;

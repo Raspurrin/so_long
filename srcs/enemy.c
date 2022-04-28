@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/28 00:32:36 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 05:58:42 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
 
 	if (y == (ghost_y - 1) && x == ghost_x)
 	{
-		data->img[CHAR]->instances[0].y -= BLOK;
+		if (data->map[y - 1][x] != '1')
+			data->img[CHAR]->instances[0].y -= BLOK;
 		mlx_set_instance_depth(&data->img[GHOST]->instances[i], -999);
 		data->excep[data->excep_count++] = i;
 	}
@@ -46,7 +47,7 @@ static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
 		data->enemy_time = mlx_get_time();
 		data->time_lock = true;
 		data->count[LIFE]--;
-		if ((x - 2) != '1')
+		if (data->map[y][x - 2] != '1')
 			data->img[CHAR]->instances[0].x -= (BLOK * 2);
 		else
 			data->img[CHAR]->instances[0].x += (BLOK * 2);
@@ -83,7 +84,7 @@ void	get_enemy_spawn(t_imgdata *data)
 	i = 0;
 	while (i < ENEMYCOUNT && i < data->enemy_max)
 	{
-		index = rand() % ((data->line.size + 2) * (data->line.count - 1));
+		index = rand() % ((data->line.size + 1) * (data->line.count - 1));
 		while (data->bigass[index] != '0' && data->bigass[index])
 		{
 			index++;
@@ -99,7 +100,7 @@ void	get_enemy_spawn(t_imgdata *data)
 	}
 }
 
-void	enemy_to_window(t_imgdata *data, \
+bool	enemy_to_window(t_imgdata *data, \
 						size_t *x, size_t *y)
 {
 	size_t	i;
@@ -111,9 +112,10 @@ void	enemy_to_window(t_imgdata *data, \
 			&& i < ENEMYCOUNT && i < data->enemy_max)
 		{
 			mlx_image_to_window(data->mlx, data->img[GHOST], \
-								*x * BLOK, *y * BLOK);
+												*x * BLOK, *y * BLOK);
+				// return (free_array(data->img, "image_to_window failed"), false);
 		}
 		i++;
 	}
-	return ;
+	return (true);
 }

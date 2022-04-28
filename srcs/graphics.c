@@ -6,12 +6,20 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/28 00:49:40 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 05:26:26 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <signal.h>
+
+static void	init(t_imgdata *data)
+{
+	data->count[LIFE] = LIVES;
+	data->accel = ACCEL;
+	data->time_lock = false;
+	data->old_x = (data->img[CHAR]->instances[0].x / BLOK);
+	data->old_y = (data->img[CHAR]->instances[0].y / BLOK);
+}
 
 static void	hook(void	*data)
 {
@@ -44,23 +52,19 @@ static void	hook(void	*data)
 
 int32_t	graphics(t_imgdata *data, t_line *line)
 {
-	if (!(windowdisplay(data, line)) || !(loading_images(data, data->xpm)))
+	if (!(windowdisplay(data, line)) || !(loading_images(data, data->xpm)) || \
+		!(texture_to_image(data, data->xpm)) || \
+		!(images_to_window(data, data->img, 0)))
 		return (0);
-	texture_to_image(data, data->xpm);
-	mlx_image_to_window(data->mlx, data->img[BG], 0, 0);
-	images_to_window(data, data->img, line, 0);
-	data->count[LIFE] = LIVES;
-	data->accel = ACCEL;
-	data->time_lock = false;
-	data->old_x = (data->img[CHAR]->instances[0].x / BLOK);
-	data->old_y = (data->img[CHAR]->instances[0].y / BLOK);
+	init(data);
 	data->pid = fork();
 	if (data->pid == 0)
 		system("afplay --volume 0 \
 				/Users/mialbert/Documents/test/audio/scape.mp3");
 	else
 	{
-		mlx_loop_hook(data->mlx, &hook, data);
+		if (!(mlx_loop_hook(data->mlx, &hook, data)))
+			(error_close_window(data, "loop hook failed"));
 		mlx_loop(data->mlx);
 		mlx_delete_image(data->mlx, data->img[GREY]);
 		mlx_delete_image(data->mlx, data->img[SCREEN]);

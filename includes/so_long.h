@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/28 00:31:08 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/28 05:15:43 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 # include "libft.h"
 # include "MLX42/MLX42.h"
 # include <stdio.h>
+# include <signal.h>
 # define BLOK 32
-# define ENEMYCOUNT 10
-# define LIVES 1
-# define FLY 0
+# define ENEMYCOUNT 2
+# define LIVES 2000
 # define ACCEL 1
 # define ACCEL_MOD 1.3
 # define JUMP_CAP 100
 # define FATASS 8
-# define FATBOO 3
-# define SPEED 5
+# define FATBOO 20
+# define SPEED 2
 
 typedef enum move
 {
@@ -126,29 +126,32 @@ typedef struct error_cases
  * @param map 2D array
  * @return NULL
  */
-size_t	getncount(char *str, uint8_t chr);
-bool	loading_images(t_imgdata *data, xpm_t **xpm);
-bool	windowdisplay(t_imgdata *data, t_line *line);
-void	texture_to_image(t_imgdata *data, xpm_t **xpm);
-char	*read_file(int32_t fd);
-void	free_2d(char **map);
+void	animation(t_imgdata *data, size_t x, size_t y);
 bool	check_ext(char *file_name, char *ext);
-char	**input_handler(int32_t fd, t_imgdata *data, t_line *line);
-void	error_output(t_error *errors, t_line *line);
-int32_t	graphics(t_imgdata *data, t_line *line);
-void	images_to_window(t_imgdata *data, mlx_image_t **img, \
-						t_line *line, size_t bs);
-int32_t	find_c_instance(t_imgdata *data, size_t x_max, size_t y_max);
-void	get_enemy_spawn(t_imgdata *data);
-void	enemy_to_window(t_imgdata *data, size_t *x, size_t *y);
 void	check_player_amount(t_error *errors, t_imgdata *data);
+void	collect(t_imgdata *data, size_t x, size_t y);
 void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod);
+void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str);
+void	end(mlx_key_data_t keydata, void *data);
+void	enemies(t_imgdata *data, size_t x, size_t y);
+bool	enemy_to_window(t_imgdata *data, size_t *x, size_t *y);
+void	error_output(t_error *errors, t_line *line);
+void	error_close_window(t_imgdata *data, char *str);
+int32_t	find_c_instance(t_imgdata *data, size_t x_max, size_t y_max);
+void	free_2d(char **map);
+bool	free_array(void *arr, char *str);
+void	free_close_window(t_imgdata *data, void *var, char *str);
+void	gravity(t_imgdata *data, size_t x, size_t y);
+size_t	getncount(char *str, uint8_t chr);
+size_t	getncount(char *str, uint8_t chr);
+void	get_enemy_spawn(t_imgdata *data);
+int32_t	graphics(t_imgdata *data, t_line *line);
+bool	images_to_window(t_imgdata *data, mlx_image_t **img, size_t i);
+char	**input_handler(int32_t fd, t_imgdata *data, t_line *line);
+bool	loading_images(t_imgdata *data, xpm_t **xpm);
 void	movement(t_imgdata *data, size_t x, size_t y);
 void	movecounter(t_imgdata *data, size_t x, size_t y);
-void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str);
-void	collect(t_imgdata *data, size_t x, size_t y);
-void	end(mlx_key_data_t keydata, void *data);
-void	gravity(t_imgdata *data, size_t x, size_t y);
-void	animation(t_imgdata *data, size_t x, size_t y);
-void	enemies(t_imgdata *data, size_t x, size_t y);
+char	*read_file(int32_t fd);
+bool	texture_to_image(t_imgdata *data, xpm_t **xpm);
+bool	windowdisplay(t_imgdata *data, t_line *line);
 #endif
