@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/30 16:43:08 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	init(t_imgdata *data)
 {
 	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
-	data->time_lock = false;
+	data->enemy.time_lock = false;
 	data->old_x = (data->img[CHAR]->instances[0].x / BLOK);
 	data->old_y = (data->img[CHAR]->instances[0].y / BLOK);
 }
@@ -30,15 +30,11 @@ static void	hook(void	*data)
 	x = (data2->img[CHAR]->instances[0].x / BLOK);
 	y = (data2->img[CHAR]->instances[0].y / BLOK);
 	movement(data2, x, y);
-	data2->current_time = mlx_get_time();
-	if (data2->time_lock == true && \
-		data2->current_time == (data2->enemy_time + 2))
-		data2->time_lock = false;
 	movecounter(data2, x, y);
 	display_string(data2, MOVE, 10, "movement: ");
 	display_string(data2, LIFE, 200, "lives: ");
 	collect(data2, x, y);
-	enemies(data2, x, y);
+	enemies(data2, &data2->enemy, x, y);
 	gravity(data2, x, y);
 	x = (data2->img[CHAR]->instances[0].x);
 	y = (data2->img[CHAR]->instances[0].y);

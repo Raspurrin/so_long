@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 15:48:29 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/30 15:21:21 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct line
 	size_t	size;
 }	t_line;
 
+
+
 typedef struct image_data
 {
 	float				accel;
@@ -82,7 +84,6 @@ typedef struct image_data
 	mlx_t				*mlx;
 	size_t				old_x;
 	size_t				old_y;
-	int32_t				pid;
 	uint8_t				*pixel;
 	uint8_t				startingpoint;
 	char				*str[STR_COUNT];

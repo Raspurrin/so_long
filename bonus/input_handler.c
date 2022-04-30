@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/30 15:40:01 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ static size_t	check_if_rectangular(char **map, t_line *line, \
  * @param map The 2D array that will eventually contain the input. 
  * @return The map in a 2D array.
  */
-char	**input_handler(int32_t fd, t_imgdata *data, t_line *line)
+char	**input_handler(int32_t fd, t_imgdata *data, t_line *line, t_enemy *enemy)
 {
 	t_error	errors;
 	size_t	walls;
@@ -145,9 +145,9 @@ char	**input_handler(int32_t fd, t_imgdata *data, t_line *line)
 		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
 	line->count = check_if_rectangular(data->map, line, &errors);
 	walls = getncount(data->bigass, '1');
-	data->enemy_max = ((data->line.size) * (data->line.count + 1)) \
+	enemy->enemy_max = ((data->line.size) * (data->line.count + 1)) \
 									- (data->collect + 2 + walls);
-	if (ENEMYCOUNT > data->enemy_max)
+	if (ENEMYCOUNT > enemy->enemy_max)
 		errors.enemyoverflow = true;
 	check_cases(&errors, data);
 	check_walls(data->map, line, &errors);

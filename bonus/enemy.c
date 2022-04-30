@@ -6,31 +6,26 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/30 19:01:41 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "../includes/so_long_bonus.h"
 
-static void	enemy_move(t_imgdata *data, size_t i)
+static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 {
 	const size_t	x = (data->img[GHOST]->instances[i].x / BLOK);
 	const size_t	y = (data->img[GHOST]->instances[i].y / BLOK);
 
-	// if (data->img[GHOST]->instances[0].x >= 33 && data->img[GHOST]->instances[0].x <= 63)
-	// 	x = 2;
-	// if (data->img[GHOST]->instances[0].y >= 33 && data->img[GHOST]->instances[0].y <= 63)
-	// 	y = 2;
-
 	if (data->counter % SPEED == 0)
-		data->move[i] = rand() % 4;
-	if (data->move[i] == 0 && data->map[y + 1][x] != '1')
+		enemy->move[i] = rand() % 4;
+	if (enemy->move[i] == 0 && data->map[y + 1][x] != '1')
 		data->img[GHOST]->instances[i].y += BLOK / FATBOO;
-	else if (data->move[i] == 1 && data->map[y][x] != '1')
+	else if (enemy->move[i] == 1 && data->map[y][x] != '1')
 		data->img[GHOST]->instances[i].y -= BLOK / FATBOO;
-	else if (data->move[i] == 2 && data->map[y][x] != '1')
+	else if (enemy->move[i] == 2 && data->map[y][x] != '1')
 		data->img[GHOST]->instances[i].x -= BLOK / FATBOO;
-	else if (data->move[i] == 3 && data->map[y][x + 1] != '1')
+	else if (enemy->move[i] == 3 && data->map[y][x + 1] != '1')
 		data->img[GHOST]->instances[i].x += BLOK / FATBOO;
 }
 
@@ -44,13 +39,13 @@ static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
 		if (data->map[y - 1][x] != '1' && y - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
 		data->img[GHOST]->instances[i].x += data->width;
-		data->excep[data->excep_count++] = i;
+		data->enemy.excep[data->enemy.excep_count++] = i;
 	}
-	else if ((x == ghost_x && y == ghost_y) && data->time_lock == false \
+	else if ((x == ghost_x && y == ghost_y) && data->enemy.time_lock == false \
 														&& IMMORTAL == 0)
 	{
-		data->enemy_time = mlx_get_time();
-		data->time_lock = true;
+		data->enemy.enemy_time = mlx_get_time();
+		data->enemy.time_lock = true;
 		data->count[LIFE]--;
 		if (data->map[y][x - 2] != '1')
 			data->img[CHAR]->instances[0].x -= (BLOK * 2);
@@ -64,24 +59,26 @@ static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
 	}
 }
 
-void	enemies(t_imgdata *data, size_t x, size_t y)
+void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 {
 	size_t	i;
 
 	i = 0;
+	enemy->current_time = mlx_get_time();
+	if (enemy->time_lock == true && \
+	enemy->current_time == (enemy->enemy_time + 2))
+	enemy->time_lock = false;
 	while (i < ENEMYCOUNT)
 	{
-		if (i != data->excep[i])
+		if (i != enemy->excep[i])
 		{
 			death(data, x, y, i);
-			enemy_move(data, i);
+			enemy_move(data, enemy, i);
 		}
 		i++;
 	}
 	data->counter++;
 }
-
-
 
 void	get_enemy_spawn(t_imgdata *data)
 {
@@ -89,7 +86,7 @@ void	get_enemy_spawn(t_imgdata *data)
 	size_t	index;
 
 	i = 0;
-	while (i < ENEMYCOUNT && i < data->enemy_max)
+	while (i < ENEMYCOUNT)
 	{
 		index = (rand() % ((data->line.size + 1) * (data->line.count - 1))) \
 													+ data->line.size + 1;
@@ -101,8 +98,8 @@ void	get_enemy_spawn(t_imgdata *data)
 		}
 		if (index != 0)
 		{
-			data->enemy_x[i] = index % (data->line.size + 1);
-			data->enemy_y[i] = index / (data->line.size + 1);
+			data->enemy.enemy_x[i] = index % (data->line.size + 1);
+			data->enemy.enemy_y[i] = index / (data->line.size + 1);
 			i++;
 		}
 	}
@@ -116,8 +113,8 @@ bool	enemy_to_window(t_imgdata *data, \
 	i = 0;
 	while (i < ENEMYCOUNT)
 	{
-		if (*y == data->enemy_y[i] && *x == data->enemy_x[i] \
-			&& i < ENEMYCOUNT && i < data->enemy_max)
+		if (*y == data->enemy.enemy_y[i] && *x == data->enemy.enemy_x[i] \
+			&& i < ENEMYCOUNT)
 		{
 			mlx_image_to_window(data->mlx, data->img[GHOST], \
 												*x * BLOK, *y * BLOK);
