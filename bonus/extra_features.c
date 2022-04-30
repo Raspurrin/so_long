@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:26:52 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static void	jump(t_imgdata *data)
 {

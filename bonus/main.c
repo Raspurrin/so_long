@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:27:55 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int32_t	main(int32_t argc, char **argv)
 {
@@ -35,6 +35,7 @@ int32_t	main(int32_t argc, char **argv)
 	else
 		return (ft_putendl_fd("Error\nNot enough arguments dude", \
 				STDOUT_FILENO), EXIT_FAILURE);
+	get_enemy_spawn(&data);
 	graphics(&data, &data.line);
 	return (0);
 }

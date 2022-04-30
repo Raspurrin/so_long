@@ -6,30 +6,29 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/28 08:56:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static void	enemy_move(t_imgdata *data, size_t i)
 {
-	size_t	x = (data->img[GHOST]->instances[i].x / BLOK);
-	size_t	y = (data->img[GHOST]->instances[i].y / BLOK);
+	const size_t	x = (data->img[GHOST]->instances[i].x / BLOK);
+	const size_t	y = (data->img[GHOST]->instances[i].y / BLOK);
 
-	if (data->img[GHOST]->instances[0].x >= 33 && data->img[GHOST]->instances[0].x <= 63)
-		x = 2;
-	if (data->img[GHOST]->instances[0].y >= 33 && data->img[GHOST]->instances[0].y <= 63)
-		y = 2;
+	// if (data->img[GHOST]->instances[0].x >= 33 && data->img[GHOST]->instances[0].x <= 63)
+	// 	x = 2;
+	// if (data->img[GHOST]->instances[0].y >= 33 && data->img[GHOST]->instances[0].y <= 63)
+	// 	y = 2;
 
 	if (data->counter % SPEED == 0)
 		data->move[i] = rand() % 4;
 	if (data->move[i] == 0 && data->map[y + 1][x] != '1')
 		data->img[GHOST]->instances[i].y += BLOK / FATBOO;
-	else if (data->move[i] == 1 && data->map[y - 1][x] != '1' \
-												&& y - 1 != 0)
+	else if (data->move[i] == 1 && data->map[y][x] != '1')
 		data->img[GHOST]->instances[i].y -= BLOK / FATBOO;
-	else if (data->move[i] == 2 && data->map[y][x - 1] != '1')
+	else if (data->move[i] == 2 && data->map[y][x] != '1')
 		data->img[GHOST]->instances[i].x -= BLOK / FATBOO;
 	else if (data->move[i] == 3 && data->map[y][x + 1] != '1')
 		data->img[GHOST]->instances[i].x += BLOK / FATBOO;
@@ -44,7 +43,7 @@ static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
 	{
 		if (data->map[y - 1][x] != '1' && y - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
-		mlx_set_instance_depth(&data->img[GHOST]->instances[i], -999);
+		data->img[GHOST]->instances[i].x += data->width;
 		data->excep[data->excep_count++] = i;
 	}
 	else if ((x == ghost_x && y == ghost_y) && data->time_lock == false \

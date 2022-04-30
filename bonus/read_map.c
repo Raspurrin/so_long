@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_player_amount.c                              :+:      :+:    :+:   */
+/*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/28 00:42:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:26:33 by mialbert         ###   ########.fr       */
+/*   Created: 2022/04/22 20:20:48 by mialbert          #+#    #+#             */
+/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
-void	check_player_amount(t_error *errors, t_imgdata *data)
+char	*read_file(int32_t fd)
 {
-	char	*foundchar;
+	int32_t	buflen;
+	char	*line;
+	char	*buf;
+	int		i;
 
-	foundchar = ft_strchr(data->bigass, 'P');
-	if (foundchar)
+	buflen = 1;
+	line = ft_calloc(1, 1);
+	buf = malloc(500 + 1 * sizeof(char));
+	i = 1;
+	while (buflen > 0)
 	{
-		if (ft_strchr(foundchar + 1, 'P'))
-			errors->morecharacters = true;
+		buflen = read(fd, buf, 500);
+		// if (buflen < 0)
+		// {
+		// 	free (line);
+		// 	free (buf);
+		// 	return (NULL);
+		// }
+		buf[buflen] = '\0';
+		line = gnl_strjoin(line, buf);
 	}
+	return (line);
 }

@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:37:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:27:17 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	movement(t_imgdata *data, size_t x, size_t y)
 {

@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:33:22 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 bool	windowdisplay(t_imgdata *data, t_line *line)
 {
@@ -55,6 +55,9 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm)
 	xpm[CHAR] = mlx_load_xpm42("textures/main.xpm42");
 	if (!xpm[CHAR])
 		return (ft_putendl_fd("char was not found", STDOUT_FILENO), false);
+	data->ghost = mlx_load_png("textures/ghost_trans2.png");
+	if (!data->ghost)
+		return (ft_putendl_fd("ghost was not found", STDOUT_FILENO), false);
 	return (true);
 }
 
@@ -72,8 +75,10 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm)
 	data->img[WALL] = mlx_texture_to_image(data->mlx, &xpm[WALL]->texture);
 	data->img[PICKUP] = mlx_texture_to_image(data->mlx, &xpm[PICKUP]->texture);
 	data->img[DOOR] = mlx_texture_to_image(data->mlx, &xpm[DOOR]->texture);
+	data->img[GHOST] = mlx_texture_to_image(data->mlx, data->ghost);
 	if (!data->img[BG] || !data->img[CHAR] || !data->img[TILE] || \
-	!data->img[WALL] || !data->img[PICKUP] || !data->img[DOOR])
+	!data->img[WALL] || !data->img[PICKUP] || !data->img[DOOR] || \
+	!data->img[GHOST])
 		return (ft_putendl_fd("Texture to image failed", STDOUT_FILENO), false);
 	return (true);
 }
@@ -132,6 +137,7 @@ bool	images_to_window(t_imgdata *data, mlx_image_t **img, \
 											x * BLOK, y * BLOK);
 				// return (free_array(data->img, "image_to_window failed"), false);
 		}
+		enemy_to_window(data, &x, &y);
 			// return (false);
 		i++;
 	}

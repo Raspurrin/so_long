@@ -6,13 +6,13 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 17:09:20 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/15 17:13:33 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 #include <stdio.h>
-#include "../test/includes/so_long.h"
+#include "../test/includes/so_long_bonus.h"
 #include "../test/libs/libft/srcs/libft.h"
 
 int32_t	main(void)

@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:26:39 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	end(mlx_key_data_t keydata, void *data)
 {
@@ -33,7 +33,10 @@ void	collect(t_imgdata *data, size_t x, size_t y)
 		data->collect--;
 	}
 	if ((data->map[y][x] == 'E' && data->collect == 0))
-		mlx_close_window(data->mlx);
+	{
+		display_message(data, false, 3, 3);
+		mlx_key_hook(data->mlx, &end, data);
+	}
 }
 
 int32_t	find_c_instance(t_imgdata *data, size_t x_max, size_t y_max)

@@ -6,14 +6,15 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:32:36 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static void	init(t_imgdata *data)
 {
+	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
 	data->time_lock = false;
 	data->old_x = (data->img[CHAR]->instances[0].x / BLOK);
@@ -29,9 +30,15 @@ static void	hook(void	*data)
 	x = (data2->img[CHAR]->instances[0].x / BLOK);
 	y = (data2->img[CHAR]->instances[0].y / BLOK);
 	movement(data2, x, y);
+	data2->current_time = mlx_get_time();
+	if (data2->time_lock == true && \
+		data2->current_time == (data2->enemy_time + 2))
+		data2->time_lock = false;
 	movecounter(data2, x, y);
 	display_string(data2, MOVE, 10, "movement: ");
+	display_string(data2, LIFE, 200, "lives: ");
 	collect(data2, x, y);
+	enemies(data2, x, y);
 	gravity(data2, x, y);
 	x = (data2->img[CHAR]->instances[0].x);
 	y = (data2->img[CHAR]->instances[0].y);
@@ -50,9 +57,18 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 		!(images_to_window(data, data->img, 0)))
 		return (0);
 	init(data);
-	if (!(mlx_loop_hook(data->mlx, &hook, data)))
-		(error_close_window(data, "loop hook failed"));
-	mlx_loop(data->mlx);
-	mlx_terminate(data->mlx);
+	data->pid = fork();
+	if (data->pid == 0)
+		system("afplay --volume 0 \
+				/Users/mialbert/Documents/test/audio/scape.mp3");
+	else
+	{
+		if (!(mlx_loop_hook(data->mlx, &hook, data)))
+			(error_close_window(data, "loop hook failed"));
+		mlx_loop(data->mlx);
+		mlx_delete_image(data->mlx, data->img[GREY]);
+		mlx_delete_image(data->mlx, data->img[SCREEN]);
+		mlx_terminate(data->mlx);
+	}
 	return (0);
 }

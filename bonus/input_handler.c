@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:33:11 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 /**
  * @brief Checks if a file name contains the right extension.
@@ -145,6 +145,10 @@ char	**input_handler(int32_t fd, t_imgdata *data, t_line *line)
 		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
 	line->count = check_if_rectangular(data->map, line, &errors);
 	walls = getncount(data->bigass, '1');
+	data->enemy_max = ((data->line.size) * (data->line.count + 1)) \
+									- (data->collect + 2 + walls);
+	if (ENEMYCOUNT > data->enemy_max)
+		errors.enemyoverflow = true;
 	check_cases(&errors, data);
 	check_walls(data->map, line, &errors);
 	error_output(&errors, line);
