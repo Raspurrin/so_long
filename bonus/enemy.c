@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/02 14:09:57 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/02 22:06:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 {
-	const size_t	x = (data->img[GHOST]->instances[i].x / BLOK);
-	const size_t	y = (data->img[GHOST]->instances[i].y / BLOK);
+	const int32_t	x = data->img[GHOST]->instances[i].x;
+	const int32_t	y = data->img[GHOST]->instances[i].y;
 
 	if (data->count[FRAME] % SPEED == 0)
 		enemy->move[i] = rand() % 4;
-	if (enemy->move[i] == 0 && data->map[y + 1][x] != '1')
-		data->img[GHOST]->instances[i].y += BLOK / FATBOO;
-	else if (enemy->move[i] == 1 && data->map[y][x] != '1')
-		data->img[GHOST]->instances[i].y -= BLOK / FATBOO;
-	else if (enemy->move[i] == 2 && data->map[y][x] != '1')
+	if (enemy->move[i] == 0 && y + (BLOK / FATBOO) < data->height - (BLOK * 2))
+		data->img[GHOST]->instances[i].y += (BLOK / FATBOO);
+	else if (enemy->move[i] == 1 && y - (BLOK / FATBOO) > 0 + BLOK)
+		data->img[GHOST]->instances[i].y -= (BLOK / FATBOO);
+	else if (enemy->move[i] == 2 && x - (BLOK / FATBOO) > 0 + BLOK)
 		data->img[GHOST]->instances[i].x -= BLOK / FATBOO;
-	else if (enemy->move[i] == 3 && data->map[y][x + 1] != '1')
-		data->img[GHOST]->instances[i].x += BLOK / FATBOO;
+	else if (enemy->move[i] == 3 && x + (BLOK / FATBOO) < data->width \
+														- (BLOK * 2))
+		data->img[GHOST]->instances[i].x += (BLOK / FATBOO);
 }
 
 static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
@@ -36,10 +37,10 @@ static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
 
 	if (y == (ghost_y - 1) && x == ghost_x && KILL == 1)
 	{
-		if (data->map[y][x] != '1')
+		if (y - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
 		data->img[GHOST]->instances[i].x += data->width;
-		data->enemy.excep[data->enemy.excep_count++] = i;
+		data->enemy.excep[i] = 1;
 	}
 	else if ((x == ghost_x && y == ghost_y) && data->enemy.time_lock == false \
 														&& IMMORTAL == 0)
@@ -70,11 +71,10 @@ void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 	enemy->time_lock = false;
 	while (i < ENEMYCOUNT)
 	{
-		if (i != enemy->excep[i])
-		{
+		if (enemy->excep[i] == 0)
 			death(data, x, y, i);
+		if (enemy->excep[i] == 0)
 			enemy_move(data, enemy, i);
-		}
 		i++;
 	}
 	data->count[FRAME]++;

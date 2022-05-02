@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/02 14:11:36 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/02 22:02:00 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # include <stdio.h>
 # include <signal.h>
 # define BLOK 32
-# define ENEMYCOUNT 330
+# define ENEMYCOUNT 200
 # define LIVES 100
 # define ACCEL 1
 # define ACCEL_MOD 1.3
 # define JUMP_CAP 100
 # define FATASS 10
-# define FATBOO 200
+# define FATBOO 10
 # define SPEED 18
 # define IMMORTAL 1
 # define KILL 1
@@ -59,6 +59,7 @@ typedef enum string
 	LIFE,
 	MOVE,
 	FRAME,
+	TEST,
 	STR_COUNT,
 }	t_string;
 
@@ -94,7 +95,7 @@ typedef struct image_data
 	t_enemy				enemy;
 	bool				fly;
 	mlx_texture_t		*ghost;
-	size_t				height;
+	int32_t				height;
 	mlx_image_t			*img[IMG_COUNT];
 	mlx_key_data_t		*keydata;
 	bool				jump_lock;
@@ -109,7 +110,7 @@ typedef struct image_data
 	uint8_t				startingpoint;
 	char				*str[STR_COUNT];
 	size_t				tile_move;
-	size_t				width;
+	int32_t				width;
 	xpm_t				*xpm[IMG_COUNT];
 	uint32_t			xy[2];
 }	t_imgdata;

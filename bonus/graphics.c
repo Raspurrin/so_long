@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/01 19:53:24 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/02 21:58:07 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void	hook(void	*data)
 	display_string(data2, MOVE, 10, "movement: ");
 	display_string(data2, LIFE, 200, "lives: ");
 	collect(data2, x, y);
-	// enemies(data2, &data2->enemy, x, y);
 	gravity(data2, x, y);
+	enemies(data2, &data2->enemy, x, y);
 	x = (data2->img[CHAR]->instances[0].x);
 	y = (data2->img[CHAR]->instances[0].y);
 	animation(data2, x, y);

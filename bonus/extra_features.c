@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/30 19:28:29 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/02 21:42:23 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	jump(t_imgdata *data)
 		data->accel = ACCEL;
 	else
 	{
-		if (data->accel >= JUMP_CAP || y <= 1)
+		if (data->accel >= JUMP_CAP || y - BLOK / data->accel < 0)
 			data->jump_lock = false;
 		else
 		{
