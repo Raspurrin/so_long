@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/30 19:01:41 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:09:57 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 	const size_t	x = (data->img[GHOST]->instances[i].x / BLOK);
 	const size_t	y = (data->img[GHOST]->instances[i].y / BLOK);
 
-	if (data->counter % SPEED == 0)
+	if (data->count[FRAME] % SPEED == 0)
 		enemy->move[i] = rand() % 4;
 	if (enemy->move[i] == 0 && data->map[y + 1][x] != '1')
 		data->img[GHOST]->instances[i].y += BLOK / FATBOO;
@@ -36,7 +36,7 @@ static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
 
 	if (y == (ghost_y - 1) && x == ghost_x && KILL == 1)
 	{
-		if (data->map[y - 1][x] != '1' && y - 1 > 1)
+		if (data->map[y][x] != '1')
 			data->img[CHAR]->instances[0].y -= BLOK;
 		data->img[GHOST]->instances[i].x += data->width;
 		data->enemy.excep[data->enemy.excep_count++] = i;
@@ -77,27 +77,36 @@ void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 		}
 		i++;
 	}
-	data->counter++;
+	data->count[FRAME]++;
 }
 
 void	get_enemy_spawn(t_imgdata *data)
 {
 	size_t	i;
+	size_t	j;
 	size_t	index;
+	size_t	*compare;
 
 	i = 0;
+	compare = malloc(ENEMYCOUNT * sizeof(size_t));
 	while (i < ENEMYCOUNT)
 	{
 		index = (rand() % ((data->line.size + 1) * (data->line.count - 1))) \
 													+ data->line.size + 1;
-		while (data->bigass[index] != '0' && data->bigass[index])
+		j = 0;
+		while ((data->bigass[index] != '0' && data->bigass[index]))
 		{
 			index++;
 			if (!(data->bigass[index]))
 				index = 0;
 		}
+		while (index != 0 && compare[j] && compare[j] != index)
+			j++;
+		if (compare[j])
+			index = 0;
 		if (index != 0)
 		{
+			compare[i] = index;
 			data->enemy.enemy_x[i] = index % (data->line.size + 1);
 			data->enemy.enemy_y[i] = index / (data->line.size + 1);
 			i++;
@@ -105,22 +114,23 @@ void	get_enemy_spawn(t_imgdata *data)
 	}
 }
 
-bool	enemy_to_window(t_imgdata *data, \
-						size_t *x, size_t *y)
+bool	enemy_to_window(t_imgdata *data)
 {
 	size_t	i;
+	size_t	x;
+	size_t	y;
 
 	i = 0;
 	while (i < ENEMYCOUNT)
 	{
-		if (*y == data->enemy.enemy_y[i] && *x == data->enemy.enemy_x[i] \
-			&& i < ENEMYCOUNT)
-		{
-			mlx_image_to_window(data->mlx, data->img[GHOST], \
-												*x * BLOK, *y * BLOK);
-				// return (free_array(data->img, "image_to_window failed"), false);
-		}
+		x = data->enemy.enemy_x[i];
+		y = data->enemy.enemy_y[i];
+		if (x > 29 || y > 13)
+			printf("heyhey");
+		mlx_image_to_window(data->mlx, data->img[GHOST], \
+												x * BLOK, y * BLOK);
 		i++;
+		// return (free_array(data->img, "image_to_window failed"), false);
 	}
 	return (true);
 }

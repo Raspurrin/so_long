@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/30 15:21:21 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/30 19:28:12 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef enum string
 {
 	LIFE,
 	MOVE,
+	FRAME,
 	STR_COUNT,
 }	t_string;
 
@@ -58,15 +59,12 @@ typedef struct line
 	size_t	size;
 }	t_line;
 
-
-
 typedef struct image_data
 {
 	float				accel;
 	char				*bigass;
 	size_t				blok;
 	uint32_t			char_start;
-	size_t				counter;
 	size_t				collect;
 	char				*combstr[STR_COUNT];
 	int32_t				count[STR_COUNT];
@@ -88,7 +86,6 @@ typedef struct image_data
 	uint8_t				startingpoint;
 	char				*str[STR_COUNT];
 	bool				time_lock;
-	size_t				tile_move;
 	size_t				width;
 	xpm_t				*xpm[IMG_COUNT];
 	uint32_t			xy[2];

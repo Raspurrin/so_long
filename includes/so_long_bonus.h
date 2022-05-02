@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/30 17:14:32 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:11:36 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 # include <stdio.h>
 # include <signal.h>
 # define BLOK 32
-# define ENEMYCOUNT 200
+# define ENEMYCOUNT 330
 # define LIVES 100
 # define ACCEL 1
 # define ACCEL_MOD 1.3
 # define JUMP_CAP 100
 # define FATASS 10
-# define FATBOO 15
+# define FATBOO 200
 # define SPEED 18
-# define IMMORTAL 0
+# define IMMORTAL 1
 # define KILL 1
 # define GRAV 1
 
@@ -58,6 +58,7 @@ typedef enum string
 {
 	LIFE,
 	MOVE,
+	FRAME,
 	STR_COUNT,
 }	t_string;
 
@@ -74,9 +75,10 @@ typedef struct enemy
 	size_t				enemy_time;
 	size_t				enemy_x[ENEMYCOUNT];
 	size_t				enemy_y[ENEMYCOUNT];
+	size_t				excep_count;
 	size_t				excep[ENEMYCOUNT];
 	size_t				move[ENEMYCOUNT];
-	size_t				excep_count;
+	mlx_image_t			*img[ENEMYCOUNT];
 	bool				time_lock;
 }	t_enemy;
 
@@ -88,7 +90,6 @@ typedef struct image_data
 	size_t				collect;
 	char				*combstr[STR_COUNT];
 	int32_t				count[STR_COUNT];
-	size_t				counter;
 	bool				counter_lock;
 	t_enemy				enemy;
 	bool				fly;
@@ -138,7 +139,7 @@ void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod);
 void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str);
 void	end(mlx_key_data_t keydata, void *data);
 void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y);
-bool	enemy_to_window(t_imgdata *data, size_t *x, size_t *y);
+bool	enemy_to_window(t_imgdata *data);
 void	error_output(t_error *errors, t_line *line);
 void	error_close_window(t_imgdata *data, char *str);
 int32_t	find_c_instance(t_imgdata *data, size_t x_max, size_t y_max);

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/01 19:36:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ bool	images_to_window(t_imgdata *data, mlx_image_t **img, \
 											x * BLOK, y * BLOK);
 				// return (free_array(data->img, "image_to_window failed"), false);
 		}
-		enemy_to_window(data, &x, &y);
 			// return (false);
 		i++;
 	}

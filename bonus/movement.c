@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:37:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/04/30 19:21:57 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void	movement(t_imgdata *data, size_t x, size_t y)
 		data->img[CHAR]->instances[0].y -= BLOK / FATASS;
 }
 
+/**
+ * @brief Counts the movement of the character to be displayed on the screen.
+ * Checks if one whole block has been traversed before counting the movement.
+ * @param x Current x position of character.
+ * @param y Current y position of character.
+ */
 void	movecounter(t_imgdata *data, size_t x, size_t y)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) || mlx_is_key_down \
