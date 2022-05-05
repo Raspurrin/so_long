@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/02 22:06:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/04 15:10:08 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,47 @@
 
 static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 {
-	const int32_t	x = data->img[GHOST]->instances[i].x;
-	const int32_t	y = data->img[GHOST]->instances[i].y;
+	const int32_t	x = enemy->img[i]->instances[0].x;
+	const int32_t	y = enemy->img[i]->instances[0].y;
 
 	if (data->count[FRAME] % SPEED == 0)
 		enemy->move[i] = rand() % 4;
 	if (enemy->move[i] == 0 && y + (BLOK / FATBOO) < data->height - (BLOK * 2))
-		data->img[GHOST]->instances[i].y += (BLOK / FATBOO);
+		enemy->img[i]->instances[0].y += (BLOK / FATBOO);
 	else if (enemy->move[i] == 1 && y - (BLOK / FATBOO) > 0 + BLOK)
-		data->img[GHOST]->instances[i].y -= (BLOK / FATBOO);
+		enemy->img[i]->instances[0].y -= (BLOK / FATBOO);
 	else if (enemy->move[i] == 2 && x - (BLOK / FATBOO) > 0 + BLOK)
-		data->img[GHOST]->instances[i].x -= BLOK / FATBOO;
+	{
+		animate_ghosts(data, data->ghost, x, y, i);
+		enemy->img[i]->instances[0].x -= BLOK / FATBOO;
+	}
 	else if (enemy->move[i] == 3 && x + (BLOK / FATBOO) < data->width \
 														- (BLOK * 2))
-		data->img[GHOST]->instances[i].x += (BLOK / FATBOO);
+	{
+		animate_ghosts(data, data->ghost_r, x, y, i);
+		enemy->img[i]->instances[0].x += (BLOK / FATBOO);
+	}
 }
 
-static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
+static void	death(t_imgdata *data, size_t *player, t_enemy *enemy, size_t i)
 {
-	const size_t	ghost_x = (data->img[GHOST]->instances[i].x / BLOK);
-	const size_t	ghost_y = (data->img[GHOST]->instances[i].y / BLOK);
+	const size_t	ghost_x = (enemy->img[i]->instances[0].x / BLOK);
+	const size_t	ghost_y = (enemy->img[i]->instances[0].y / BLOK);
 
-	if (y == (ghost_y - 1) && x == ghost_x && KILL == 1)
+	if (player[Y] == (ghost_y - 1) && player[X] == ghost_x && KILL == 1)
 	{
-		if (y - 1 > 1)
+		if (player[Y] - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
-		data->img[GHOST]->instances[i].x += data->width;
+		enemy->img[i]->instances[0].x += data->width;
 		data->enemy.excep[i] = 1;
 	}
-	else if ((x == ghost_x && y == ghost_y) && data->enemy.time_lock == false \
+	else if ((player[X] == ghost_x && player[Y] == ghost_y) && data->enemy.time_lock == false \
 														&& IMMORTAL == 0)
 	{
 		data->enemy.enemy_time = mlx_get_time();
 		data->enemy.time_lock = true;
 		data->count[LIFE]--;
-		if (data->map[y][x - 2] != '1')
+		if (player[X] - 1 > 1)
 			data->img[CHAR]->instances[0].x -= (BLOK * 2);
 		else
 			data->img[CHAR]->instances[0].x += (BLOK * 2);
@@ -63,8 +69,11 @@ static void	death(t_imgdata *data, size_t x, size_t y, size_t i)
 void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 {
 	size_t	i;
+	size_t	player[XY];
 
 	i = 0;
+	player[X] = x;
+	player[Y] = y;
 	enemy->current_time = mlx_get_time();
 	if (enemy->time_lock == true && \
 	enemy->current_time == (enemy->enemy_time + 2))
@@ -72,7 +81,7 @@ void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 	while (i < ENEMYCOUNT)
 	{
 		if (enemy->excep[i] == 0)
-			death(data, x, y, i);
+			death(data, player, enemy, i);
 		if (enemy->excep[i] == 0)
 			enemy_move(data, enemy, i);
 		i++;
@@ -80,7 +89,7 @@ void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 	data->count[FRAME]++;
 }
 
-void	get_enemy_spawn(t_imgdata *data)
+void	get_enemy_spawn(t_imgdata *data, t_enemy *enemy)
 {
 	size_t	i;
 	size_t	j;
@@ -107,14 +116,14 @@ void	get_enemy_spawn(t_imgdata *data)
 		if (index != 0)
 		{
 			compare[i] = index;
-			data->enemy.enemy_x[i] = index % (data->line.size + 1);
-			data->enemy.enemy_y[i] = index / (data->line.size + 1);
+			enemy->x[i] = index % (data->line.size + 1);
+			enemy->y[i] = index / (data->line.size + 1);
 			i++;
 		}
 	}
 }
 
-bool	enemy_to_window(t_imgdata *data)
+bool	enemy_to_window(t_imgdata *data, t_enemy *enemy)
 {
 	size_t	i;
 	size_t	x;
@@ -123,11 +132,11 @@ bool	enemy_to_window(t_imgdata *data)
 	i = 0;
 	while (i < ENEMYCOUNT)
 	{
-		x = data->enemy.enemy_x[i];
-		y = data->enemy.enemy_y[i];
+		x = enemy->x[i];
+		y = enemy->y[i];
 		if (x > 29 || y > 13)
 			printf("heyhey");
-		mlx_image_to_window(data->mlx, data->img[GHOST], \
+		mlx_image_to_window(data->mlx, enemy->img[i], \
 												x * BLOK, y * BLOK);
 		i++;
 		// return (free_array(data->img, "image_to_window failed"), false);

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:37:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/30 19:21:57 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:07:01 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,17 @@
 
 void	movement(t_imgdata *data, size_t x, size_t y)
 {
-	// if (data->img[CHAR]->instances[0].x >= 33 && data->img[CHAR]->instances[0].x <= 63)
-	// 	x = 2;
-	// if (data->img[CHAR]->instances[0].y >= 33 && data->img[CHAR]->instances[0].y <= 63)
-	// 	y = 2;
-	// if (data->img[CHAR]->instances[0].x % BLOK > BLOK / 2)
-	// 	x++;
-	// if (data->img[CHAR]->instances[0].y % BLOK > BLOK / 2)
-	// 	y++;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) \
-						&& data->map[y + 1][x] != '1')
+						&& data->map[x + 1][x - 1] != '1')
 		data->img[CHAR]->instances[0].y += BLOK / FATASS;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_A) \
-							&& data->map[y][x] != '1')
+							&& data->map[y][x - 1] != '1')
 		data->img[CHAR]->instances[0].x -= BLOK / FATASS;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_D) \
 							&& data->map[y][x + 1] != '1')
 		data->img[CHAR]->instances[0].x += BLOK / FATASS;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_W) \
-		&& data->map[y][x] != '1' && (data->fly == true || 
+		&& data->map[y][x] != '1' && (data->fly == true || \
 		GRAV == 0))
 		data->img[CHAR]->instances[0].y -= BLOK / FATASS;
 }
@@ -43,18 +35,26 @@ void	movement(t_imgdata *data, size_t x, size_t y)
  * @param x Current x position of character.
  * @param y Current y position of character.
  */
-void	movecounter(t_imgdata *data, size_t x, size_t y)
+void	movecounter(t_imgdata *data, t_animate *animate, size_t x, size_t y)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) || mlx_is_key_down \
 		(data->mlx, MLX_KEY_D) || mlx_is_key_down \
 		(data->mlx, MLX_KEY_A) || mlx_is_key_down(data->mlx, MLX_KEY_W))
 	{	
-		if (x == data->old_x + 1 || x == data->old_x - 1 \
-			|| y == data->old_y + 1 || y == data->old_y - 1)
+		animate->length = 200;
+		animate->xy[1] = 40;
+		if (x >= data->old_x + BLOK || x <= data->old_x - BLOK \
+			|| y >= data->old_y + BLOK || y <= data->old_y - BLOK)
 		{
 			data->old_x = x;
 			data->old_y = y;
 			data->count[MOVE]++;
 		}
 	}
+	else
+	{
+		animate->length = 150;
+		animate->xy[1] = 0;
+	}
+	animate->start = data->xy[0];
 }

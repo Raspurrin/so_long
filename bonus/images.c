@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/01 19:36:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/04 18:12:47 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,18 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm)
 	data->ghost = mlx_load_png("textures/ghost_trans2.png");
 	if (!data->ghost)
 		return (ft_putendl_fd("ghost was not found", STDOUT_FILENO), false);
+	data->ghost_r = mlx_load_png("textures/ghost_right.png");
+	if (!data->ghost_r)
+		return (ft_putendl_fd("ghost_right was not found", STDOUT_FILENO), false);
 	return (true);
 }
 
 bool	texture_to_image(t_imgdata *data, xpm_t **xpm)
 {
 	const uint32_t		wh2[] = {32, 32};
+	size_t				i;		
 
+	i = 0;
 	data->xy[0] = 60;
 	data->xy[1] = 40;
 	data->char_start = data->xy[0];
@@ -75,10 +80,10 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm)
 	data->img[WALL] = mlx_texture_to_image(data->mlx, &xpm[WALL]->texture);
 	data->img[PICKUP] = mlx_texture_to_image(data->mlx, &xpm[PICKUP]->texture);
 	data->img[DOOR] = mlx_texture_to_image(data->mlx, &xpm[DOOR]->texture);
-	data->img[GHOST] = mlx_texture_to_image(data->mlx, data->ghost);
+	while (i < ENEMYCOUNT)
+		data->enemy.img[i++] = mlx_texture_to_image(data->mlx, data->ghost);
 	if (!data->img[BG] || !data->img[CHAR] || !data->img[TILE] || \
-	!data->img[WALL] || !data->img[PICKUP] || !data->img[DOOR] || \
-	!data->img[GHOST])
+	!data->img[WALL] || !data->img[PICKUP] || !data->img[DOOR]) // should put the array seperately for error messages
 		return (ft_putendl_fd("Texture to image failed", STDOUT_FILENO), false);
 	return (true);
 }
