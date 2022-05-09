@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extra_features.c                                   :+:      :+:    :+:   */
+/*   gravity_jump.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/30 19:28:29 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/09 21:51:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static void	jump(t_imgdata *data)
 {
-	size_t	y;
+	size_t	y_blok;
 
-	y = data->img[CHAR]->instances[0].y - (BLOK / data->accel);
+	// || data->map[y - 1][x] == '1')
+	y_blok = data->img[CHAR]->instances[0].y - (BLOK / data->accel);
 	if (data->jump_lock == false)
 		data->accel = ACCEL;
 	else
 	{
-		if (data->accel >= JUMP_CAP || y <= 1)
+		if (data->accel >= JUMP_CAP || y_blok - BLOK / data->accel < 0)
 			data->jump_lock = false;
 		else
 		{
@@ -49,21 +50,4 @@ void	gravity(t_imgdata *data, size_t x, size_t y)
 			data->jump_lock = true;
 			data->jump_time = mlx_get_time();
 	}
-}
-
-void	animation(t_imgdata *data, size_t x, size_t y)
-{
-	const uint32_t	wh2[] = {32, 32};
-
-	if ((data->xy[0] - data->char_start) == 200)
-		data->xy[0] = data->char_start;
-	mlx_delete_image(data->mlx, data->img[CHAR]);
-	data->img[CHAR] = mlx_texture_area_to_image(data->mlx, \
-						&data->xpm[CHAR]->texture, data->xy, (uint32_t *)wh2);
-	mlx_image_to_window(data->mlx, data->img[CHAR], x, y);
-	// (free_close_window(data, data->img[CHAR], "image_to_window failed"));
-	mlx_set_instance_depth(data->img[CHAR]->instances, 200);
-	if (data->count[FRAME] % 5 == 0)
-		data->xy[0] += 50;
-	data->count[FRAME]++;
 }

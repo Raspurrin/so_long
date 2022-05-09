@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/05 16:37:05 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/10 00:36:02 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <stdio.h>
 # include <signal.h>
 # define BLOK 32
-# define ENEMYCOUNT 0
+# define GHOSTCOUNT 2
+# define PINKCOUNT 0
 # define LIVES 5
 # define ACCEL 1
 # define ACCEL_MOD 1.3
@@ -27,7 +28,7 @@
 # define FATBOO 10
 # define SPEED 18
 # define IMMORTAL 0
-# define KILL 1
+# define KILL 0
 # define GRAV 1
 
 typedef enum move
@@ -41,17 +42,19 @@ typedef enum mlx_images
 {
 	STRLIFE,
 	STRMOVE,
+	PICKUP,
 	CHAR,
-	SLIME,
-	BG,
+	DOOR,
 	TILE,
 	WALL,
-	PICKUP,
+	SLIME,
+	BG,
 	BRICK,
-	DOOR,
 	GHOST,
 	SCREEN,
 	GREY,
+	RED,
+	PINK,
 	IMG_COUNT,
 }	t_images;
 
@@ -80,14 +83,15 @@ typedef struct animate
 typedef struct enemy
 {
 	size_t				current_time;
-	size_t				enemy_max;
-	size_t				enemy_time;
-	size_t				x[ENEMYCOUNT];
-	size_t				y[ENEMYCOUNT];
+	// size_t				pinkrand[PINKCOUNT];
+	size_t				max;
+	size_t				time;
+	int32_t				x[GHOSTCOUNT];
+	int32_t				y[GHOSTCOUNT];
 	size_t				excep_count;
-	size_t				excep[ENEMYCOUNT];
-	size_t				move[ENEMYCOUNT];
-	mlx_image_t			*img[ENEMYCOUNT];
+	size_t				excep[GHOSTCOUNT];
+	size_t				move[GHOSTCOUNT];
+	mlx_image_t			*img[GHOSTCOUNT];
 	bool				time_lock;
 }	t_enemy;
 
@@ -147,6 +151,7 @@ void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, size_t x, size_t y, s
 bool	check_ext(char *file_name, char *ext);
 void	check_player_amount(t_error *errors, t_imgdata *data);
 void	collect(t_imgdata *data, size_t x, size_t y);
+void	colour_screen(t_imgdata *data, int32_t macro, int32_t colour);
 void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod);
 void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str);
 void	end(mlx_key_data_t keydata, void *data);
@@ -161,9 +166,9 @@ void	free_close_window(t_imgdata *data, void *var, char *str);
 void	gravity(t_imgdata *data, size_t x, size_t y);
 size_t	getncount(char *str, uint8_t chr);
 size_t	getncount(char *str, uint8_t chr);
-void	get_enemy_spawn(t_imgdata *data, t_enemy *enemy);
+void	get_ghost_spawn(t_imgdata *data);
 int32_t	graphics(t_imgdata *data, t_line *line);
-bool	images_to_window(t_imgdata *data, mlx_image_t **img, size_t i);
+bool	images_to_window(t_imgdata *data, size_t i);
 char	**input_handler(int32_t fd, t_imgdata *data, \
 						t_line *line, t_enemy *enemy);
 bool	loading_images(t_imgdata *data, xpm_t **xpm);

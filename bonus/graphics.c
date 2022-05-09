@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/05 16:39:27 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/10 00:16:23 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,24 @@ static void	hook(void	*data)
 
 	x = (data2->img[CHAR]->instances[0].x / BLOK);
 	y = (data2->img[CHAR]->instances[0].y / BLOK);
-	movement(data2, x, y);
-	collect(data2, x, y);
-	gravity(data2, x, y);
-	enemies(data2, &data2->enemy, x, y);
-	x = (data2->img[CHAR]->instances[0].x);
-	y = (data2->img[CHAR]->instances[0].y);
-	movecounter(data2, &data2->animate, x, y);
-	display_string(data2, MOVE, 10, "movement: ");
-	display_string(data2, LIFE, 200, "lives: ");
-	animation(data2, &data2->animate, x, y);
+	if (data2->count[LIFE] == 0)
+	{
+		display_message(data, true, 3.5, 3);
+		mlx_key_hook(data2->mlx, &end, data);
+	}
+	else
+	{
+		movement(data2, x, y);
+		collect(data2, x, y);
+		gravity(data2, x, y);
+		enemies(data2, &data2->enemy, x, y);
+		x = (data2->img[CHAR]->instances[0].x);
+		y = (data2->img[CHAR]->instances[0].y);
+		movecounter(data2, &data2->animate, x, y);
+		display_string(data2, STRMOVE, 10, "movement: ");
+		display_string(data2, STRLIFE, 200, "lives: ");
+		animation(data2, &data2->animate, x, y);
+	}
 	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(data2->mlx);
@@ -51,7 +59,7 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 {
 	if (!(windowdisplay(data, line)) || !(loading_images(data, data->xpm)) || \
 		!(texture_to_image(data, data->xpm)) || \
-		!(images_to_window(data, data->img, 0)) || \
+		!(images_to_window(data, 0)) || \
 		!(enemy_to_window(data, &data->enemy)))
 		return (0);
 	init(data);
