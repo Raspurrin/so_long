@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:49:47 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 17:20:46 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:08:55 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ void	animation(t_imgdata *data, t_animate *animate, size_t x, size_t y)
 }
 
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
-								size_t x, size_t y, size_t i)
+								t_enemy *enemy, size_t i)
 {
 	mlx_delete_image(data->mlx, data->enemy.img[i]);
 	data->enemy.img[i] = mlx_texture_to_image(data->mlx, ghost);
-	mlx_image_to_window(data->mlx, data->enemy.img[i], x, y);
+	mlx_image_to_window(data->mlx, data->enemy.img[i], \
+							enemy->x[0], enemy->y[0]);
 	mlx_set_instance_depth(data->enemy.img[i]->instances, i + 100);
 }

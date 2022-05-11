@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 19:55:46 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:14:06 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 		enemy->img[i]->instances[0].y -= (BLOK / FATBOO);
 	else if (enemy->move[i] == 2 && enemy->x[0] - (BLOK / FATBOO) > 0 + BLOK)
 	{
-		animate_ghosts(data, data->ghost, enemy->x[0], enemy->y[0], i);
+		animate_ghosts(data, data->ghost, enemy, i);
 		enemy->img[i]->instances[0].x -= BLOK / FATBOO;
 	}
 	else if (enemy->move[i] == 3 && enemy->x[0] + (BLOK / FATBOO) < data->width \
 														- (BLOK * 2))
 	{
-		animate_ghosts(data, data->ghost_r, enemy->x[0], enemy->y[0], i);
+		animate_ghosts(data, data->ghost_r, enemy, i);
 		enemy->img[i]->instances[0].x += (BLOK / FATBOO);
 	}
 }
@@ -47,27 +47,34 @@ static void	kill_enemy(t_imgdata *data, int32_t *player, \
 	}
 }
 
-// ((player[X] == (enemy->x[1] + 1) || player[X] == (enemy->x[1] - 1)) \
-// 		&& player[Y] == enemy->y[1]) ||
-
 static void	death(t_imgdata *data, int32_t *player, t_enemy *enemy, size_t i)
 {
 	enemy->x[1] = enemy->x[0] / BLOK;
 	enemy->y[1] = enemy->y[0] / BLOK;
-	printf("player[X]: %d, player[Y]: %d\nx: %d, y: %d\n", player[X], player[Y], enemy->x[1], enemy->y[1]);
 	kill_enemy(data, player, enemy, i);
 	if ((player[X] == enemy->x[1] && player[Y] == enemy->y[1]) \
 		&& data->enemy.time_lock == false && IMMORTAL == 0)
 	{
 		data->jump_lock = false;
-		printf("yo time_lock == %d\n", data->enemy.time_lock);
 		enemy->time = mlx_get_time();
 		enemy->time_lock = true;
 		data->count[LIFE]--;
-		// if (player[X] - 1 > 1)
-		// 	data->img[CHAR]->instances[0].x -= (BLOK * 2);
-		// else
-		// 	data->img[CHAR]->instances[0].x += (BLOK * 2);
+	}
+}
+
+void	red_filter(t_imgdata *data, t_enemy *enemy)
+{
+	enemy->current_time = mlx_get_time();
+	if (enemy->time_lock == true && !data->img[RED])
+		colour_screen(data, RED, 0xFF000033);
+	else if (enemy->time_lock == true && data->img[RED])
+		data->img[RED]->enabled = true;
+	if (enemy->time_lock == true && \
+	enemy->current_time >= (enemy->time + 1))
+	{
+		enemy->time_lock = false;
+		if (data->img[RED])
+			data->img[RED]->enabled = false;
 	}
 }
 
@@ -79,18 +86,7 @@ void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 	i = 0;
 	player[X] = x;
 	player[Y] = y;
-	enemy->current_time = mlx_get_time();
-	if (data->enemy.time_lock == true && !data->img[RED])
-		colour_screen(data, RED, 0xFF000033);
-	else if (data->enemy.time_lock == true && data->img[RED])
-		data->img[RED]->enabled = true;
-	if (enemy->time_lock == true && \
-	enemy->current_time >= (enemy->time + 1))
-	{
-		enemy->time_lock = false;
-		if (data->img[RED])
-			data->img[RED]->enabled = false;
-	}
+	red_filter(data, enemy);
 	while (i < GHOSTCOUNT)
 	{
 		enemy->x[0] = (enemy->img[i]->instances[0].x);

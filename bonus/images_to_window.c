@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/08 22:03:30 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:15:32 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ bool	images_to_window(t_imgdata *data, size_t i)
 	size_t	y;
 	int32_t	macro;
 
-	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
-		return (free_close_window(data, data->img[BG], \
-						"image_to_window failed"), 0);
 	while (data->bigass[i])
 	{
 		macro = DOOR + 1;

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 19:55:24 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:16:43 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 		!(images_to_window(data, 0)) || \
 		!(enemy_to_window(data, &data->enemy)))
 		return (0);
+	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
+		return (free_close_window(data, data->img[BG], \
+						"image_to_window failed"), 0);
+	mlx_set_instance_depth(data->img[BG]->instances, -999);
 	init(data);
 	data->pid = fork();
 	if (data->pid == 0)

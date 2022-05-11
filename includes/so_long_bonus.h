@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 19:22:36 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:07:45 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,8 @@ typedef struct error_cases
  * @return NULL
  */
 void	animation(t_imgdata *data, t_animate *animate, size_t x, size_t y);
-void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, size_t x, size_t y, size_t i);
+void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
+								t_enemy *enemy, size_t i);
 bool	check_ext(char *file_name, char *ext);
 void	check_player_amount(t_error *errors, t_imgdata *data);
 void	collect(t_imgdata *data, size_t x, size_t y);

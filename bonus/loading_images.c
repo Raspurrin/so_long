@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 17:22:12 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:18:43 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm)
 	data->img[PINK] = mlx_texture_to_image(data->mlx, &xpm[PINK]->texture);
 	while (i < GHOSTCOUNT)
 	{
-		data->enemy.img[i++] = mlx_texture_to_image(data->mlx, data->ghost);
-		// if (!data->enemy.img[i])
-		// 	return (ft_putendl_fd("Texture failed", STDOUT_FILENO), false);
+		data->enemy.img[i] = mlx_texture_to_image(data->mlx, data->ghost);
+		if (!data->enemy.img[i++])
+			return (ft_putendl_fd("Texture failed", STDOUT_FILENO), false);
 	}
 	if (!data->img[BG] || !data->img[CHAR] || !data->img[TILE] || \
 	!data->img[WALL] || !data->img[PICKUP] || !data->img[DOOR])
