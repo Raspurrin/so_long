@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 20:07:45 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:37:29 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,19 @@
 # include <stdio.h>
 # include <signal.h>
 # define BLOK 32
-# define GHOSTCOUNT 20
+# define GHOSTCOUNT 200
 # define PINKCOUNT 0
 # define LIVES 3
 # define ACCEL 1
 # define ACCEL_MOD 1.3
 # define JUMP_CAP 100
 # define FATASS 10
-# define FATBOO 10
+# define FATBOO 200
 # define SPEED 18
 # define IMMORTAL 0
 # define KILL 1
 # define GRAV 1
+# define BUFFERSIZE 30
 
 typedef enum move
 {
@@ -162,7 +163,7 @@ void	error_output(t_error *errors, t_line *line);
 void	error_close_window(t_imgdata *data, char *str);
 int32_t	find_c_instance(t_imgdata *data, size_t x_max, size_t y_max);
 void	free_2d(char **map);
-bool	free_array(void *arr, char *str);
+bool	free_array(mlx_image_t **arr, char *str, t_imgdata *data);
 void	free_close_window(t_imgdata *data, void *var, char *str);
 void	gravity(t_imgdata *data, size_t x, size_t y);
 size_t	getncount(char *str, uint8_t chr);

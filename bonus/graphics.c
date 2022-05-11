@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 20:16:43 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 20:50:00 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 		mlx_delete_image(data->mlx, data->img[SCREEN]);
 		mlx_terminate(data->mlx);
 	}
+	free_2d(data->map);
 	return (0);
 }

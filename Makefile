@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/05/09 21:51:36 by mialbert         ###   ########.fr        #
+#    Updated: 2022/05/11 23:41:29 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ $(NAME) : $(BONUS)
 	$(MAKE) -C ./libs/MLX42
 	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX42/include \
 	-framework Cocoa -framework OpenGL, -framework IOKit $(BONUS) ./libs/MLX42/libmlx42.a \
-	 ./libs/libft/srcs/libft.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" -o $(NAME)
+	 ./libs/libft/srcs/libft.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/" -fsanitize=leak -o $(NAME)
 
 # -fsanitize=address
 # ./libs/MLX42/lib-x86_64/libglfw3.a

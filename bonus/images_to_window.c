@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 20:15:32 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 21:01:21 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ bool	walls_and_tiles(t_imgdata *data, size_t i, size_t x, size_t y)
 		{
 			if (mlx_image_to_window(data->mlx, data->img[WALL], \
 												x * BLOK, y * BLOK) == -1)
-				return (free_array(data->img, "image_to_window failed"), false);
+				return (free_array(data->img, "image_to_window failed", data), false);
 		}
 		else
 			if (mlx_image_to_window(data->mlx, data->img[TILE], \
 												x * BLOK, y * BLOK) == -1)
-				return (free_array(data->img, "image_to_window failed"), false);
+				return (free_array(data->img, "image_to_window failed", data), false);
 	}
 	return (true);
 }
@@ -38,7 +38,7 @@ static bool	images_to_window2(t_imgdata *data, size_t x, size_t y, \
 	{
 		if (mlx_image_to_window(data->mlx, data->img[macro], \
 												x * BLOK, y * BLOK) == -1)
-			return (free_array(data->img, "image_to_window failed"), false);
+			return (free_array(data->img, "image_to_window failed", data), false);
 	}
 	return (true);
 }
@@ -85,8 +85,9 @@ bool	enemy_to_window(t_imgdata *data, t_enemy *enemy)
 		y = enemy->y[i];
 		if (mlx_image_to_window(data->mlx, enemy->img[i], \
 												x * BLOK, y * BLOK) == -1)
-			return (free_array(data->img, "image_to_window failed"), false);
+			return (free_array(data->img, "image_to_window failed", data), false);
 		i++;
 	}
 	return (true);
 }
+

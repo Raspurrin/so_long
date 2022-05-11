@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 20:18:43 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 22:55:16 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ static bool	loading_images2(t_imgdata *data, xpm_t **xpm)
 	xpm[CHAR] = mlx_load_xpm42("textures/main.xpm42");
 	if (!xpm[CHAR])
 		return (ft_putendl_fd("char was not found", STDOUT_FILENO), false);
-	xpm[PINK] = mlx_load_xpm42("textures/pink_monster.xpm42");
-	if (!xpm[PINK])
-		return (ft_putendl_fd("pink was not found", STDOUT_FILENO), false);
 	data->ghost = mlx_load_png("textures/ghost_trans2.png");
 	if (!data->ghost)
 		return (ft_putendl_fd("ghost was not found", STDOUT_FILENO), false);
@@ -90,7 +87,6 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm)
 	data->img[WALL] = mlx_texture_to_image(data->mlx, &xpm[WALL]->texture);
 	data->img[PICKUP] = mlx_texture_to_image(data->mlx, &xpm[PICKUP]->texture);
 	data->img[DOOR] = mlx_texture_to_image(data->mlx, &xpm[DOOR]->texture);
-	data->img[PINK] = mlx_texture_to_image(data->mlx, &xpm[PINK]->texture);
 	while (i < GHOSTCOUNT)
 	{
 		data->enemy.img[i] = mlx_texture_to_image(data->mlx, data->ghost);

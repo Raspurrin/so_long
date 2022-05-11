@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 23:11:37 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/08 23:11:45 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:38:32 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_ghost_spawn(t_imgdata *data)
 	size_t	*compare;
 
 	i = 0;
-	compare = malloc(GHOSTCOUNT * sizeof(size_t));
+	compare = calloc(GHOSTCOUNT, sizeof(size_t));
 	while (i < GHOSTCOUNT)
 	{
 		index = (rand() % ((data->line.size + 1) * (data->line.count - 1))) \
@@ -50,6 +50,7 @@ void	get_ghost_spawn(t_imgdata *data)
 			index = 0;
 		i = index_to_xy(data, compare, index, i);
 	}
+	free(compare);
 }
 
 // void	get_pink_spawn(t_imgdata *data, t_enemy *enemy, t_line, *line)

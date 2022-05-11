@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/09 21:00:34 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 22:59:23 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ static size_t	check_if_rectangular(char **map, t_line *line, \
 		if (line->size != ft_strlen(map[i]))
 			errors->rectangular = true;
 	}
+	line->count = ft_strlen(map[i]);
 	if (line->size == i)
 		errors->rectangular = true;
 	return (i);

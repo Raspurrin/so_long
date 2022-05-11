@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/08 19:44:31 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 21:10:02 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int32_t	main(int32_t argc, char **argv)
 		return (ft_putendl_fd("Error\nNot enough arguments dude", \
 				STDOUT_FILENO), EXIT_FAILURE);
 	get_ghost_spawn(&data);
-	graphics(&data, &data.line);
+	if (!graphics(&data, &data.line))
+		free_2d(data.map);
 	return (0);
 }

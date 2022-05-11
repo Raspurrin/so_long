@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:46:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 21:06:52 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ void	free_2d(char **map)
 	return ;
 }
 
-bool	free_array(void *arr, char *str)
-{
-	char	*arr2;
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
 
-	arr2 = (char *)arr;
+bool	free_array(mlx_image_t **arr, char *str, t_imgdata *data)
+{
 	ft_putendl_fd("Error", STDOUT_FILENO);
 	ft_putendl_fd(str, STDOUT_FILENO);
 	while (arr)
@@ -37,6 +38,7 @@ bool	free_array(void *arr, char *str)
 		free(arr);
 		arr++;
 	}
+	free_2d(data->map);
 	return (false);
 }
 
@@ -70,3 +72,10 @@ size_t	getncount(char *str, uint8_t chr)
 	}
 	return (count);
 }
+
+// int32_t	main(void)
+// {
+// 	int arr[] = {1, 40, 3};
+// 	free_array(arr, "something was fucked");
+// 	return (0);
+// }
