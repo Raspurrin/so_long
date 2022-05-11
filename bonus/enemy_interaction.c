@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/10 01:06:13 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 19:55:46 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 static void	kill_enemy(t_imgdata *data, int32_t *player, \
 								t_enemy *enemy, size_t i)
 {
-	if (player[Y] == (enemy->y[1] - 1) && player[X] == enemy->x[1] && KILL == 1)
+	if (player[Y] == (enemy->y[1] - 1) && player[X] == enemy->x[1] && KILL == 1 \
+		&& data->enemy.time_lock == false)
 	{
 		if (player[Y] - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
@@ -46,17 +47,20 @@ static void	kill_enemy(t_imgdata *data, int32_t *player, \
 	}
 }
 
-// ((player[X] == (enemy->x[1] + 1) || player[X] == (enemy->x[1] - 1)) 
-// 	&& player[Y] == enemy->y[1]) || ((player[Y] == (enemy->y[1] + 1) || 
+// ((player[X] == (enemy->x[1] + 1) || player[X] == (enemy->x[1] - 1)) \
+// 		&& player[Y] == enemy->y[1]) ||
 
 static void	death(t_imgdata *data, int32_t *player, t_enemy *enemy, size_t i)
 {
 	enemy->x[1] = enemy->x[0] / BLOK;
-	enemy->x[1] = enemy->y[0] / BLOK;
+	enemy->y[1] = enemy->y[0] / BLOK;
+	printf("player[X]: %d, player[Y]: %d\nx: %d, y: %d\n", player[X], player[Y], enemy->x[1], enemy->y[1]);
 	kill_enemy(data, player, enemy, i);
-	if (player[X] == enemy->x[1] && player[Y] == enemy->y[1] \
+	if ((player[X] == enemy->x[1] && player[Y] == enemy->y[1]) \
 		&& data->enemy.time_lock == false && IMMORTAL == 0)
 	{
+		data->jump_lock = false;
+		printf("yo time_lock == %d\n", data->enemy.time_lock);
 		enemy->time = mlx_get_time();
 		enemy->time_lock = true;
 		data->count[LIFE]--;
@@ -81,7 +85,7 @@ void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 	else if (data->enemy.time_lock == true && data->img[RED])
 		data->img[RED]->enabled = true;
 	if (enemy->time_lock == true && \
-	enemy->current_time >= (enemy->time + 2))
+	enemy->current_time >= (enemy->time + 1))
 	{
 		enemy->time_lock = false;
 		if (data->img[RED])

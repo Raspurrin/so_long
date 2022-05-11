@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/10 00:16:23 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 19:55:24 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ static void	init(t_imgdata *data)
 	data->animate.xy[0] = 60;
 }
 
+static void	end_message(t_imgdata *data)
+{
+	if (data->count[LIFE] <= 0)
+		display_message(data, true, 3.5, 3);
+	else
+		display_message(data, false, 3, 3);
+	mlx_key_hook(data->mlx, &end, data);
+}
+
 static void	hook(void	*data)
 {
 	t_imgdata *const	data2 = data;
@@ -30,11 +39,9 @@ static void	hook(void	*data)
 
 	x = (data2->img[CHAR]->instances[0].x / BLOK);
 	y = (data2->img[CHAR]->instances[0].y / BLOK);
-	if (data2->count[LIFE] == 0)
-	{
-		display_message(data, true, 3.5, 3);
-		mlx_key_hook(data2->mlx, &end, data);
-	}
+	if (data2->count[LIFE] <= 0 || \
+		(data2->map[y][x] == 'E' && data2->collect == 0))
+		end_message(data2);
 	else
 	{
 		movement(data2, x, y);
@@ -47,11 +54,6 @@ static void	hook(void	*data)
 		display_string(data2, STRMOVE, 10, "movement: ");
 		display_string(data2, STRLIFE, 200, "lives: ");
 		animation(data2, &data2->animate, x, y);
-	}
-	if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
-	{
-		mlx_close_window(data2->mlx);
-		kill(0, SIGKILL);
 	}
 }
 

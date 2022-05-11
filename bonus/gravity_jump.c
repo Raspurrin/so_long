@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/09 21:51:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 19:39:19 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	jump(t_imgdata *data)
 {
 	size_t	y_blok;
 
-	// || data->map[y - 1][x] == '1')
 	y_blok = data->img[CHAR]->instances[0].y - (BLOK / data->accel);
 	if (data->jump_lock == false)
 		data->accel = ACCEL;

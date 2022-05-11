@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 17:04:37 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ void	collect(t_imgdata *data, size_t x, size_t y)
 		data->map[y][x] = 'K';
 		mlx_set_instance_depth(&data->img[PICKUP]->instances[i], -1);
 		data->collect--;
-	}
-	if ((data->map[y][x] == 'E' && data->collect == 0))
-	{
-		display_message(data, false, 3, 3);
-		mlx_key_hook(data->mlx, &end, data);
 	}
 }
 

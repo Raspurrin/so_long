@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:20:48 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/29 03:21:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 17:31:09 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ char	*read_file(int32_t fd)
 	while (buflen > 0)
 	{
 		buflen = read(fd, buf, 500);
-		// if (buflen < 0)
-		// {
-		// 	free (line);
-		// 	free (buf);
-		// 	return (NULL);
-		// }
+		if (buflen <= 0)
+			free (buf);
+		if (buflen < 0)
+			return (NULL);
 		buf[buflen] = '\0';
 		line = gnl_strjoin(line, buf);
 	}

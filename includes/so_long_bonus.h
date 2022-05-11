@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/10 00:36:02 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 19:22:36 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include <stdio.h>
 # include <signal.h>
 # define BLOK 32
-# define GHOSTCOUNT 2
+# define GHOSTCOUNT 20
 # define PINKCOUNT 0
-# define LIVES 5
+# define LIVES 3
 # define ACCEL 1
 # define ACCEL_MOD 1.3
 # define JUMP_CAP 100
@@ -28,7 +28,7 @@
 # define FATBOO 10
 # define SPEED 18
 # define IMMORTAL 0
-# define KILL 0
+# define KILL 1
 # define GRAV 1
 
 typedef enum move
@@ -86,8 +86,8 @@ typedef struct enemy
 	// size_t				pinkrand[PINKCOUNT];
 	size_t				max;
 	size_t				time;
-	int32_t				x[GHOSTCOUNT];
-	int32_t				y[GHOSTCOUNT];
+	int32_t				x[GHOSTCOUNT + 1];
+	int32_t				y[GHOSTCOUNT + 1];
 	size_t				excep_count;
 	size_t				excep[GHOSTCOUNT];
 	size_t				move[GHOSTCOUNT];

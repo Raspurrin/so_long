@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:49:47 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/10 00:03:09 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 17:20:46 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	animation(t_imgdata *data, t_animate *animate, size_t x, size_t y)
 		animate->xy[0] = animate->start;
 	mlx_delete_image(data->mlx, data->img[CHAR]);
 	data->img[CHAR] = mlx_texture_area_to_image(data->mlx, \
-						&data->xpm[CHAR]->texture, animate->xy, (uint32_t *)wh2);
-	mlx_image_to_window(data->mlx, data->img[CHAR], x, y);
-	// (free_close_window(data, data->img[CHAR], "image_to_window failed"));
+					&data->xpm[CHAR]->texture, animate->xy, (uint32_t *)wh2);
+	if (mlx_image_to_window(data->mlx, data->img[CHAR], x, y) == -1)
+		(free_close_window(data, data->img[CHAR], "image_to_window failed"));
 	mlx_set_instance_depth(data->img[CHAR]->instances, GHOSTCOUNT + 100);
 	if (data->count[FRAME] % 5 == 0)
 		animate->xy[0] += 50;
