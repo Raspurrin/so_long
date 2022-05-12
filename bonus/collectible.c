@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 17:04:37 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:36:12 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	end(mlx_key_data_t keydata, void *data)
 
 	if (mlx_is_key_down(data2->mlx, keydata.key))
 		mlx_close_window(data2->mlx);
+	kill(data2->pid, SIGKILL);
+	exit(0);
 }
 
 void	collect(t_imgdata *data, size_t x, size_t y)

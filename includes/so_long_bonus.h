@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 23:37:29 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/11 23:59:33 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 # define BLOK 32
 # define GHOSTCOUNT 200
 # define PINKCOUNT 0
-# define LIVES 3
+# define LIVES 1
 # define ACCEL 1
 # define ACCEL_MOD 1.3
 # define JUMP_CAP 100
 # define FATASS 10
-# define FATBOO 200
+# define FATBOO 10
 # define SPEED 18
 # define IMMORTAL 0
 # define KILL 1

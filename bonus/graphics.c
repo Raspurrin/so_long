@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 20:50:00 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/12 03:24:56 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ static void	hook(void	*data)
 
 int32_t	graphics(t_imgdata *data, t_line *line)
 {
+	char	*args[] = {"/usr/bin/afplay", "--volume", "1", \
+			"/Users/mialbert/Documents/test/audio/scape.mp3", NULL};
+
 	if (!(windowdisplay(data, line)) || !(loading_images(data, data->xpm)) || \
 		!(texture_to_image(data, data->xpm)) || \
 		!(images_to_window(data, 0)) || \
@@ -71,8 +74,7 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 	init(data);
 	data->pid = fork();
 	if (data->pid == 0)
-		system("afplay --volume 0 \
-				/Users/mialbert/Documents/test/audio/scape.mp3");
+		execvp(args[0], args);
 	else
 	{
 		if (!(mlx_loop_hook(data->mlx, &hook, data)))
@@ -83,5 +85,6 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 		mlx_terminate(data->mlx);
 	}
 	free_2d(data->map);
+	// free(data->bigass);
 	return (0);
 }

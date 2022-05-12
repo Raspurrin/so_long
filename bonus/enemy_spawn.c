@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 23:11:37 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 23:38:32 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/12 03:18:19 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,35 +52,3 @@ void	get_ghost_spawn(t_imgdata *data)
 	}
 	free(compare);
 }
-
-// void	get_pink_spawn(t_imgdata *data, t_enemy *enemy, t_line, *line)
-// {
-// 	size_t	i;
-// 	size_t	j;
-// 	size_t	index;
-// 	size_t	*compare;
-
-// 	i = 0;
-// 	j = 0;
-// 	compare = malloc(PINKCOUNT * sizeof(size_t));
-// 	while (data->bigass[i])
-// 	{
-// 		if (data->bigass[i] == '1' && data->bigass[i - line.size + 1] == '0')
-// 			pinkrand[j++] = data->bigass[i];
-// 		i++;
-// 	}
-// 	i = 0;
-// 	j = 0;
-// 	while (i < PINKCOUNT)
-// 	{
-// 		index = rand() % PINKCOUNT;
-// 		while (compare[j] && compare[j] != index)
-// 			j++;
-// 		if (compare[j])
-// 			index = 0;
-// 		if (index != 0)
-// 		{
-// 		}
-// 	}
-// 	// array with random 
-// }
