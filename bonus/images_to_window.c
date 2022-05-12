@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 21:01:21 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/12 15:36:21 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,3 @@ bool	enemy_to_window(t_imgdata *data, t_enemy *enemy)
 	}
 	return (true);
 }
-

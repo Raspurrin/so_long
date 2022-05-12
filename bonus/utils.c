@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:46:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 21:06:52 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/12 15:34:45 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ void	free_2d(char **map)
 	}
 	return ;
 }
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
 
 bool	free_array(mlx_image_t **arr, char *str, t_imgdata *data)
 {
