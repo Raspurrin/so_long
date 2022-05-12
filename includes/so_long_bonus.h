@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 23:59:33 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/13 00:24:15 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 # include "libft.h"
 # include "MLX42/MLX42.h"
+# include <stdlib.h>
 # include <stdio.h>
 # include <signal.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # define BLOK 32
 # define GHOSTCOUNT 200
 # define PINKCOUNT 0

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/04/30 19:28:12 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/13 00:24:19 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "MLX42/MLX42.h"
 # include <stdio.h>
 # include <signal.h>
+# include <stdlib.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # define BLOK 32
 # define ACCEL 1
 # define ACCEL_MOD 1.3
