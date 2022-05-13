@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/05/13 22:56:07 by mialbert         ###   ########.fr        #
+#    Updated: 2022/05/13 22:59:16 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,10 @@ Linux:
 	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX/include \
 	 $(BONUS) ./libs/MLX/libmlx42.a -ldl -lglfw \
 	 ./libs/libft/srcs/libft.a ./libs/MLX/lib/libglfw3.a -L "/Users/$(USER)/.brew/opt/glfw/lib/" -fsanitize=address -o $(NAME)
+
+install linux: 
+	sudo apt update 
+	sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 
 # -fsanitize=address
 # ./libs/MLX42/lib-x86_64/libglfw3.a
