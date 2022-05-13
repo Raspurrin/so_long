@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/05/13 14:37:23 by mialbert         ###   ########.fr        #
+#    Updated: 2022/05/13 17:55:32 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,14 +31,21 @@ BONUS =	./libs/libft/srcs/*.c \
 		./bonus/animation.c
 
 all : $(NAME)
+OS := $(shell uname -s)
 
-$(NAME) : $(BONUS)
+$(NAME) : $(BONUS) $(OS)
 	$(MAKE) -C ./libs/libft/srcs
-	$(MAKE) -C ./libs/MLX42
-	
-	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX42/include \
-	-framework Cocoa -framework OpenGL, -framework IOKit $(BONUS) ./libs/MLX42/libmlx42.a \
-	 ./libs/libft/srcs/libft.a ./libs/libglfw3.a -L "/Users/$(USER)/.brew/opt/glfw/lib/" -fsanitize=address -o $(NAME)
+	$(MAKE) -C ./libs/MLX
+
+Darwin:
+	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX/include \
+	-framework Cocoa -framework OpenGL, -framework IOKit $(BONUS) ./libs/MLX/libmlx42.a \
+	 ./libs/libft/srcs/libft.a ./libs/MLX/lib/libglfw3.a -L "/Users/$(USER)/.brew/opt/glfw/lib/" -fsanitize=address -o $(NAME)
+
+Linux: 
+	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX/include \
+	-framework Cocoa -framework OpenGL, -framework IOKit $(BONUS) ./libs/MLX/libmlx42.a \
+	 ./libs/libft/srcs/libft.a ./libs/MLX/lib/libglfw3.a -L "/Users/$(USER)/.brew/opt/glfw/lib/" -fsanitize=address -o $(NAME)
 
 # -fsanitize=address
 # ./libs/MLX42/lib-x86_64/libglfw3.a
