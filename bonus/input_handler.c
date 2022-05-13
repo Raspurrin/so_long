@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/12 03:20:18 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/13 18:00:17 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,8 @@ static bool	check_walls(char **map, t_line *line, \
 static bool	check_cases(t_error *errors, t_imgdata *data)
 {
 	size_t	i;
-	size_t	count;
-	size_t	collect;
 
 	i = 0;
-	count = 0;
-	collect = 0;
 	check_player_amount(errors, data);
 	if (!(ft_strchr(data->bigass, 'C')) || !(ft_strchr(data->bigass, 'P')) \
 	|| !(ft_strchr(data->bigass, 'E')))
