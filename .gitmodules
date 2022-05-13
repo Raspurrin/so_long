@@ -1,3 +1,6 @@
 [submodule "libs/libft"]
 	path = libs/libft
 	url = https://github.com/Raspurrin/libft
+[submodule "libs/MLX"]
+	path = libs/MLX
+	url = https://github.com/Raspurrin/MLX42
