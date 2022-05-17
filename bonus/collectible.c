@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 01:59:09 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 02:10:26 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	collect(t_imgdata *data, size_t x, size_t y)
 	i = 0;
 	if (data->map[y][x] == 'C')
 	{
-		i = find_c_instance((t_imgdata *)data, x, y);
+		i = find_c_instance((t_imgdata *)data, y * (data->line.size + 1) + x);
 		data->map[y][x] = 'K';
 		mlx_set_instance_depth(&data->img[PICKUP]->instances[i], -1000);
 		data->collect--;
@@ -37,27 +37,20 @@ void	collect(t_imgdata *data, size_t x, size_t y)
  * itterates through the map and counts every occurance of the collectibles
  * until the position of the collectible that was interacted with.
  */
-int32_t	find_c_instance(t_imgdata *data, size_t x_max, size_t y_max)
+int32_t	find_c_instance(t_imgdata *data, size_t index)
 {
-	size_t	x;
-	size_t	y;
+	size_t	i;
 	int32_t	instance;
 
-	x = 0;
-	y = 0;
+	i = 0;
 	instance = 0;
-	while (y <= y_max)
+	while (i <= index)
 	{
-		while (x <= data->line.size)
-		{
-			if (data->map[y][x] == 'C' || data->map[y][x] == 'K')
-				instance++;
-			x++;
-			if (y == y_max && x == x_max - 1)
-				break ;
-		}
-		x = 0;
-		y++;
+		if (data->bigass[i] == 'C' || data->bigass[i] == 'K')
+			instance++;
+		i++;
+		if (i == index - 1)
+			break ;
 	}
 	return (instance);
 }

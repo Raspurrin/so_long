@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 00:45:29 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 03:46:48 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ typedef struct error_cases
 	bool	enemyunderflow;
 }	t_error;
 
-void	animation(t_imgdata *data, t_animate *animate, size_t x, size_t y);
+void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y);
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
 								t_enemy *enemy, size_t i);
 bool	check_ext(char *file_name, char *ext);
@@ -158,7 +158,7 @@ void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y);
 bool	enemy_to_window(t_imgdata *data, t_enemy *enemy);
 void	error_output(t_error *errors, t_line *line);
 void	error_close_window(t_imgdata *data, char *str);
-int32_t	find_c_instance(t_imgdata *data, size_t x_max, size_t y_max);
+int32_t	find_c_instance(t_imgdata *data, size_t index);
 void	free_2d(char **map);
 bool	free_array(mlx_image_t **arr, char *str, t_imgdata *data);
 void	free_close_window(t_imgdata *data, void *var, char *str);

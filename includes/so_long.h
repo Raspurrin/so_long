@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 00:45:32 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 03:46:48 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct error_cases
  * @param map 2D array
  * @return NULL
  */
-void	animation(t_imgdata *data, size_t x, size_t y);
+void	animate_char(t_imgdata *data, size_t x, size_t y);
 bool	check_ext(char *file_name, char *ext);
 void	check_player_amount(t_error *errors, t_imgdata *data);
 void	collect(t_imgdata *data, size_t x, size_t y);

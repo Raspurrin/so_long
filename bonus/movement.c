@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:37:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 01:15:00 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 03:47:29 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
  */
 void	movement(t_imgdata *data, size_t x, size_t y)
 {
-
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) \
 						&& data->map[x + 1][x] != '1')
 		data->img[CHAR]->instances[0].y += BLOK / FATASS;

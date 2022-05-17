@@ -6,12 +6,17 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/14 18:09:39 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 03:56:04 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
+/**
+ * Will receive a map as input and will have to determine whether the map
+ * is valid or not and will then dynamically generate images based on the 
+ * locations of everything provided in the map and proceed to run the game!
+ */
 int32_t	main(int32_t argc, char **argv)
 {
 	t_imgdata		data;

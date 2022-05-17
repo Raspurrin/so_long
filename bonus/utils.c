@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:46:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/13 17:59:52 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 03:57:40 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	error_close_window(t_imgdata *data, char *str)
 {
 	ft_putendl_fd("Error\n", STDOUT_FILENO);
 	ft_putendl_fd(str, STDOUT_FILENO);
-	mlx_close_window(data->mlx);
-	kill(0, SIGKILL);
+	terminate(data);
 }
 
 void	free_close_window(t_imgdata *data, void *var, char *str)
@@ -48,8 +47,7 @@ void	free_close_window(t_imgdata *data, void *var, char *str)
 	ft_putendl_fd("Error\n", STDOUT_FILENO);
 	ft_putendl_fd(str, STDOUT_FILENO);
 	free(var);
-	mlx_close_window(data->mlx);
-	kill(0, SIGKILL);
+	terminate(data);
 }
 
 size_t	getncount(char *str, uint8_t chr)
@@ -65,10 +63,3 @@ size_t	getncount(char *str, uint8_t chr)
 	}
 	return (count);
 }
-
-// int32_t	main(void)
-// {
-// 	int arr[] = {1, 40, 3};
-// 	free_array(arr, "something was fucked");
-// 	return (0);
-// }

@@ -6,13 +6,21 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:49:47 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/12 01:26:15 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 03:52:56 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	animation(t_imgdata *data, t_animate *animate, size_t x, size_t y)
+/**
+ * In movecounter() in movement.c the animate->length and animate-xy[1] are 
+ * initalised based on if the character is moving or not. It takes different
+ * positions from the same spritesheet, with different lengths of animation. 
+ * This function basically changes the area it puts on the screen from that
+ * same spritesheet every 5 frames and resets it to the starting location
+ * at the end of the animation.
+ */
+void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y)
 {
 	const uint32_t	wh2[] = {32, 32};
 
@@ -29,6 +37,11 @@ void	animation(t_imgdata *data, t_animate *animate, size_t x, size_t y)
 	data->count[FRAME]++;
 }
 
+/**
+ * @param ghost The image of the ghost put on the screen, will differ depending
+ * on which direction the ghost is moving. Decided in enemy_move() 
+ * in enemy_interactions.c
+ */
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
 								t_enemy *enemy, size_t i)
 {

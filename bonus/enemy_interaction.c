@@ -6,12 +6,18 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 20:14:06 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 03:34:27 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long_bonus.h"
 
+/**
+ * Initialises random movements every SPEED amount of frames, 
+ * so the random movements are repeated for that amount, otherwise the enemies
+ * actually move like they are on speed. If ghosts go to the left or right, 
+ * a new image will be used that matches the direction they are going.
+ */
 static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 {
 	if (data->count[FRAME] % SPEED == 0)
@@ -34,6 +40,12 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 	}
 }
 
+/**
+ * If the player is one block above an enemy and kill mode is on, 
+ * then add the enemy to the exception array to be skipped over in the general 
+ * enemy loop and move the image out of the range of the window view to the right
+ * It also move the player up to create a bouncing effect
+ */
 static void	kill_enemy(t_imgdata *data, int32_t *player, \
 								t_enemy *enemy, size_t i)
 {
@@ -47,6 +59,12 @@ static void	kill_enemy(t_imgdata *data, int32_t *player, \
 	}
 }
 
+/**
+ * Tracks if the position of an enemy overlaps with the player position if the 
+ * time lock is off and there is no immortality. 
+ * If it does, decreases the life counter and activates the time_lock for 
+ * temporary player invulnerability. 
+ */
 static void	death(t_imgdata *data, int32_t *player, t_enemy *enemy, size_t i)
 {
 	enemy->x[1] = enemy->x[0] / BLOK;
@@ -62,6 +80,11 @@ static void	death(t_imgdata *data, int32_t *player, t_enemy *enemy, size_t i)
 	}
 }
 
+/**
+ * If the player has been hit, it activates a time_lock
+ * for a certain amount of time where a red filter image is put on the screen.
+ * Which is the same amount of time the player is temporarily untouchable.
+ */
 void	red_filter(t_imgdata *data, t_enemy *enemy)
 {
 	enemy->current_time = mlx_get_time();
@@ -78,6 +101,11 @@ void	red_filter(t_imgdata *data, t_enemy *enemy)
 	}
 }
 
+/**
+ * Executing the death and enemy_move function for every ghost 
+ * seperately every frame. Skipping the ghosts stored in the exception array
+ * when they have been taken away from the afterlife.
+ */
 void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 {
 	size_t	i;

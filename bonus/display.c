@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:51:24 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 01:48:48 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 03:45:12 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,11 @@ void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod)
 }
 
 /**
- * @brief 
- * 
- * @param data 
- * @param str_img 
- * @param x 
- * @param str 
+ * Converts a counter from an integer to a string, then combines it with the 
+ * string provided as parameter and then puts that string to the screen.
+ * Setting the instance depth because every time a new image is displayed,
+ * the instance depth iterates and it cannot do so ad infinitum.
+ * Also cannot use ft_itoa and strjoin at the same time bc memory leaks. 
  */
 void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str)
 {
