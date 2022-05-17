@@ -6,12 +6,18 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:51:24 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/12 03:27:41 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 01:48:48 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
+/**
+ * Will draw pixels on an image the size of the window with the provided colour
+ * @param macro enum of the image used to draw colour on
+ * @param colour colour channels being in this order: RGBA, each one byte 
+ * stored into one 4 byte integer passed as a hex value prefixed with 0x
+ */
 void	colour_screen(t_imgdata *data, int32_t macro, int32_t colour)
 {
 	int32_t	x;
@@ -34,6 +40,13 @@ void	colour_screen(t_imgdata *data, int32_t macro, int32_t colour)
 	}
 }
 
+/**
+ * Will colour the screen and display a certain message depending 
+ * on game condition, then freezes everything a few miliseconds.
+ * @param death if true displays death message, otherwise the win message
+ * @param x_mod x-axis offset
+ * @param y_mod y-axis offset
+ */
 void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod)
 {
 	float	display_x;
@@ -60,6 +73,14 @@ void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod)
 	usleep(10);
 }
 
+/**
+ * @brief 
+ * 
+ * @param data 
+ * @param str_img 
+ * @param x 
+ * @param str 
+ */
 void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str)
 {
 	if (data->img[str_img])

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/13 00:28:04 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 00:45:29 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # define BLOK 32
-# define GHOSTCOUNT 200
-# define PINKCOUNT 0
+# define GHOSTCOUNT 1
 # define LIVES 7
 # define ACCEL 1
 # define ACCEL_MOD 1.3
@@ -87,7 +86,6 @@ typedef struct animate
 typedef struct enemy
 {
 	size_t				current_time;
-	// size_t				pinkrand[PINKCOUNT];
 	size_t				max;
 	size_t				time;
 	int32_t				x[GHOSTCOUNT + 1];
@@ -117,7 +115,6 @@ typedef struct image_data
 	mlx_image_t			*img[IMG_COUNT];
 	mlx_key_data_t		*keydata;
 	bool				jump_lock;
-	int32_t				jump_time;
 	t_line				line;
 	char				**map;
 	mlx_t				*mlx;
@@ -138,18 +135,14 @@ typedef struct error_cases
 	bool	error;
 	bool	file_name;
 	bool	walls;
-	bool	cpe;
+	bool	no_cpe;
 	bool	different_input;
-	bool	rectangular;
+	bool	not_rectangular;
 	bool	morecharacters;
 	bool	enemyoverflow;
+	bool	enemyunderflow;
 }	t_error;
 
-/**
- * @brief Iterates through an array of strings and frees every string
- * @param map 2D array
- * @return NULL
- */
 void	animation(t_imgdata *data, t_animate *animate, size_t x, size_t y);
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
 								t_enemy *enemy, size_t i);
@@ -160,6 +153,7 @@ void	colour_screen(t_imgdata *data, int32_t macro, int32_t colour);
 void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod);
 void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str);
 void	end(mlx_key_data_t keydata, void *data);
+void	end_message(t_imgdata *data);
 void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y);
 bool	enemy_to_window(t_imgdata *data, t_enemy *enemy);
 void	error_output(t_error *errors, t_line *line);
@@ -180,6 +174,7 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm);
 void	movement(t_imgdata *data, size_t x, size_t y);
 void	movecounter(t_imgdata *data, t_animate *animate, size_t x, size_t y);
 char	*read_file(int32_t fd);
+void	terminate(t_imgdata *data);
 bool	texture_to_image(t_imgdata *data, xpm_t **xpm);
 bool	windowdisplay(t_imgdata *data, t_line *line);
 #endif

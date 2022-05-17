@@ -6,22 +6,19 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/12 00:36:12 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 01:59:09 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	end(mlx_key_data_t keydata, void *data)
-{
-	t_imgdata *const	data2 = data;
-
-	if (mlx_is_key_down(data2->mlx, keydata.key))
-		mlx_close_window(data2->mlx);
-	kill(data2->pid, SIGKILL);
-	exit(0);
-}
-
+/**
+ * If player encounters a collectible, check which instance of the texture
+ * was used to change the z-axis/depth of the image to put it behind the
+ * background. Then changes the character on the 2D map, so the same condition
+ * cannot be true anymore. And decreasesing the count of the collectibles
+ * for the end condition.
+ */
 void	collect(t_imgdata *data, size_t x, size_t y)
 {
 	size_t	i;
@@ -31,11 +28,15 @@ void	collect(t_imgdata *data, size_t x, size_t y)
 	{
 		i = find_c_instance((t_imgdata *)data, x, y);
 		data->map[y][x] = 'K';
-		mlx_set_instance_depth(&data->img[PICKUP]->instances[i], -1);
+		mlx_set_instance_depth(&data->img[PICKUP]->instances[i], -1000);
 		data->collect--;
 	}
 }
 
+/**
+ * itterates through the map and counts every occurance of the collectibles
+ * until the position of the collectible that was interacted with.
+ */
 int32_t	find_c_instance(t_imgdata *data, size_t x_max, size_t y_max)
 {
 	size_t	x;

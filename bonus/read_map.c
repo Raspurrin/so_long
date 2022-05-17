@@ -6,12 +6,19 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:20:48 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/13 23:29:54 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 01:39:23 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
+/**
+ * Reads the map into one big ass string directly with the read 
+ * function instead of GNL to avoid memory fuckery and having it 
+ * initialised instead of reading repeatedly is more efficient.
+ * Later on store it in a 2D array for easy error checking
+ * and data checking during the game loop. 
+ */
 char	*read_file(int32_t fd)
 {
 	int32_t	buflen;

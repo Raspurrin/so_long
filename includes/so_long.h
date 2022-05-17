@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/13 00:24:19 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 00:45:32 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct image_data
 	mlx_image_t			*img[IMG_COUNT];
 	mlx_key_data_t		*keydata;
 	bool				jump_lock;
-	int32_t				jump_time;
 	t_line				line;
 	char				**map;
 	mlx_t				*mlx;
@@ -99,9 +98,9 @@ typedef struct error_cases
 	bool	error;
 	bool	file_name;
 	bool	walls;
-	bool	cpe;
+	bool	no_cpe;
 	bool	different_input;
-	bool	rectangular;
+	bool	not_rectangular;
 	bool	morecharacters;
 	bool	enemyoverflow;
 }	t_error;

@@ -6,12 +6,15 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/11 22:55:16 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 01:08:59 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
+/**
+ * Loads different sized background images based on the size of the map
+ */
 bool	windowdisplay(t_imgdata *data, t_line *line)
 {
 	data->width = line->size * BLOK;

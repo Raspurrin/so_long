@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/13 18:00:17 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 00:15:52 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static bool	check_cases(t_error *errors, t_imgdata *data)
 	check_player_amount(errors, data);
 	if (!(ft_strchr(data->bigass, 'C')) || !(ft_strchr(data->bigass, 'P')) \
 	|| !(ft_strchr(data->bigass, 'E')))
-		errors->cpe = true;
+		errors->no_cpe = true;
 	while (data->bigass[i])
 	{
 		if (data->bigass[i] == 'C')
@@ -94,7 +94,7 @@ static bool	check_cases(t_error *errors, t_imgdata *data)
 		if (!(ft_strchr("01CEP\n", data->bigass[i++])))
 			errors->different_input = true;
 	}
-	if (errors->cpe == true || errors->different_input == true)
+	if (errors->no_cpe == true || errors->different_input == true)
 		return (false);
 	return (true);
 }
@@ -104,7 +104,7 @@ static bool	check_cases(t_error *errors, t_imgdata *data)
  * @param map The map.
  * @return Amount of lines in the map.
  */
-static size_t	check_if_rectangular(char **map, t_line *line, \
+static size_t	check_if_not_rectangular(char **map, t_line *line, \
 									t_error *errors)
 {
 	size_t	i;
@@ -114,11 +114,11 @@ static size_t	check_if_rectangular(char **map, t_line *line, \
 	{
 		line->size = ft_strlen(map[i++]);
 		if (line->size != ft_strlen(map[i]))
-			errors->rectangular = true;
+			errors->not_rectangular = true;
 	}
 	line->count = ft_strlen(map[i]);
 	if (line->size == i)
-		errors->rectangular = true;
+		errors->not_rectangular = true;
 	return (i);
 }
 
@@ -141,12 +141,14 @@ char	**input_handler(int32_t fd, t_imgdata *data, t_line *line, \
 	data->map = ft_split(((const char *)data->bigass), '\n');
 	if (!data->map)
 		return (ft_putendl_fd("Error\nInvalid map", STDOUT_FILENO), NULL);
-	line->count = check_if_rectangular(data->map, line, &errors);
+	line->count = check_if_not_rectangular(data->map, line, &errors);
 	walls = getncount(data->bigass, '1');
 	enemy->max = ((data->line.size) * (data->line.count + 1)) \
 									- (data->collect + 2 + walls);
 	if (GHOSTCOUNT > enemy->max)
 		errors.enemyoverflow = true;
+	if (GHOSTCOUNT < 1)
+		errors.enemyunderflow = true;
 	check_cases(&errors, data);
 	check_walls(data->map, line, &errors);
 	error_output(&errors, line);

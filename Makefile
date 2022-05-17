@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/05/13 23:28:29 by mialbert         ###   ########.fr        #
+#    Updated: 2022/05/16 22:42:25 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ BONUS =	./libs/libft/srcs/*.c \
 		./bonus/movement.c \
 		./bonus/check_player_amount.c \
 		./bonus/images_to_window.c \
-		./bonus/animation.c
+		./bonus/animation.c \
+		./bonus/end.c
 
 all : $(NAME)
 OS := $(shell uname -s)

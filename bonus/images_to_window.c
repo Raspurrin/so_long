@@ -6,12 +6,16 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/12 15:36:21 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 01:04:20 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
+/**
+ * I have different images for when '1' appears. A wall for the outer
+ * edges and a platform for within, so I'm just checking those positions.
+ */
 bool	walls_and_tiles(t_imgdata *data, size_t i, size_t x, size_t y)
 {
 	if (data->bigass[i] == '1')
@@ -21,12 +25,14 @@ bool	walls_and_tiles(t_imgdata *data, size_t i, size_t x, size_t y)
 		{
 			if (mlx_image_to_window(data->mlx, data->img[WALL], \
 												x * BLOK, y * BLOK) == -1)
-				return (free_array(data->img, "image_to_window failed", data), false);
+				return (free_array(data->img, "image_to_window failed", \
+															data), false);
 		}
 		else
 			if (mlx_image_to_window(data->mlx, data->img[TILE], \
 												x * BLOK, y * BLOK) == -1)
-				return (free_array(data->img, "image_to_window failed", data), false);
+				return (free_array(data->img, "image_to_window failed", \
+															data), false);
 	}
 	return (true);
 }
@@ -38,11 +44,21 @@ static bool	images_to_window2(t_imgdata *data, size_t x, size_t y, \
 	{
 		if (mlx_image_to_window(data->mlx, data->img[macro], \
 												x * BLOK, y * BLOK) == -1)
-			return (free_array(data->img, "image_to_window failed", data), false);
+			return (free_array(data->img, "image_to_window failed", \
+														data), false);
 	}
 	return (true);
 }
 
+/**
+ * Goes through the map in a big ass string, while keeping track
+ * of the current x and y positions by a calculation: 
+ * Ex: i = 8: 
+ * 11111 x == (i % 5 = 3)
+ * 10*C1 y == (i / 5 = 1.6, so 1)
+ * Depending on the character encountered, will put a different image
+ * to the window at that position.
+ */
 bool	images_to_window(t_imgdata *data, size_t i)
 {
 	size_t	x;
@@ -72,6 +88,10 @@ bool	images_to_window(t_imgdata *data, size_t i)
 	return (true);
 }
 
+/**
+ * Will use the established positions from arrays initialised in 
+ * get_ghost_spawn and put those images on the screen
+ */
 bool	enemy_to_window(t_imgdata *data, t_enemy *enemy)
 {
 	size_t	i;
@@ -85,7 +105,8 @@ bool	enemy_to_window(t_imgdata *data, t_enemy *enemy)
 		y = enemy->y[i];
 		if (mlx_image_to_window(data->mlx, enemy->img[i], \
 												x * BLOK, y * BLOK) == -1)
-			return (free_array(data->img, "image_to_window failed", data), false);
+			return (free_array(data->img, "image_to_window failed", \
+														data), false);
 		i++;
 	}
 	return (true);

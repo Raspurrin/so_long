@@ -6,12 +6,17 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/14 00:00:22 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 00:28:01 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
+/**
+ * Initialising certain variables before the game loop starts
+ * because if you initialise things in the loop, it will reset
+ * to said value every frame.
+ */
 static void	init(t_imgdata *data)
 {
 	data->count[LIFE] = LIVES;
@@ -22,15 +27,12 @@ static void	init(t_imgdata *data)
 	data->animate.xy[0] = 60;
 }
 
-static void	end_message(t_imgdata *data)
-{
-	if (data->count[LIFE] <= 0)
-		display_message(data, true, 3.5, 3);
-	else
-		display_message(data, false, 3, 3);
-	mlx_key_hook(data->mlx, &end, data);
-}
-
+/**
+ * A hook allows a function to be executed every frame of the game loop,
+ * executed by the graphical library. I am seperating certain conditions
+ * from the rest of the game to make sure the game freezes at end conditions:
+ * having collected all collectibles and exiting or having lost all lives.
+ */
 static void	hook(void	*data)
 {
 	t_imgdata *const	data2 = data;
@@ -44,6 +46,8 @@ static void	hook(void	*data)
 		end_message(data2);
 	else
 	{
+		if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
+			terminate(data);
 		movement(data2, x, y);
 		collect(data2, x, y);
 		gravity(data2, x, y);
@@ -57,14 +61,18 @@ static void	hook(void	*data)
 	}
 }
 
+/**
+ * I am forking because otherwise the background music takes over the process
+ * of the game. If I wanted to use sounds while the game runs, I would need
+ * threads. If the game loop is running in two processes, OpenGL complains. 
+ */
 int32_t	graphics(t_imgdata *data, t_line *line)
 {
-	char	*args[] = {"/usr/bin/afplay", "--volume", "1", \
-			"/Users/mialbert/Documents/test/audio/scape.mp3", NULL};
+	const char	*args[] = {"/usr/bin/afplay", "--volume", "1", \
+	"/Users/mialbert/Documents/test/audio/scape.mp3", NULL};
 
 	if (!(windowdisplay(data, line)) || !(loading_images(data, data->xpm)) || \
-		!(texture_to_image(data, data->xpm)) || \
-		!(images_to_window(data, 0)) || \
+		!(texture_to_image(data, data->xpm)) || !(images_to_window(data, 0)) || \
 		!(enemy_to_window(data, &data->enemy)))
 		return (0);
 	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
@@ -74,16 +82,14 @@ int32_t	graphics(t_imgdata *data, t_line *line)
 	init(data);
 	data->pid = fork();
 	if (data->pid == 0)
-		execvp(args[0], args);
+		execvp(args[0], (char **)args);
 	else
 	{
 		if (!(mlx_loop_hook(data->mlx, &hook, data)))
 			(error_close_window(data, "loop hook failed"));
 		mlx_loop(data->mlx);
-		mlx_delete_image(data->mlx, data->img[GREY]);
-		mlx_delete_image(data->mlx, data->img[SCREEN]);
-		mlx_terminate(data->mlx);
 	}
-	// free(data->bigass);
+	if (data->bigass)
+		free (data->bigass);
 	return (0);
 }
