@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/05/16 22:42:25 by mialbert         ###   ########.fr        #
+#    Updated: 2022/05/17 09:04:52 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,9 @@ Linux:
 install linux: 
 	sudo apt update 
 	sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
+
+xpm42:
+	python3 libs/MLX/tools/xpm3_conv.py textures/$(IMG)
 
 # -fsanitize=address
 # ./libs/MLX42/lib-x86_64/libglfw3.a

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 23:11:37 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 00:40:11 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 05:22:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ size_t	index_to_xy(t_imgdata *data, size_t *compare, size_t index, size_t i)
  * has not already been taken yet.
  * @param data->bigass contains the map in one big ass string. 
  */
-void	get_ghost_spawn(t_imgdata *data)
+void	get_ghost_spawn(t_imgdata *data, t_line *line)
 {
 	size_t	i;
 	size_t	j;
@@ -49,8 +49,8 @@ void	get_ghost_spawn(t_imgdata *data)
 	compare = calloc(GHOSTCOUNT, sizeof(size_t));
 	while (i < GHOSTCOUNT)
 	{
-		index = (rand() % ((data->line.size + 1) * (data->line.count - 1))) \
-													+ data->line.size + 1;
+		index = (rand() % ((line->size + 1) * (line->count - 1)) \
+													+ line->size + 1);
 		j = 0;
 		while ((data->bigass[index] != '0' && data->bigass[index]))
 		{

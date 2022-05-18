@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 03:34:27 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/17 07:25:21 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
  * so the random movements are repeated for that amount, otherwise the enemies
  * actually move like they are on speed. If ghosts go to the left or right, 
  * a new image will be used that matches the direction they are going.
+ * A higher value of FATBOO will slow down the movement.
  */
 static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 {
@@ -29,13 +30,13 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 		enemy->img[i]->instances[0].y -= (BLOK / FATBOO);
 	else if (enemy->move[i] == 2 && enemy->x[0] - (BLOK / FATBOO) > 0 + BLOK)
 	{
-		animate_ghosts(data, data->ghost, enemy, i);
+		animate_ghosts(data, enemy->ghost, enemy, i);
 		enemy->img[i]->instances[0].x -= BLOK / FATBOO;
 	}
 	else if (enemy->move[i] == 3 && enemy->x[0] + (BLOK / FATBOO) < data->width \
 														- (BLOK * 2))
 	{
-		animate_ghosts(data, data->ghost_r, enemy, i);
+		animate_ghosts(data, enemy->ghost_r, enemy, i);
 		enemy->img[i]->instances[0].x += (BLOK / FATBOO);
 	}
 }

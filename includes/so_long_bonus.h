@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 03:46:48 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/18 02:26:29 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define BLOK 32
+# define BLOK 32 		// pixel width/height of one image
 # define GHOSTCOUNT 1
 # define LIVES 7
-# define ACCEL 1
-# define ACCEL_MOD 1.3
-# define JUMP_CAP 100
-# define FATASS 10
-# define FATBOO 10
-# define SPEED 18
-# define IMMORTAL 0
-# define KILL 1
-# define GRAV 1
-# define BUFFERSIZE 30
+# define ACCEL 1 		// starting value of the acceleration of a jump
+# define ACCEL_MOD 1.3 	// the value accel is multiplied with every frame
+# define JUMP_CAP 100	// the value accel needs to get to stop a jump
+# define FATASS 10 		// how slow the player moves
+# define FATBOO 10 		// how slow ghosts move
+# define SPEED 18 		// how many frames it takes to change ghost movement
+# define IMMORTAL 0 	// toggle immortality
+# define KILL 1 		// toggle ability to kill enemies
+# define GRAV 1 		// toggle gravity
+# define BUFFERSIZE 30	// How many characters are read in one loop, 
+						// used when reading the map
 
 typedef enum move
 {
@@ -47,6 +48,7 @@ typedef enum mlx_images
 	STRMOVE,
 	PICKUP,
 	CHAR,
+	CHAR_L,
 	DOOR,
 	TILE,
 	WALL,
@@ -78,6 +80,7 @@ typedef struct line
 
 typedef struct animate
 {
+	size_t		dir;
 	uint32_t	length;
 	uint32_t	start;
 	uint32_t	xy[XY];
@@ -85,6 +88,8 @@ typedef struct animate
 
 typedef struct enemy
 {
+	mlx_texture_t		*ghost;
+	mlx_texture_t		*ghost_r;
 	size_t				current_time;
 	size_t				max;
 	size_t				time;
@@ -109,8 +114,6 @@ typedef struct image_data
 	bool				counter_lock;
 	t_enemy				enemy;
 	bool				fly;
-	mlx_texture_t		*ghost;
-	mlx_texture_t		*ghost_r;
 	int32_t				height;
 	mlx_image_t			*img[IMG_COUNT];
 	mlx_key_data_t		*keydata;
@@ -124,7 +127,6 @@ typedef struct image_data
 	uint8_t				*pixel;
 	uint8_t				startingpoint;
 	char				*str[STR_COUNT];
-	size_t				tile_move;
 	int32_t				width;
 	xpm_t				*xpm[IMG_COUNT];
 	uint32_t			xy[2];			
@@ -165,7 +167,7 @@ void	free_close_window(t_imgdata *data, void *var, char *str);
 void	gravity(t_imgdata *data, size_t x, size_t y);
 size_t	getncount(char *str, uint8_t chr);
 size_t	getncount(char *str, uint8_t chr);
-void	get_ghost_spawn(t_imgdata *data);
+void	get_ghost_spawn(t_imgdata *data, t_line *line);
 int32_t	graphics(t_imgdata *data, t_line *line);
 bool	images_to_window(t_imgdata *data, size_t i);
 char	**input_handler(int32_t fd, t_imgdata *data, \
@@ -175,6 +177,7 @@ void	movement(t_imgdata *data, size_t x, size_t y);
 void	movecounter(t_imgdata *data, t_animate *animate, size_t x, size_t y);
 char	*read_file(int32_t fd);
 void	terminate(t_imgdata *data);
-bool	texture_to_image(t_imgdata *data, xpm_t **xpm);
-bool	windowdisplay(t_imgdata *data, t_line *line);
+bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img);
+void	turn_char(t_imgdata *data, size_t macro, size_t x, size_t y);
+bool	windowdisplay(t_imgdata *data, t_line *line, xpm_t **xpm);
 #endif
