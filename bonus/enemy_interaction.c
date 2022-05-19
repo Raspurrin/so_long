@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 07:25:21 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/19 20:17:29 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
 		enemy->move[i] = rand() % 4;
 	if (enemy->move[i] == 0 && enemy->y[0] + (BLOK / FATBOO) \
 									< data->height - (BLOK * 2))
-		enemy->img[i]->instances[0].y += (BLOK / FATBOO);
+		enemy->ghost_img[i]->instances[0].y += (BLOK / FATBOO);
 	else if (enemy->move[i] == 1 && enemy->y[0] - (BLOK / FATBOO) > 0 + BLOK)
-		enemy->img[i]->instances[0].y -= (BLOK / FATBOO);
+		enemy->ghost_img[i]->instances[0].y -= (BLOK / FATBOO);
 	else if (enemy->move[i] == 2 && enemy->x[0] - (BLOK / FATBOO) > 0 + BLOK)
 	{
 		animate_ghosts(data, enemy->ghost, enemy, i);
-		enemy->img[i]->instances[0].x -= BLOK / FATBOO;
+		enemy->ghost_img[i]->instances[0].x -= BLOK / FATBOO;
 	}
 	else if (enemy->move[i] == 3 && enemy->x[0] + (BLOK / FATBOO) < data->width \
 														- (BLOK * 2))
 	{
 		animate_ghosts(data, enemy->ghost_r, enemy, i);
-		enemy->img[i]->instances[0].x += (BLOK / FATBOO);
+		enemy->ghost_img[i]->instances[0].x += (BLOK / FATBOO);
 	}
 }
 
@@ -55,7 +55,7 @@ static void	kill_enemy(t_imgdata *data, int32_t *player, \
 	{
 		if (player[Y] - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
-		enemy->img[i]->instances[0].x += data->width;
+		enemy->ghost_img[i]->instances[0].x += data->width;
 		data->enemy.excep[i] = 1;
 	}
 }
@@ -118,8 +118,8 @@ void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 	red_filter(data, enemy);
 	while (i < GHOSTCOUNT)
 	{
-		enemy->x[0] = (enemy->img[i]->instances[0].x);
-		enemy->y[0] = (enemy->img[i]->instances[0].y);
+		enemy->x[0] = (enemy->ghost_img[i]->instances[0].x);
+		enemy->y[0] = (enemy->ghost_img[i]->instances[0].y);
 		if (enemy->excep[i] == 0)
 			death(data, player, enemy, i);
 		if (enemy->excep[i] == 0)

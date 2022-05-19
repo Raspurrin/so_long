@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/18 02:28:23 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/19 19:25:27 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ static bool	loading_images2(t_imgdata *data, xpm_t **xpm)
 	xpm[CHAR_L] = mlx_load_xpm42("textures/main_rev.xpm42");
 	if (!xpm[CHAR_L])
 		return (ft_putendl_fd("char_l was not found", STDOUT_FILENO), false);
+	xpm[PINK] = mlx_load_xpm42("textures/pink_monster.xpm42");
+	if (!xpm[PINK])
+		return (ft_putendl_fd("pink was not found", STDOUT_FILENO), false);
 	data->enemy.ghost = mlx_load_png("textures/ghost_trans2.png");
 	if (!data->enemy.ghost)
 		return (ft_putendl_fd("ghost was not found", STDOUT_FILENO), false);
@@ -77,10 +80,36 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm)
 	return (true);
 }
 
+static bool	enemy_texture(t_imgdata *data, mlx_image_t **img, \
+				size_t enemy_max, mlx_texture_t *enemy_texture)
+{
+	const uint32_t	wh2[] = {32, 32};
+	size_t			i;
+
+	i = 0;
+	while (i < enemy_max)
+	{
+		if (enemy_texture == data->enemy.ghost)
+		{
+			img[i] = mlx_texture_to_image(data->mlx, data->enemy.ghost);
+			if (!img[i++])
+				return (ft_putendl_fd("Texture failed", STDOUT_FILENO), false);
+		}
+		else
+		{
+			img[i] = mlx_texture_area_to_image(data->mlx, \
+							enemy_texture, data->xy, (uint32_t *)wh2);
+			if (!img[i++])
+				return (ft_putendl_fd("Texture failed", STDOUT_FILENO), false);
+		}
+	}
+	return (true);
+}
+
 bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 {
+	size_t				i;
 	const uint32_t		wh2[] = {32, 32};
-	size_t				i;		
 
 	i = 0;
 	data->xy[0] = 60;
@@ -93,14 +122,10 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 	img[WALL] = mlx_texture_to_image(data->mlx, &xpm[WALL]->texture);
 	img[PICKUP] = mlx_texture_to_image(data->mlx, &xpm[PICKUP]->texture);
 	img[DOOR] = mlx_texture_to_image(data->mlx, &xpm[DOOR]->texture);
-	while (i < GHOSTCOUNT)
-	{
-		data->enemy.img[i] = mlx_texture_to_image(data->mlx, data->enemy.ghost);
-		if (!data->enemy.img[i++])
-			return (ft_putendl_fd("Texture failed", STDOUT_FILENO), false);
-	}
 	if (!img[BG] || !img[CHAR] || !img[TILE] || !img[WALL] || !img[PICKUP] \
-		|| !img[DOOR])
+	|| !img[DOOR] || !enemy_texture(data, data->enemy.ghost_img, GHOSTCOUNT, \
+	data->enemy.ghost) || !enemy_texture(data, data->enemy.pink_img, \
+	PINKCOUNT, &xpm[PINK]->texture))
 		return (ft_putendl_fd("Texture to image failed", STDOUT_FILENO), false);
 	return (true);
 }

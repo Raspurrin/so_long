@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/19 00:55:39 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/19 19:36:46 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ typedef enum mlx_images
 	BG,
 	BRICK,
 	GHOST,
+	PINK,
 	SCREEN,
 	GREY,
 	RED,
-	PINK,
 	IMG_COUNT,
 }	t_images;
 
@@ -101,7 +101,9 @@ typedef struct enemy
 	size_t				excep_count;
 	size_t				excep[GHOSTCOUNT];
 	size_t				move[GHOSTCOUNT];
-	mlx_image_t			*img[GHOSTCOUNT];
+	mlx_image_t			*ghost_img[GHOSTCOUNT];
+	mlx_image_t			*pink_img[PINKCOUNT];
+	size_t				total_enemies;
 	bool				time_lock;
 }	t_enemy;
 

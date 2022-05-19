@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/19 00:52:42 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/19 19:37:17 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	init(t_imgdata *data)
 	data->old_y = (data->img[CHAR]->instances[0].y);
 	data->animate.xy[0] = 60;
 	data->animate.dir = CHAR;
+	data->total_enemies = PINKCOUNT + GHOSTCOUNT;
 }
 
 /**
@@ -75,7 +76,8 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
 	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
 	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
-	GHOSTCOUNT, enemy->img)))
+	GHOSTCOUNT, enemy->ghost_img)) || enemy_to_window(data, enemy->pink_spawn, \
+	PINKCOUNT, enemy->ghost_img))
 		return (0);
 	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
 		return (free_close_window(data, data->img[BG], \
