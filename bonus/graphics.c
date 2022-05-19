@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/18 02:29:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/19 00:52:42 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,15 @@ static void	hook(void	*data)
  * of the game. If I wanted to use sounds while the game runs, I would need
  * threads. If the game loop is running in two processes, OpenGL complains. 
  */
-int32_t	graphics(t_imgdata *data, t_line *line)
+int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
 	const char	*args[] = {"/usr/bin/afplay", "--volume", "0", \
 	"/Users/mialbert/Documents/test/audio/scape.mp3", NULL};
 
 	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
 	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
-	!(images_to_window(data, 0)) || !(enemy_to_window(data, &data->enemy)))
+	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
+	GHOSTCOUNT, enemy->img)))
 		return (0);
 	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
 		return (free_close_window(data, data->img[BG], \

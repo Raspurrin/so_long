@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/18 02:26:29 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/19 00:55:39 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # define BLOK 32 		// pixel width/height of one image
 # define GHOSTCOUNT 1
+# define PINKCOUNT 1
 # define LIVES 7
 # define ACCEL 1 		// starting value of the acceleration of a jump
 # define ACCEL_MOD 1.3 	// the value accel is multiplied with every frame
@@ -74,8 +75,8 @@ typedef enum string
 
 typedef struct line
 {
-	size_t	count;
-	size_t	size;
+	ssize_t	count;
+	ssize_t	size;
 }	t_line;
 
 typedef struct animate
@@ -90,6 +91,8 @@ typedef struct enemy
 {
 	mlx_texture_t		*ghost;
 	mlx_texture_t		*ghost_r;
+	ssize_t				*pink_spawn;
+	ssize_t				*ghost_spawn;
 	size_t				current_time;
 	size_t				max;
 	size_t				time;
@@ -157,7 +160,8 @@ void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str);
 void	end(mlx_key_data_t keydata, void *data);
 void	end_message(t_imgdata *data);
 void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y);
-bool	enemy_to_window(t_imgdata *data, t_enemy *enemy);
+bool	enemy_to_window(t_imgdata *data, ssize_t *index, size_t enemy_max, \
+															mlx_image_t **img);
 void	error_output(t_error *errors, t_line *line);
 void	error_close_window(t_imgdata *data, char *str);
 int32_t	find_c_instance(t_imgdata *data, size_t index);
@@ -167,8 +171,9 @@ void	free_close_window(t_imgdata *data, void *var, char *str);
 void	gravity(t_imgdata *data, size_t x, size_t y);
 size_t	getncount(char *str, uint8_t chr);
 size_t	getncount(char *str, uint8_t chr);
-void	get_ghost_spawn(t_imgdata *data, t_line *line);
-int32_t	graphics(t_imgdata *data, t_line *line);
+void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line);
+void	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy);
+int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy);
 bool	images_to_window(t_imgdata *data, size_t i);
 char	**input_handler(int32_t fd, t_imgdata *data, \
 						t_line *line, t_enemy *enemy);

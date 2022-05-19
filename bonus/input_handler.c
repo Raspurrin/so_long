@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 00:15:52 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:57:46 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ bool	check_ext(char *file_name, char *ext)
 static bool	check_walls(char **map, t_line *line, \
 						t_error *errors)
 {
-	size_t	i;
+	ssize_t	i;
 
 	i = 0;
 	ft_strchr(map[line->count], '1');
@@ -107,13 +107,13 @@ static bool	check_cases(t_error *errors, t_imgdata *data)
 static size_t	check_if_not_rectangular(char **map, t_line *line, \
 									t_error *errors)
 {
-	size_t	i;
+	ssize_t	i;
 
 	i = 0;
 	while (map[i + 1])
 	{
 		line->size = ft_strlen(map[i++]);
-		if (line->size != ft_strlen(map[i]))
+		if (line->size != (ssize_t)ft_strlen(map[i]))
 			errors->not_rectangular = true;
 	}
 	line->count = ft_strlen(map[i]);

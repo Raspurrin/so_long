@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 01:04:20 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/19 03:05:37 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * I have different images for when '1' appears. A wall for the outer
  * edges and a platform for within, so I'm just checking those positions.
  */
-bool	walls_and_tiles(t_imgdata *data, size_t i, size_t x, size_t y)
+bool	walls_and_tiles(t_imgdata *data, size_t i, ssize_t x, ssize_t y)
 {
 	if (data->bigass[i] == '1')
 	{
@@ -92,18 +92,19 @@ bool	images_to_window(t_imgdata *data, size_t i)
  * Will use the established positions from arrays initialised in 
  * get_ghost_spawn and put those images on the screen
  */
-bool	enemy_to_window(t_imgdata *data, t_enemy *enemy)
+bool	enemy_to_window(t_imgdata *data, ssize_t *index, size_t enemy_max, \
+															mlx_image_t **img)
 {
 	size_t	i;
 	size_t	x;
 	size_t	y;
 
 	i = 0;
-	while (i < GHOSTCOUNT)
+	while (i < enemy_max)
 	{
-		x = enemy->x[i];
-		y = enemy->y[i];
-		if (mlx_image_to_window(data->mlx, enemy->img[i], \
+		x = index[i] % data->line.size + 1;
+		y = index[i] / data->line.size + 1;
+		if (mlx_image_to_window(data->mlx, img[i], \
 												x * BLOK, y * BLOK) == -1)
 			return (free_array(data->img, "image_to_window failed", \
 														data), false);

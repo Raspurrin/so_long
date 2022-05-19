@@ -6,31 +6,11 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 23:11:37 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 05:22:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/19 02:56:01 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long_bonus.h"
-
-/**
- * Changes the index of the ghost into an x and y position
- * and puts that established position in the compare array for future comparisons
- * @param data 
- * @param compare an array containing all established ghost starting positions
- * @param index the index of the ghost pos in a big ass string containing the map
- * @param i keeps count of the ghosts
- */
-size_t	index_to_xy(t_imgdata *data, size_t *compare, size_t index, size_t i)
-{
-	if (index != 0)
-	{
-		compare[i] = index;
-		data->enemy.x[i] = index % (data->line.size + 1);
-		data->enemy.y[i] = index / (data->line.size + 1);
-		i++;
-	}
-	return (i);
-}
 
 /**
  * @brief Get a random number within possible locations. Itterate through them
@@ -38,15 +18,14 @@ size_t	index_to_xy(t_imgdata *data, size_t *compare, size_t index, size_t i)
  * has not already been taken yet.
  * @param data->bigass contains the map in one big ass string. 
  */
-void	get_ghost_spawn(t_imgdata *data, t_line *line)
+void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line)
 {
 	size_t	i;
 	size_t	j;
-	size_t	index;
-	size_t	*compare;
+	ssize_t	index;
 
 	i = 0;
-	compare = calloc(GHOSTCOUNT, sizeof(size_t));
+	enemy->ghost_spawn = calloc(GHOSTCOUNT, sizeof(ssize_t));
 	while (i < GHOSTCOUNT)
 	{
 		index = (rand() % ((line->size + 1) * (line->count - 1)) \
@@ -58,11 +37,65 @@ void	get_ghost_spawn(t_imgdata *data, t_line *line)
 			if (!(data->bigass[index]))
 				index = 0;
 		}
-		while (index != 0 && compare[j] && compare[j] != index)
+		while (index != 0 && enemy->ghost_spawn[j] && enemy->ghost_spawn[j] != index)
 			j++;
-		if (compare[j])
+		if (enemy->ghost_spawn[j])
 			index = 0;
-		i = index_to_xy(data, compare, index, i);
+		if (index != 0)
+			enemy->ghost_spawn[i++] = index;
 	}
-	free(compare);
+}
+
+static ssize_t	*avail_ground_spawn(t_imgdata *data, t_line *line, \
+												ssize_t *spawn_count)
+{
+	ssize_t	*compare;
+	ssize_t	i;
+	ssize_t	j;
+
+	i = 0;
+	j = 0;
+	while (data->bigass[i++])
+	{
+		if (data->bigass[i] == '1' && i - line->count > 0)
+		{
+			if (data->bigass[i - line->count] == '0')
+				j++;
+		}
+	}
+	compare = calloc(j + 1, sizeof(ssize_t));
+	i = 0;
+	j = 0;
+	while (data->bigass[i++])
+	{
+		if (data->bigass[i] == '1' && i - line->count > 0)
+		{
+			if (data->bigass[i - line->count] == '0')
+				compare[j++] = i;
+		}
+	}
+	*spawn_count = j;
+	return (compare);
+}
+
+void	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy)
+{
+	size_t	i;
+	ssize_t	j;
+	ssize_t	spawn_count;
+	ssize_t	index;
+
+	i = 0;
+	enemy->pink_spawn = avail_ground_spawn(data, line, &spawn_count);
+	while (i < PINKCOUNT)
+	{
+		j = 0;
+		index = rand() % spawn_count;
+		while (j < (spawn_count) && enemy->pink_spawn[j] != index)
+			j++;
+		if (enemy->pink_spawn[j])
+			index = 0;
+		if (index != 0)
+		enemy->pink_spawn[i++] = index;
+	}
 }
