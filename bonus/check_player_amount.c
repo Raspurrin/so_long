@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_player_amount.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:42:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/17 03:54:06 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/20 05:24:04 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

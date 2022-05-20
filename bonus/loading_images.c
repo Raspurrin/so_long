@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loading_images.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 01:00:26 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/20 05:24:48 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,3 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 		return (ft_putendl_fd("Texture to image failed", STDOUT_FILENO), false);
 	return (true);
 }
-
-	// data->xy[0] = 60;
-	// data->xy[1] = 40;

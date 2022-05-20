@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 02:53:48 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/20 15:19:51 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
 	GHOSTCOUNT, enemy->ghost_img)) || !(enemy_to_window(data, enemy->pink_spawn, \
 	PINKCOUNT, enemy->pink_img)))
-		return (0);
+		return (0); // Doesn't actually work on fail to display error messages
 	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
 		return (free_close_window(data, data->img[BG], \
 						"image_to_window failed"), 0);

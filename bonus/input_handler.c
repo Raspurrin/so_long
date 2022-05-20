@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/18 19:57:46 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/20 15:48:43 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ char	**input_handler(int32_t fd, t_imgdata *data, t_line *line, \
 	t_error	errors;
 	size_t	walls;
 
+	enemy->total_enemies = PINKCOUNT + GHOSTCOUNT;
 	ft_bzero(&errors, sizeof(t_error));
 	data->bigass = read_file(fd);
 	data->map = ft_split(((const char *)data->bigass), '\n');
@@ -145,9 +146,9 @@ char	**input_handler(int32_t fd, t_imgdata *data, t_line *line, \
 	walls = getncount(data->bigass, '1');
 	enemy->max = ((data->line.size) * (data->line.count + 1)) \
 									- (data->collect + 2 + walls);
-	if (GHOSTCOUNT > enemy->max)
+	if (enemy->total_enemies > enemy->max)
 		errors.enemyoverflow = true;
-	if (GHOSTCOUNT < 1)
+	if (GHOSTCOUNT < 1 || PINKCOUNT < 1)
 		errors.enemyunderflow = true;
 	check_cases(&errors, data);
 	check_walls(data->map, line, &errors);
