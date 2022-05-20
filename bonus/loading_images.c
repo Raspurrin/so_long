@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/19 19:25:27 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/20 01:00:26 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ static bool	enemy_texture(t_imgdata *data, mlx_image_t **img, \
 	size_t			i;
 
 	i = 0;
+	data->xy[0] = 0;
+	data->xy[1] = 0;
 	while (i < enemy_max)
 	{
 		if (enemy_texture == data->enemy.ghost)
@@ -129,3 +131,6 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 		return (ft_putendl_fd("Texture to image failed", STDOUT_FILENO), false);
 	return (true);
 }
+
+	// data->xy[0] = 60;
+	// data->xy[1] = 40;

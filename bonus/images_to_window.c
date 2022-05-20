@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/19 03:05:37 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/20 03:29:35 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ bool	enemy_to_window(t_imgdata *data, ssize_t *index, size_t enemy_max, \
 	i = 0;
 	while (i < enemy_max)
 	{
-		x = index[i] % data->line.size + 1;
-		y = index[i] / data->line.size + 1;
+		x = index[i] % (data->line.size + 1);
+		y = index[i] / (data->line.size + 1);
 		if (mlx_image_to_window(data->mlx, img[i], \
 												x * BLOK, y * BLOK) == -1)
 			return (free_array(data->img, "image_to_window failed", \
