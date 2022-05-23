@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:09:44 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 05:24:28 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/23 19:16:33 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ map exit and starting position", STDOUT_FILENO);
 		ft_putendl_fd("Enemy request too fucking large", STDOUT_FILENO);
 	if (errors->enemyunderflow == true)
 		ft_putendl_fd("Enemy request too smol", STDOUT_FILENO);
+	if (errors->wrong_diffcount == true)
+		ft_putendl_fd("diffcount macro is set wrong", STDOUT_FILENO);
 	return ;
 }

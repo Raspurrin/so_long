@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 15:19:51 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/22 04:07:13 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
  */
 static void	init(t_imgdata *data)
 {
+	const int32_t	enemy_counts[] = {PINKCOUNT, GHOSTCOUNT};
+
+	get_enemy_index(data, (int32_t *)enemy_counts);
+	data->enemy.img_order[0] = *data->enemy.ghost_img;
+	data->enemy.img_order[1] = *data->enemy.pink_img;
 	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
 	data->enemy.time_lock = false;
@@ -55,7 +60,7 @@ static void	hook(void	*data)
 		movement(data2, x, y);
 		collect(data2, x, y);
 		gravity(data2, x, y);
-		// enemies(data2, &data2->enemy, x, y);
+		enemies(data2, &data2->enemy, x, y);
 		x = (data2->img[CHAR]->instances[0].x);
 		y = (data2->img[CHAR]->instances[0].y);
 		animate_char(data2, &data2->animate, x, y);

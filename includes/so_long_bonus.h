@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 15:17:23 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/23 19:21:27 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # define BLOK 32 		// pixel width/height of one image
-# define GHOSTCOUNT 1
-# define PINKCOUNT 1
 # define LIVES 7
 # define ACCEL 1 		// starting value of the acceleration of a jump
 # define ACCEL_MOD 1.3 	// the value accel is multiplied with every frame
@@ -35,6 +33,15 @@
 # define GRAV 1 		// toggle gravity
 # define BUFFERSIZE 30	// How many characters are read in one loop, 
 						// used when reading the map
+// ---Do not touch this:--- //
+# define DIFFCOUNT 2
+
+typedef enum enumy
+{
+	GHOSTCOUNT = 5,
+	PINKCOUNT = 5,
+	ENUMY
+}	t_enumy;
 
 typedef enum move
 {
@@ -89,6 +96,7 @@ typedef struct animate
 
 typedef struct enemy
 {
+	size_t				diff_count;
 	mlx_texture_t		*ghost;
 	mlx_texture_t		*ghost_r;
 	ssize_t				pink_spawn[PINKCOUNT];
@@ -105,6 +113,8 @@ typedef struct enemy
 	mlx_image_t			*pink_img[PINKCOUNT];
 	size_t				total_enemies;
 	bool				time_lock;
+	size_t				*itter_index[DIFFCOUNT];
+	mlx_image_t			*img_order[DIFFCOUNT];
 }	t_enemy;
 
 typedef struct image_data
@@ -148,11 +158,13 @@ typedef struct error_cases
 	bool	morecharacters;
 	bool	enemyoverflow;
 	bool	enemyunderflow;
+	bool	wrong_diffcount;
 }	t_error;
 
 void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y);
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
 								t_enemy *enemy, size_t i);
+void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error errors);
 bool	check_ext(char *file_name, char *ext);
 void	check_player_amount(t_error *errors, t_imgdata *data);
 void	collect(t_imgdata *data, size_t x, size_t y);
@@ -173,6 +185,7 @@ void	free_close_window(t_imgdata *data, void *var, char *str);
 void	gravity(t_imgdata *data, size_t x, size_t y);
 size_t	getncount(char *str, uint8_t chr);
 size_t	getncount(char *str, uint8_t chr);
+void	get_enemy_index(t_imgdata *data, int32_t *index);
 void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line);
 void	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy);
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy);

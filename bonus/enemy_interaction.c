@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 05:24:19 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:01:38 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	kill_enemy(t_imgdata *data, int32_t *player, \
 		if (player[Y] - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
 		enemy->ghost_img[i]->instances[0].x += data->width;
-		data->enemy.excep[i] = 1;
+		data->enemy.excep[i] = true;
 	}
 }
 
@@ -110,20 +110,28 @@ void	red_filter(t_imgdata *data, t_enemy *enemy)
 void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 {
 	size_t	i;
+	size_t	j;
 	int32_t	player[XY];
 
 	i = 0;
+	j = 0;
 	player[X] = x;
 	player[Y] = y;
 	red_filter(data, enemy);
-	while (i < GHOSTCOUNT)
+	while (j < DIFFCOUNT)
 	{
-		enemy->x[0] = (enemy->ghost_img[i]->instances[0].x);
+		if (i == enemy->itter_index[j])
+		{
+			j++;
+			i = 0;
+		}
+		enemy->x[0] = (enemy->img_order[j][i].instances[0].x);
 		enemy->y[0] = (enemy->ghost_img[i]->instances[0].y);
-		if (enemy->excep[i] == 0)
+		if (enemy->excep[i] == false)
+		{
 			death(data, player, enemy, i);
-		if (enemy->excep[i] == 0)
 			enemy_move(data, enemy, i);
+		}
 		i++;
 	}
 	data->count[FRAME]++;

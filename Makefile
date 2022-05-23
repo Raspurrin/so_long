@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mialbert <mialbert@student.42.fr>          +#+  +:+       +#+         #
+#    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/05/20 00:12:12 by mialbert         ###   ########.fr        #
+#    Updated: 2022/05/22 00:31:08 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ BONUS =	./libs/libft/srcs/*.c \
 		./bonus/check_player_amount.c \
 		./bonus/images_to_window.c \
 		./bonus/animation.c \
-		./bonus/end.c
+		./bonus/end.c \
+		./bonus/enemy_init.c
 
 all : $(NAME)
 OS := $(shell uname -s)
