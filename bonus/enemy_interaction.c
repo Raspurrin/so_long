@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/23 20:01:38 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/24 05:01:53 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,25 @@
  * a new image will be used that matches the direction they are going.
  * A higher value of FATBOO will slow down the movement.
  */
-static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
+static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i, size_t j)
 {
 	if (data->count[FRAME] % SPEED == 0)
 		enemy->move[i] = rand() % 4;
 	if (enemy->move[i] == 0 && enemy->y[0] + (BLOK / FATBOO) \
 									< data->height - (BLOK * 2))
-		enemy->ghost_img[i]->instances[0].y += (BLOK / FATBOO);
+		enemy->img_order[j][i].instances[0].y += (BLOK / FATBOO);
 	else if (enemy->move[i] == 1 && enemy->y[0] - (BLOK / FATBOO) > 0 + BLOK)
-		enemy->ghost_img[i]->instances[0].y -= (BLOK / FATBOO);
+		enemy->img_order[j][i].instances[0].y -= (BLOK / FATBOO);
 	else if (enemy->move[i] == 2 && enemy->x[0] - (BLOK / FATBOO) > 0 + BLOK)
 	{
 		animate_ghosts(data, enemy->ghost, enemy, i);
-		enemy->ghost_img[i]->instances[0].x -= BLOK / FATBOO;
+		enemy->img_order[j][i].instances[0].x -= BLOK / FATBOO;
 	}
 	else if (enemy->move[i] == 3 && enemy->x[0] + (BLOK / FATBOO) < data->width \
 														- (BLOK * 2))
 	{
 		animate_ghosts(data, enemy->ghost_r, enemy, i);
-		enemy->ghost_img[i]->instances[0].x += (BLOK / FATBOO);
+		enemy->img_order[j][i].instances[0].x += (BLOK / FATBOO);
 	}
 }
 
@@ -48,14 +48,14 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i)
  * It also move the player up to create a bouncing effect
  */
 static void	kill_enemy(t_imgdata *data, int32_t *player, \
-								t_enemy *enemy, size_t i)
+								t_enemy *enemy, size_t i, size_t j)
 {
 	if (player[Y] == (enemy->y[1] - 1) && player[X] == enemy->x[1] && KILL == 1 \
 		&& data->enemy.time_lock == false)
 	{
 		if (player[Y] - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
-		enemy->ghost_img[i]->instances[0].x += data->width;
+		enemy->img_order[j][i].instances[0].x += data->width;
 		data->enemy.excep[i] = true;
 	}
 }
@@ -66,11 +66,12 @@ static void	kill_enemy(t_imgdata *data, int32_t *player, \
  * If it does, decreases the life counter and activates the time_lock for 
  * temporary player invulnerability. 
  */
-static void	death(t_imgdata *data, int32_t *player, t_enemy *enemy, size_t i)
+static void	check_damage(t_imgdata *data, int32_t *player, \
+									t_enemy *enemy, size_t i, size_t j)
 {
 	enemy->x[1] = enemy->x[0] / BLOK;
 	enemy->y[1] = enemy->y[0] / BLOK;
-	kill_enemy(data, player, enemy, i);
+	kill_enemy(data, player, enemy, i, j);
 	if ((player[X] == enemy->x[1] && player[Y] == enemy->y[1]) \
 		&& data->enemy.time_lock == false && IMMORTAL == 0)
 	{
@@ -107,7 +108,8 @@ void	red_filter(t_imgdata *data, t_enemy *enemy)
  * seperately every frame. Skipping the ghosts stored in the exception array
  * when they have been taken away from the afterlife.
  */
-void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
+void	enemies(t_imgdata *data, t_enemy *enemy, \
+								size_t x, size_t y)
 {
 	size_t	i;
 	size_t	j;
@@ -120,17 +122,17 @@ void	enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y)
 	red_filter(data, enemy);
 	while (j < DIFFCOUNT)
 	{
-		if (i == enemy->itter_index[j])
+		enemy->x[0] = (enemy->img_order[j][i].instances[0].x);
+		enemy->y[0] = (enemy->img_order[j][i].instances[0].y);
+		if (enemy->excep[i] == false)
+		{
+			check_damage(data, player, enemy, i, j);
+			enemy_move(data, enemy, i, j);
+		}
+		if (i == enemy->counts[j])
 		{
 			j++;
 			i = 0;
-		}
-		enemy->x[0] = (enemy->img_order[j][i].instances[0].x);
-		enemy->y[0] = (enemy->ghost_img[i]->instances[0].y);
-		if (enemy->excep[i] == false)
-		{
-			death(data, player, enemy, i);
-			enemy_move(data, enemy, i);
 		}
 		i++;
 	}

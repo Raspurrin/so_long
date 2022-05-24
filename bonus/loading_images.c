@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 05:24:48 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/24 22:31:56 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm)
 	return (true);
 }
 
-static bool	enemy_texture(t_imgdata *data, mlx_image_t **img, \
+static bool	enemy_texture(t_imgdata *data, mlx_image_t ***img, \
 				size_t enemy_max, mlx_texture_t *enemy_texture)
 {
 	const uint32_t	wh2[] = {32, 32};
@@ -91,15 +91,15 @@ static bool	enemy_texture(t_imgdata *data, mlx_image_t **img, \
 	data->xy[1] = 0;
 	while (i < enemy_max)
 	{
-		if (enemy_texture == data->enemy.ghost)
+i		if (enemy_texture == data->enemy.ghost)
 		{
-			img[i] = mlx_texture_to_image(data->mlx, data->enemy.ghost);
+			img[0][i] = mlx_texture_to_image(data->mlx, data->enemy.ghost);
 			if (!img[i++])
 				return (ft_putendl_fd("Texture failed", STDOUT_FILENO), false);
 		}
 		else
 		{
-			img[i] = mlx_texture_area_to_image(data->mlx, \
+			img[0][i] = mlx_texture_area_to_image(data->mlx, \
 							enemy_texture, data->xy, (uint32_t *)wh2);
 			if (!img[i++])
 				return (ft_putendl_fd("Texture failed", STDOUT_FILENO), false);
@@ -110,10 +110,14 @@ static bool	enemy_texture(t_imgdata *data, mlx_image_t **img, \
 
 bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 {
-	size_t				i;
+	ssize_t				i;
 	const uint32_t		wh2[] = {32, 32};
 
-	i = 0;
+	i = -1;
+	data->enemy.img_order = malloc(sizeof(mlx_image_t ***) * DIFFCOUNT);
+	while (i++ < DIFFCOUNT - 1)
+		data->enemy.img_order[i] = malloc(sizeof(mlx_image_t **) \
+										* data->enemy.counts[i]);
 	data->xy[0] = 60;
 	data->xy[1] = 40;
 	data->char_start = data->xy[0];
@@ -125,8 +129,8 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 	img[PICKUP] = mlx_texture_to_image(data->mlx, &xpm[PICKUP]->texture);
 	img[DOOR] = mlx_texture_to_image(data->mlx, &xpm[DOOR]->texture);
 	if (!img[BG] || !img[CHAR] || !img[TILE] || !img[WALL] || !img[PICKUP] \
-	|| !img[DOOR] || !enemy_texture(data, data->enemy.ghost_img, GHOSTCOUNT, \
-	data->enemy.ghost) || !enemy_texture(data, data->enemy.pink_img, \
+	|| !img[DOOR] || !enemy_texture(data, &data->enemy.img_order, GHOSTCOUNT, \
+	data->enemy.ghost) || !enemy_texture(data, &data->enemy.img_order, \
 	PINKCOUNT, &xpm[PINK]->texture))
 		return (ft_putendl_fd("Texture to image failed", STDOUT_FILENO), false);
 	return (true);

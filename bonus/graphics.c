@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/22 04:07:13 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/24 05:05:31 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,36 @@
  * because if you initialise things in the loop, it will reset
  * to said value every frame.
  */
+
+// static void	img_order(t_imgdata *data, t_enemy *enemy)
+// {
+// 	size_t	i;
+// 	size_t	j;
+
+// 	i = 0;
+// 	j = 0;
+// 	enemy->img_order = malloc(sizeof(mlx_image_t **) * DIFFCOUNT);
+// 	while (i < DIFFCOUNT)
+// 		enemy->img_order[i] = malloc(sizeof(mlx_image_t *) \
+// 										* enemy->counts[i++]);
+// 	i = 0;
+// 	while (enemy->img_order[j])
+// 	{
+// 		while (enemy->img_order[j][i])
+// 		{
+// 			if (j == 0)
+// 				enemy->img_order[j][i] = enemy->ghost_img[i];
+// 			else
+// 				enemy->img_order[j][i] = enemy->pink_img[i];
+// 			i++;
+// 		}
+// 		i = 0;
+// 		j++;
+// 	}
+// }
+
 static void	init(t_imgdata *data)
 {
-	const int32_t	enemy_counts[] = {PINKCOUNT, GHOSTCOUNT};
-
-	get_enemy_index(data, (int32_t *)enemy_counts);
-	data->enemy.img_order[0] = *data->enemy.ghost_img;
-	data->enemy.img_order[1] = *data->enemy.pink_img;
 	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
 	data->enemy.time_lock = false;
@@ -60,7 +83,7 @@ static void	hook(void	*data)
 		movement(data2, x, y);
 		collect(data2, x, y);
 		gravity(data2, x, y);
-		enemies(data2, &data2->enemy, x, y);
+		// enemies(data2, &data2->enemy, x, y);
 		x = (data2->img[CHAR]->instances[0].x);
 		y = (data2->img[CHAR]->instances[0].y);
 		animate_char(data2, &data2->animate, x, y);
@@ -83,9 +106,9 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
 	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
 	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
-	GHOSTCOUNT, enemy->ghost_img)) || !(enemy_to_window(data, enemy->pink_spawn, \
-	PINKCOUNT, enemy->pink_img)))
-		return (0); // Doesn't actually work on fail to display error messages
+	GHOSTCOUNT, &data->enemy.img_order[0])) || !(enemy_to_window(data, enemy->pink_spawn, \
+	PINKCOUNT, &data->enemy.img_order[1])))
+		return (0);
 	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
 		return (free_close_window(data, data->img[BG], \
 						"image_to_window failed"), 0);

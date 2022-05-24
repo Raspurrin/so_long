@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:55:25 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/23 19:18:21 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:23:27 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error errors)
 {
 	size_t			i;
 	size_t			walls;
-	const int32_t	enemy_arr[] = {PINKCOUNT, GHOSTCOUNT, 0};
 
 	i = 0;
-	while (enemy_arr[i] != 0)
-		enemy->total_enemies += enemy_arr[i++];
+	enemy->counts[0] = PINKCOUNT;
+	enemy->counts[1] = GHOSTCOUNT;
+	while (enemy->counts[i] != 0)
+		enemy->total_enemies += enemy->counts[i++];
 	if (DIFFCOUNT != i)
 		errors.wrong_diffcount = true;
 	walls = getncount(data->bigass, '1');
@@ -31,23 +32,6 @@ void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error errors)
 	if (GHOSTCOUNT < 1 || PINKCOUNT < 1)
 		errors.enemyunderflow = true;
 }
-
-void	get_enemy_index(t_imgdata *data, int32_t *enemy_counts)
-{
-	ssize_t	i;
-	ssize_t	j;
-
-	i = 0;
-	j = 0;
-	while (i < DIFFCOUNT)
-	{
-		while (j > 0)
-			data->enemy.itter_index[i] += enemy_counts[j--];
-		i++;
-		j = i;
-	}
-}
-
 /**
  *  
  * 
