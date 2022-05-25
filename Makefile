@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/30 00:41:49 by mialbert          #+#    #+#              #
-#    Updated: 2022/05/25 02:01:28 by mialbert         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 CFLAGS = -Wall -Werror -Wextra -g
 NAME = so_long
@@ -17,7 +6,6 @@ BONUS =	./libs/libft/srcs/*.c \
 		./bonus/error_cases.c  \
 		./bonus/main.c \
 		./bonus/graphics.c \
-		./bonus/utils.c \
 		./bonus/loading_images.c \
 		./bonus/enemy_interaction.c \
 		./bonus/enemy_spawn.c \
@@ -30,7 +18,8 @@ BONUS =	./libs/libft/srcs/*.c \
 		./bonus/images_to_window.c \
 		./bonus/animation.c \
 		./bonus/end.c \
-		./bonus/enemy_init.c
+		./bonus/enemy_init.c \
+		./bonus/utils.c
 
 all : $(NAME)
 OS := $(shell uname -s)
@@ -52,12 +41,12 @@ $(NAME) : $(BONUS)
 Darwin:
 	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX/include \
 	-framework Cocoa -framework OpenGL, -framework IOKit $(BONUS) ./libs/MLX/libmlx42.a \
-	 ./libs/libft/srcs/libft.a $(GLFW) -L "/Users/$(USER)/.brew/opt/glfw/lib/" -fsanitize=address -o $(NAME)
+	 ./libs/libft/srcs/libft.a $(GLFW) -fsanitize=address -o $(NAME)
 
 Linux:   
 	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX/include \
 	 $(BONUS) ./libs/MLX/libmlx42.a -ldl -lglfw \
-	 ./libs/libft/srcs/libft.a -L "/Users/$(USER)/.brew/opt/glfw/lib/" -fsanitize=address -o $(NAME)
+	 ./libs/libft/srcs/libft.a -fsanitize=address -o $(NAME)
 
 install linux:
 	sudo apt update 

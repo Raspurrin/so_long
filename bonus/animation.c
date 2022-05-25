@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:49:47 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 05:24:00 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/25 05:36:31 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y)
  * in enemy_interactions.c
  */
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
-								t_enemy *enemy, size_t i)
+								t_enemy *enemy, size_t i, size_t j)
 {
-	mlx_delete_image(data->mlx, data->enemy.ghost_img[i]);
-	data->enemy.ghost_img[i] = mlx_texture_to_image(data->mlx, ghost);
-	mlx_image_to_window(data->mlx, data->enemy.ghost_img[i], \
+	mlx_delete_image(data->mlx, (data->enemy_diff.lal[j])[i]);
+	(data->enemy_diff.lal[j])[i] = mlx_texture_to_image(data->mlx, ghost);
+	mlx_image_to_window(data->mlx, (data->enemy_diff.lal[j])[i], \
 							enemy->x[0], enemy->y[0]);
-	mlx_set_instance_depth(data->enemy.ghost_img[i]->instances, i + 100);
+	mlx_set_instance_depth((data->enemy_diff.lal[j])[i]->instances, i + 100);
 }

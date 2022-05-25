@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 03:38:00 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/25 06:06:07 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define GHOSTCOUNT 5
-# define PINKCOUNT 4
+# define GHOSTCOUNT 10
+# define PINKCOUNT 5
 # define BLOK 32 		// pixel width/height of one image
 # define LIVES 7
 # define ACCEL 1 		// starting value of the acceleration of a jump
 # define ACCEL_MOD 1.3 	// the value accel is multiplied with every frame
 # define JUMP_CAP 100	// the value accel needs to get to stop a jump
 # define FATASS 10 		// how slow the player moves
-# define FATBOO 10 		// how slow ghosts move
+# define FATBOO 50 		// how slow ghosts move
 # define SPEED 18 		// how many frames it takes to change ghost movement
 # define IMMORTAL 0 	// toggle immortality
 # define KILL 1 		// toggle ability to kill enemies
@@ -77,9 +77,9 @@ typedef enum string
 
 typedef struct enemy_diff
 {
-	mlx_image_t			*pink_img[PINKCOUNT];
 	mlx_image_t			*ghost_img[GHOSTCOUNT];
-	size_t				diff_count;
+	mlx_image_t			*pink_img[PINKCOUNT];
+	mlx_image_t			**lal[DIFFCOUNT + 1];
 }	t_enemy_diff;
 
 typedef struct line
@@ -164,7 +164,7 @@ typedef struct error_cases
 
 void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y);
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
-								t_enemy *enemy, size_t i);
+								t_enemy *enemy, size_t i, size_t j);
 void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error errors);
 bool	check_ext(char *file_name, char *ext);
 void	check_player_amount(t_error *errors, t_imgdata *data);

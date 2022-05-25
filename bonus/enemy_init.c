@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:55:25 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/23 20:23:27 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/25 04:50:34 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error errors)
 	size_t			walls;
 
 	i = 0;
-	enemy->counts[0] = PINKCOUNT;
-	enemy->counts[1] = GHOSTCOUNT;
+	enemy->counts[0] = GHOSTCOUNT;
+	enemy->counts[1] = PINKCOUNT;
 	while (enemy->counts[i] != 0)
 		enemy->total_enemies += enemy->counts[i++];
 	if (DIFFCOUNT != i)

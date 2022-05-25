@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 20:46:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 05:16:34 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/05/20 05:25:05 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

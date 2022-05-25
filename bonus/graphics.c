@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 03:54:19 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/25 05:24:59 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	hook(void	*data)
 		movement(data2, x, y);
 		collect(data2, x, y);
 		gravity(data2, x, y);
-		// enemies(data2, &data2->enemy, x, y);
+		enemies(data2, &data2->enemy, x, y);
 		x = (data2->img[CHAR]->instances[0].x);
 		y = (data2->img[CHAR]->instances[0].y);
 		animate_char(data2, &data2->animate, x, y);
@@ -101,7 +101,7 @@ static void	hook(void	*data)
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
 	const char	*args[] = {"/usr/bin/afplay", "--volume", "0", \
-	"/Users/mialbert/Documents/test/audio/scape.mp3", NULL};
+	"/Users/cdahlhof/Documents/so_far/audio/scape.mp3", NULL};
 
 	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
 	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \

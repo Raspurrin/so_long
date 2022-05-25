@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_interaction.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 04:16:38 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/25 10:02:24 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i, size_t j)
 {
 	if (data->count[FRAME] % SPEED == 0)
 		enemy->move[i] = rand() % 4;
-	if (enemy->move[i] == 0 && enemy->y[0] + (BLOK / FATBOO) \
-									< data->height - (BLOK * 2))
-		enemy->img_order[j][i].instances[0].y += (BLOK / FATBOO);
-	else if (enemy->move[i] == 1 && enemy->y[0] - (BLOK / FATBOO) > 0 + BLOK)
-		enemy->img_order[j][i].instances[0].y -= (BLOK / FATBOO);
-	else if (enemy->move[i] == 2 && enemy->x[0] - (BLOK / FATBOO) > 0 + BLOK)
+	if (enemy->move[i] == 2 && enemy->x[0] - (BLOK / FATBOO) > 0 + BLOK)
 	{
-		animate_ghosts(data, enemy->ghost, enemy, i);
-		enemy->img_order[j][i].instances[0].x -= BLOK / FATBOO;
+		animate_ghosts(data, enemy->ghost, enemy, i, j);
+		(data->enemy_diff.lal[j])[i]->instances[0].x -= BLOK / FATBOO;
 	}
 	else if (enemy->move[i] == 3 && enemy->x[0] + (BLOK / FATBOO) < data->width \
 														- (BLOK * 2))
 	{
-		animate_ghosts(data, enemy->ghost_r, enemy, i);
-		enemy->img_order[j][i].instances[0].x += (BLOK / FATBOO);
+		animate_ghosts(data, enemy->ghost_r, enemy, i, j);
+		(data->enemy_diff.lal[j])[i]->instances[0].x += (BLOK / FATBOO);
 	}
+	else if (enemy->move[i] == 0 && enemy->y[0] + (BLOK / FATBOO) \
+									< data->height - (BLOK * 2))
+		(data->enemy_diff.lal[j])[i]->instances[0].y += (BLOK / FATBOO);
+	else if (enemy->move[i] == 1 && enemy->y[0] - (BLOK / FATBOO) > 0 + BLOK)
+		(data->enemy_diff.lal[j])[i]->instances[0].y -= (BLOK / FATBOO);
 }
 
 /**
@@ -55,7 +55,7 @@ static void	kill_enemy(t_imgdata *data, int32_t *player, \
 	{
 		if (player[Y] - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
-		enemy->img_order[j][i].instances[0].x += data->width;
+		(data->enemy_diff.lal[j])[i]->instances[0].x += data->width;
 		data->enemy.excep[i] = true;
 	}
 }
@@ -66,7 +66,7 @@ static void	kill_enemy(t_imgdata *data, int32_t *player, \
  * If it does, decreases the life counter and activates the time_lock for 
  * temporary player invulnerability. 
  */
-static void	check_damage(t_imgdata *data, int32_t *player, \
+void	check_damage(t_imgdata *data, int32_t *player, \
 									t_enemy *enemy, size_t i, size_t j)
 {
 	enemy->x[1] = enemy->x[0] / BLOK;
@@ -108,7 +108,7 @@ void	red_filter(t_imgdata *data, t_enemy *enemy)
  * seperately every frame. Skipping the ghosts stored in the exception array
  * when they have been taken away from the afterlife.
  */
-void	enemies(t_imgdata *data, t_enemy *enemy, t_enemy_diff *enemy_diff, \
+void	enemies(t_imgdata *data, t_enemy *enemy, \
 								size_t x, size_t y)
 {
 	size_t	i;
@@ -120,11 +120,11 @@ void	enemies(t_imgdata *data, t_enemy *enemy, t_enemy_diff *enemy_diff, \
 	player[X] = x;
 	player[Y] = y;
 	red_filter(data, enemy);
-	while (j < DIFFCOUNT)
+	while (data->enemy_diff.lal[j])
 	{
-		enemy->x[0] = ((enemy_diff->ghost_img[i]).instances[0].x);
-		// enemy->y[0] = (data->enemy_diff[j][i].instances[0].y);
-		if (enemy->excep[i] == false)
+		enemy->x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
+		enemy->y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
+		if (!j && enemy->excep[i] == false)
 		{
 			check_damage(data, player, enemy, i, j);
 			enemy_move(data, enemy, i, j);
