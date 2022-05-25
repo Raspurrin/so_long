@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/24 05:14:37 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/25 03:38:00 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ typedef enum string
 	STR_COUNT,
 }	t_string;
 
+typedef struct enemy_diff
+{
+	mlx_image_t			*pink_img[PINKCOUNT];
+	mlx_image_t			*ghost_img[GHOSTCOUNT];
+	size_t				diff_count;
+}	t_enemy_diff;
+
 typedef struct line
 {
 	ssize_t	count;
@@ -93,7 +100,6 @@ typedef struct enemy
 {
 	size_t				counts[DIFFCOUNT];
 	size_t				current_time;
-	size_t				diff_count;
 	size_t				excep_count;
 	size_t				excep[GHOSTCOUNT];
 	mlx_texture_t		*ghost;
@@ -103,7 +109,6 @@ typedef struct enemy
 	mlx_image_t			**img_order;
 	size_t				max;
 	size_t				move[GHOSTCOUNT];
-	mlx_image_t			*pink_img[PINKCOUNT];
 	ssize_t				pink_spawn[PINKCOUNT];
 	size_t				time;
 	bool				time_lock;
@@ -123,6 +128,7 @@ typedef struct image_data
 	int32_t				count[STR_COUNT];
 	bool				counter_lock;
 	t_enemy				enemy;
+	t_enemy_diff		enemy_diff;
 	bool				fly;
 	int32_t				height;
 	mlx_image_t			*img[IMG_COUNT];

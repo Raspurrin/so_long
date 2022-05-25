@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/24 05:05:31 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/25 03:54:19 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
 	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
 	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
-	GHOSTCOUNT, &data->enemy.img_order[0])) || !(enemy_to_window(data, enemy->pink_spawn, \
-	PINKCOUNT, &data->enemy.img_order[1])))
+	GHOSTCOUNT, data->enemy_diff.ghost_img)) || !(enemy_to_window(data, enemy->pink_spawn, \
+	PINKCOUNT, data->enemy_diff.pink_img)))
 		return (0);
 	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
 		return (free_close_window(data, data->img[BG], \

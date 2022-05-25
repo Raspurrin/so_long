@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/24 05:01:53 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/25 04:16:38 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	red_filter(t_imgdata *data, t_enemy *enemy)
  * seperately every frame. Skipping the ghosts stored in the exception array
  * when they have been taken away from the afterlife.
  */
-void	enemies(t_imgdata *data, t_enemy *enemy, \
+void	enemies(t_imgdata *data, t_enemy *enemy, t_enemy_diff *enemy_diff, \
 								size_t x, size_t y)
 {
 	size_t	i;
@@ -122,8 +122,8 @@ void	enemies(t_imgdata *data, t_enemy *enemy, \
 	red_filter(data, enemy);
 	while (j < DIFFCOUNT)
 	{
-		enemy->x[0] = (enemy->img_order[j][i].instances[0].x);
-		enemy->y[0] = (enemy->img_order[j][i].instances[0].y);
+		enemy->x[0] = ((enemy_diff->ghost_img[i]).instances[0].x);
+		// enemy->y[0] = (data->enemy_diff[j][i].instances[0].y);
 		if (enemy->excep[i] == false)
 		{
 			check_damage(data, player, enemy, i, j);
