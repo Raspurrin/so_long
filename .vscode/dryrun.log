@@ -1,6 +1,7 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/mialbert/Documents/so_long'
 /Applications/Xcode.app/Contents/Developer/usr/bin/make -C ./libs/libft/srcs
+ 
 make[1]: Entering directory `/Users/mialbert/Documents/so_long/libs/libft/srcs'
 gcc -Wall -Wextra -Werror -c ft_memmove.c -o ft_memmove.o
 gcc -Wall -Wextra -Werror -c ft_strjoin.c -o ft_strjoin.o
@@ -51,8 +52,10 @@ make[1]: Leaving directory `/Users/mialbert/Documents/so_long/libs/libft/srcs'
 make[1]: Entering directory `/Users/mialbert/Documents/so_long/libs/MLX'
 echo "\033[32;1m\033[1mShader to C: shaders/default.frag -> src/mlx_frag_shader.c\033[0m"
 bash tools/compile_shader.sh shaders/default.frag > src/mlx_frag_shader.c
+ 
 echo "\033[32;1m\033[1mShader to C: shaders/default.vert -> src/mlx_vert_shader.c\033[0m"
 bash tools/compile_shader.sh shaders/default.vert > src/mlx_vert_shader.c
+ 
 echo "\033[32;1m\033[1mCompiling: glad.c\033[0m"
 cc -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Ofast -D NDEBUG -o lib/glad/glad.o -c lib/glad/glad.c -I include -I /Users/mialbert/.brew/opt/glfw/include
 echo "\033[32;1m\033[1mCompiling: lodepng.c\033[0m"
@@ -81,6 +84,7 @@ echo "\033[32;1m\033[1mCompiling: mlx_put_pixel.c\033[0m"
 cc -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Ofast -D NDEBUG -o src/mlx_put_pixel.o -c src/mlx_put_pixel.c -I include -I /Users/mialbert/.brew/opt/glfw/include
 echo "\033[32;1m\033[1mCompiling: mlx_vert_shader.c\033[0m"
 cc -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Ofast -D NDEBUG -o src/mlx_vert_shader.o -c src/mlx_vert_shader.c -I include -I /Users/mialbert/.brew/opt/glfw/include
+ 
 echo "\033[32;1m\033[1mCompiling: mlx_window.c\033[0m"
 cc -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Ofast -D NDEBUG -o src/mlx_window.o -c src/mlx_window.c -I include -I /Users/mialbert/.brew/opt/glfw/include
 echo "\033[32;1m\033[1mCompiling: mlx_png.c\033[0m"
@@ -99,10 +103,12 @@ ar rc libmlx42.a lib/glad/glad.o lib/png/lodepng.o src/font/mlx_font.o src/mlx_c
 echo "\033[32;1m\033[1mDone\033[0m"
 make[1]: Leaving directory `/Users/mialbert/Documents/so_long/libs/MLX'
 /Applications/Xcode.app/Contents/Developer/usr/bin/make Darwin
+ 
 make[1]: Entering directory `/Users/mialbert/Documents/so_long'
 cc -Wall -Werror -Wextra -g -g -I includes -I libs/libft/srcs -I libs/MLX/include \
-	-framework Cocoa -framework OpenGL, -framework IOKit ./libs/libft/srcs/*.c ./bonus/input_handler.c ./bonus/error_cases.c ./bonus/main.c ./bonus/graphics.c ./bonus/utils.c ./bonus/loading_images.c ./bonus/enemy_interaction.c ./bonus/enemy_spawn.c ./bonus/collectible.c ./bonus/read_map.c ./bonus/display.c ./bonus/gravity_jump.c ./bonus/movement.c ./bonus/check_player_amount.c ./bonus/images_to_window.c ./bonus/animation.c ./bonus/end.c ./libs/MLX/libmlx42.a \
-	 ./libs/libft/srcs/libft.a libs/MLX/lib/lib-x86_64/libglfw3.a -L "/Users/mialbert/.brew/opt/glfw/lib/" -fsanitize=address -o so_long
+	-framework Cocoa -framework OpenGL, -framework IOKit ./libs/libft/srcs/*.c ./bonus/input_handler.c ./bonus/error_cases.c ./bonus/main.c ./bonus/graphics.c ./bonus/loading_images.c ./bonus/enemy_interaction.c ./bonus/enemy_spawn.c ./bonus/collectible.c ./bonus/read_map.c ./bonus/display.c ./bonus/gravity_jump.c ./bonus/movement.c ./bonus/check_player_amount.c ./bonus/images_to_window.c ./bonus/animation.c ./bonus/end.c ./bonus/enemy_init.c ./bonus/utils.c ./libs/MLX/libmlx42.a \
+	 ./libs/libft/srcs/libft.a libs/MLX/lib/lib-x86_64/libglfw3.a -fsanitize=address -o so_long
 make[1]: Leaving directory `/Users/mialbert/Documents/so_long'
+ 
 make: Leaving directory `/Users/mialbert/Documents/so_long'
  

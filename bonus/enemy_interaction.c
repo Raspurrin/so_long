@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_interaction.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 10:02:24 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/05/26 01:40:54 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,32 @@
  */
 static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i, size_t j)
 {
+	if (enemy->fall_lock == true)
+		return ;
 	if (data->count[FRAME] % SPEED == 0)
-		enemy->move[i] = rand() % 4;
-	if (enemy->move[i] == 2 && enemy->x[0] - (BLOK / FATBOO) > 0 + BLOK)
 	{
-		animate_ghosts(data, enemy->ghost, enemy, i, j);
+		if (j == 0)
+			enemy->move[j][i] = rand() % 4;
+		else 
+			enemy->move[j][i] = rand() % 2;
+	}
+	if (enemy->move[j][i] == 0 && enemy->x[0] - (BLOK / FATBOO) > 0 + BLOK)
+	{
+		if (j == 0)
+			animate_ghosts(data, enemy->ghost, enemy, i, j);
 		(data->enemy_diff.lal[j])[i]->instances[0].x -= BLOK / FATBOO;
 	}
-	else if (enemy->move[i] == 3 && enemy->x[0] + (BLOK / FATBOO) < data->width \
-														- (BLOK * 2))
+	else if (enemy->move[j][i] == 1 && enemy->x[0] + (BLOK / FATBOO) \
+											< data->width - (BLOK * 2))
 	{
-		animate_ghosts(data, enemy->ghost_r, enemy, i, j);
+		if (j == 0)
+			animate_ghosts(data, enemy->ghost_r, enemy, i, j);
 		(data->enemy_diff.lal[j])[i]->instances[0].x += (BLOK / FATBOO);
 	}
-	else if (enemy->move[i] == 0 && enemy->y[0] + (BLOK / FATBOO) \
+	else if (enemy->move[j][i] == 2 && enemy->y[0] + (BLOK / FATBOO) \
 									< data->height - (BLOK * 2))
 		(data->enemy_diff.lal[j])[i]->instances[0].y += (BLOK / FATBOO);
-	else if (enemy->move[i] == 1 && enemy->y[0] - (BLOK / FATBOO) > 0 + BLOK)
+	else if (enemy->move[j][i] == 3 && enemy->y[0] - (BLOK / FATBOO) > 0 + BLOK)
 		(data->enemy_diff.lal[j])[i]->instances[0].y -= (BLOK / FATBOO);
 }
 
@@ -56,7 +65,7 @@ static void	kill_enemy(t_imgdata *data, int32_t *player, \
 		if (player[Y] - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;
 		(data->enemy_diff.lal[j])[i]->instances[0].x += data->width;
-		data->enemy.excep[i] = true;
+		data->enemy.excep[j][i] = true;
 	}
 }
 
@@ -124,17 +133,26 @@ void	enemies(t_imgdata *data, t_enemy *enemy, \
 	{
 		enemy->x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
 		enemy->y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
-		if (!j && enemy->excep[i] == false)
+		if (enemy->excep[j][i] == false)
 		{
-			check_damage(data, player, enemy, i, j);
+			// if (j == 1 && data->map[(enemy->y[0] / BLOK) + 1][enemy->x[0] / BLOK] != '1')
+			// {
+			// 	(data->enemy_diff.lal[j])[i]->instances[0].y += 3;
+			// 	enemy->fall_lock = true;
+			// }
+			// else 
+			// 	enemy->fall_lock = false;
+			// check_damage(data, player, enemy, i, j);
+			animate_pinks(data, enemy, i, enemy->x[0], enemy->y[0]);
 			enemy_move(data, enemy, i, j);
 		}
-		if (i == enemy->counts[j])
+		if (i == (enemy->counts[j] - 1))
 		{
 			j++;
 			i = 0;
 		}
-		i++;
+		else
+			i++;
 	}
 	data->count[FRAME]++;
 }

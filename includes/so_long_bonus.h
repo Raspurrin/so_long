@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 06:06:07 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/05/26 01:39:57 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define GHOSTCOUNT 10
-# define PINKCOUNT 5
+# define GHOSTCOUNT 2
+# define PINKCOUNT 2
 # define BLOK 32 		// pixel width/height of one image
 # define LIVES 7
 # define ACCEL 1 		// starting value of the acceleration of a jump
@@ -30,8 +30,8 @@
 # define FATASS 10 		// how slow the player moves
 # define FATBOO 50 		// how slow ghosts move
 # define SPEED 18 		// how many frames it takes to change ghost movement
-# define IMMORTAL 0 	// toggle immortality
-# define KILL 1 		// toggle ability to kill enemies
+# define IMMORTAL 1 	// toggle immortality
+# define KILL 0 		// toggle ability to kill enemies
 # define GRAV 1 		// toggle gravity
 # define BUFFERSIZE 30	// How many characters are read in one loop, 
 						// used when reading the map
@@ -77,9 +77,9 @@ typedef enum string
 
 typedef struct enemy_diff
 {
-	mlx_image_t			*ghost_img[GHOSTCOUNT];
-	mlx_image_t			*pink_img[PINKCOUNT];
-	mlx_image_t			**lal[DIFFCOUNT + 1];
+	mlx_image_t		*ghost_img[GHOSTCOUNT];
+	mlx_image_t		*pink_img[PINKCOUNT];
+	mlx_image_t		**lal[DIFFCOUNT + 1];
 }	t_enemy_diff;
 
 typedef struct line
@@ -98,54 +98,60 @@ typedef struct animate
 
 typedef struct enemy
 {
-	size_t				counts[DIFFCOUNT];
-	size_t				current_time;
-	size_t				excep_count;
-	size_t				excep[GHOSTCOUNT];
-	mlx_texture_t		*ghost;
-	mlx_texture_t		*ghost_r;
-	mlx_image_t			*ghost_img[GHOSTCOUNT];
-	ssize_t				ghost_spawn[GHOSTCOUNT];
-	mlx_image_t			**img_order;
-	size_t				max;
-	size_t				move[GHOSTCOUNT];
-	ssize_t				pink_spawn[PINKCOUNT];
-	size_t				time;
-	bool				time_lock;
-	size_t				total_enemies;
-	int32_t				x[GHOSTCOUNT + 1];
-	int32_t				y[GHOSTCOUNT + 1];
+	bool			fall_lock;
+	t_animate		pink_anim;
+	size_t			ghost_move[GHOSTCOUNT];
+	size_t			pink_move[PINKCOUNT];
+	size_t			ghost_excep[GHOSTCOUNT];
+	size_t			pink_excep[PINKCOUNT];
+	size_t			counts[DIFFCOUNT];
+	size_t			current_time;
+	size_t			excep_count;
+	size_t			*excep[DIFFCOUNT + 1];
+	mlx_texture_t	*ghost;
+	mlx_texture_t	*ghost_r;
+	mlx_image_t		*ghost_img[GHOSTCOUNT];
+	ssize_t			ghost_spawn[GHOSTCOUNT];
+	mlx_image_t		**img_order;
+	size_t			max;
+	size_t			*move[DIFFCOUNT + 1];
+	ssize_t			pink_spawn[PINKCOUNT];
+	size_t			time;
+	bool			time_lock;
+	size_t			total_enemies;
+	int32_t			x[GHOSTCOUNT + 1];
+	int32_t			y[GHOSTCOUNT + 1];
 }	t_enemy;
 
 typedef struct image_data
 {
-	t_animate			animate;
-	float				accel;
-	char				*bigass;
-	uint32_t			char_start;
-	size_t				collect;
-	char				*combstr[STR_COUNT];
-	int32_t				count[STR_COUNT];
-	bool				counter_lock;
-	t_enemy				enemy;
-	t_enemy_diff		enemy_diff;
-	bool				fly;
-	int32_t				height;
-	mlx_image_t			*img[IMG_COUNT];
-	mlx_key_data_t		*keydata;
-	bool				jump_lock;
-	t_line				line;
-	char				**map;
-	mlx_t				*mlx;
-	size_t				old_x;
-	size_t				old_y;
-	int32_t				pid;
-	uint8_t				*pixel;
-	uint8_t				startingpoint;
-	char				*str[STR_COUNT];
-	int32_t				width;
-	xpm_t				*xpm[IMG_COUNT];
-	uint32_t			xy[2];			
+	t_animate		animate;
+	float			accel;
+	char			*bigass;
+	uint32_t		char_start;
+	size_t			collect;
+	char			*combstr[STR_COUNT];
+	int32_t			count[STR_COUNT];
+	bool			counter_lock;
+	t_enemy			enemy;
+	t_enemy_diff	enemy_diff;
+	bool			fly;
+	int32_t			height;
+	mlx_image_t		*img[IMG_COUNT];
+	mlx_key_data_t	*keydata;
+	bool			jump_lock;
+	t_line			line;
+	char			**map;
+	mlx_t			*mlx;
+	size_t			old_x;
+	size_t			old_y;
+	int32_t			pid;
+	uint8_t			*pixel;
+	uint8_t			startingpoint;
+	char			*str[STR_COUNT];
+	int32_t			width;
+	xpm_t			*xpm[IMG_COUNT];
+	uint32_t		xy[2];
 }	t_imgdata;
 
 typedef struct error_cases
@@ -165,6 +171,8 @@ typedef struct error_cases
 void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y);
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
 								t_enemy *enemy, size_t i, size_t j);
+void	animate_pinks(t_imgdata *data, t_enemy *enemy, size_t i, size_t x, \
+																	size_t y);
 void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error errors);
 bool	check_ext(char *file_name, char *ext);
 void	check_player_amount(t_error *errors, t_imgdata *data);

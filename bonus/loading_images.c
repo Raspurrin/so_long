@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loading_images.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 06:08:58 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/05/25 22:03:41 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ bool	windowdisplay(t_imgdata *data, t_line *line, xpm_t **xpm)
 	if (data->width > 1920 || data->height > 960)
 		return (ft_putendl_fd("Map is too big", STDOUT_FILENO), false);
 	else if (data->width <= 1920 && data->width > 1536)
-		xpm[BG] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/bg_1920.xpm42");
+		xpm[BG] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/bg_1920.xpm42");
 	else if (data->width <= 1536 && data->width > 1280)
-		xpm[BG] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/bg_1536.xpm42");
+		xpm[BG] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/bg_1536.xpm42");
 	else if (data->width <= 1280 && data->width > 960)
-		xpm[BG] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/bg_1280.xpm42");
+		xpm[BG] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/bg_1280.xpm42");
 	else if (data->width <= 960 && data->width > 640)
-		xpm[BG] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/bg_960.xpm42");
+		xpm[BG] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/bg_960.xpm42");
 	else if (data->width <= 640 && data->width > 313)
-		xpm[BG] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/bg_640.xpm42");
+		xpm[BG] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/bg_640.xpm42");
 	else if (data->width <= 313)
-		xpm[BG] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/bg_313.xpm42");
+		xpm[BG] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/bg_313.xpm42");
 	if (!xpm[BG])
 		return (ft_putendl_fd("bg was not found", STDOUT_FILENO), false);
 	return (true);
@@ -40,19 +40,19 @@ bool	windowdisplay(t_imgdata *data, t_line *line, xpm_t **xpm)
 
 static bool	loading_images2(t_imgdata *data, xpm_t **xpm)
 {
-	xpm[CHAR] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/main.xpm42");
+	xpm[CHAR] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/main.xpm42");
 	if (!xpm[CHAR])
 		return (ft_putendl_fd("char was not found", STDOUT_FILENO), false);
-	xpm[CHAR_L] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/main_rev.xpm42");
+	xpm[CHAR_L] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/main_rev.xpm42");
 	if (!xpm[CHAR_L])
 		return (ft_putendl_fd("char_l was not found", STDOUT_FILENO), false);
-	xpm[PINK] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/pink_monster.xpm42");
+	xpm[PINK] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/pink_monster.xpm42");
 	if (!xpm[PINK])
 		return (ft_putendl_fd("pink was not found", STDOUT_FILENO), false);
-	data->enemy.ghost = mlx_load_png("/Users/cdahlhof/Documents/so_far/textures/ghost_trans2.png");
+	data->enemy.ghost = mlx_load_png("/Users/mialbert/Documents/so_long/textures/ghost_trans2.png");
 	if (!data->enemy.ghost)
 		return (ft_putendl_fd("ghost was not found", STDOUT_FILENO), false);
-	data->enemy.ghost_r = mlx_load_png("/Users/cdahlhof/Documents/so_far/textures/ghost_right.png");
+	data->enemy.ghost_r = mlx_load_png("/Users/mialbert/Documents/so_long/textures/ghost_right.png");
 	if (!data->enemy.ghost_r)
 		return (ft_putendl_fd("ghost_r not found", STDOUT_FILENO), false);
 	return (true);
@@ -63,16 +63,16 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm)
 	data->mlx = mlx_init(data->width, data->height, "Waste of time", true);
 	if (!data->mlx)
 		return (0);
-	xpm[TILE] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/tile.xpm42");
+	xpm[TILE] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/tile.xpm42");
 	if (!xpm[TILE])
 		return (ft_putendl_fd("tile was not found", STDOUT_FILENO), false);
-	xpm[WALL] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/wall.xpm42");
+	xpm[WALL] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/wall.xpm42");
 	if (!xpm[WALL])
 		return (ft_putendl_fd("wall was not found", STDOUT_FILENO), false);
-	xpm[PICKUP] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/pickup32.xpm42");
+	xpm[PICKUP] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/pickup32.xpm42");
 	if (!xpm[PICKUP])
 		return (ft_putendl_fd("pickup was not found", STDOUT_FILENO), false);
-	xpm[DOOR] = mlx_load_xpm42("/Users/cdahlhof/Documents/so_far/textures/doortrans2.xpm42");
+	xpm[DOOR] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/doortrans2.xpm42");
 	if (!xpm[DOOR])
 		return (ft_putendl_fd("door was not found", STDOUT_FILENO), false);
 	if (!loading_images2(data, xpm))
@@ -117,8 +117,8 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 	const uint32_t		wh2[] = {32, 32};
 
 	i = -1;
-	data->xy[0] = 60;
-	data->xy[1] = 40;
+	data->animate.xy[0] = 60;
+	data->animate.xy[1] = 40;
 	data->char_start = data->xy[0];
 	img[BG] = mlx_texture_to_image(data->mlx, &xpm[BG]->texture);
 	img[CHAR] = mlx_texture_area_to_image(data->mlx, \

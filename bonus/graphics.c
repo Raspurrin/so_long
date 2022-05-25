@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 05:24:59 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/05/26 00:50:01 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,12 @@ static void	hook(void	*data)
  */
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
+
 	const char	*args[] = {"/usr/bin/afplay", "--volume", "0", \
 	"/Users/cdahlhof/Documents/so_far/audio/scape.mp3", NULL};
 
+
+	// ft_bzero(enemy->excep, sizeof(enemy->excep));
 	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
 	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
 	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:49:47 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 05:36:31 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/05/26 00:15:23 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,21 @@ void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
 	mlx_image_to_window(data->mlx, (data->enemy_diff.lal[j])[i], \
 							enemy->x[0], enemy->y[0]);
 	mlx_set_instance_depth((data->enemy_diff.lal[j])[i]->instances, i + 100);
+}
+
+void	animate_pinks(t_imgdata *data, t_enemy *enemy, size_t i, size_t x, size_t y)
+{
+	const uint32_t	wh2[] = {32, 32};
+
+	i = 0;
+	if ((enemy->pink_anim.xy[0] - enemy->pink_anim.start) >= enemy->pink_anim.length)
+		enemy->pink_anim.xy[0] = enemy->pink_anim.start;
+	mlx_delete_image(data->mlx, data->enemy_diff.pink_img[i]);
+	data->enemy_diff.pink_img[i] = mlx_texture_area_to_image(data->mlx, \
+			&data->xpm[PINK]->texture, enemy->pink_anim.xy, (uint32_t *)wh2);
+	if (mlx_image_to_window(data->mlx, data->enemy_diff.pink_img[i], x, y) == -1)
+		(free_close_window(data, data->enemy_diff.pink_img[i], "image_to_window failed"));
+	mlx_set_instance_depth(data->enemy_diff.pink_img[i]->instances, GHOSTCOUNT + 100);
+	if (data->count[FRAME] % 50 == 0)
+		enemy->pink_anim.xy[0] += 20;
 }
