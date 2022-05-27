@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/26 01:40:54 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/27 16:09:46 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
  */
 static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i, size_t j)
 {
-	if (enemy->fall_lock == true)
-		return ;
 	if (data->count[FRAME] % SPEED == 0)
 	{
 		if (j == 0)
@@ -142,9 +140,12 @@ void	enemies(t_imgdata *data, t_enemy *enemy, \
 			// }
 			// else 
 			// 	enemy->fall_lock = false;
-			// check_damage(data, player, enemy, i, j);
-			animate_pinks(data, enemy, i, enemy->x[0], enemy->y[0]);
+			check_damage(data, player, enemy, i, j);
 			enemy_move(data, enemy, i, j);
+			enemy->x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
+			enemy->y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
+			if (j == 1)
+				animate_pinks(data, enemy, i, enemy->x[0], enemy->y[0]);
 		}
 		if (i == (enemy->counts[j] - 1))
 		{

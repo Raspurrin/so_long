@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:55:25 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 22:46:48 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/27 15:52:46 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error errors)
 	enemy->excep[2] = NULL;
 	enemy->counts[0] = GHOSTCOUNT;
 	enemy->counts[1] = PINKCOUNT;
-	enemy->pink_anim.length = 150;
+	enemy->pink_anim.length = 180;
 	enemy->pink_anim.xy[1] = 0;
 	enemy->pink_anim.xy[0] = 0;
 	while (enemy->counts[i] != 0)

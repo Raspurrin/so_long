@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/26 01:39:57 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/27 16:05:05 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define ACCEL_MOD 1.3 	// the value accel is multiplied with every frame
 # define JUMP_CAP 100	// the value accel needs to get to stop a jump
 # define FATASS 10 		// how slow the player moves
-# define FATBOO 50 		// how slow ghosts move
+# define FATBOO 15		// how slow ghosts move
 # define SPEED 18 		// how many frames it takes to change ghost movement
 # define IMMORTAL 1 	// toggle immortality
 # define KILL 0 		// toggle ability to kill enemies
