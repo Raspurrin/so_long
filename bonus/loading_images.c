@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/25 22:03:41 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/27 16:57:24 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ static bool	loading_images2(t_imgdata *data, xpm_t **xpm)
 	if (!xpm[CHAR_L])
 		return (ft_putendl_fd("char_l was not found", STDOUT_FILENO), false);
 	xpm[PINK] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/pink_monster.xpm42");
+	if (!xpm[PINK])
+		return (ft_putendl_fd("pink was not found", STDOUT_FILENO), false);
+	xpm[PINK_L] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/Pink_Monster_rev.xpm42");
 	if (!xpm[PINK])
 		return (ft_putendl_fd("pink was not found", STDOUT_FILENO), false);
 	data->enemy.ghost = mlx_load_png("/Users/mialbert/Documents/so_long/textures/ghost_trans2.png");

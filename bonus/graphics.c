@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/26 00:50:01 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/27 21:10:55 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ static void	hook(void	*data)
 		movecounter(data2, &data2->animate, x, y);
 		display_string(data2, STRMOVE, 10, "movement: ");
 		display_string(data2, STRLIFE, 200, "lives: ");
+		data2->count[FRAME]++;
 	}
 }
 

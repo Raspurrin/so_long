@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:49:47 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/27 15:56:27 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/27 22:02:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y)
 	mlx_set_instance_depth(data->img[CHAR]->instances, data->enemy.total_enemies + 100);
 	if (data->count[FRAME] % 7 == 0)
 		animate->xy[0] += 50;
-	data->count[FRAME]++;
 }
 
 /**
@@ -60,10 +59,10 @@ void	animate_pinks(t_imgdata *data, t_enemy *enemy, size_t i, size_t x, size_t y
 		enemy->pink_anim.xy[0] = enemy->pink_anim.start;
 	mlx_delete_image(data->mlx, data->enemy_diff.pink_img[i]);
 	data->enemy_diff.pink_img[i] = mlx_texture_area_to_image(data->mlx, \
-			&data->xpm[PINK]->texture, enemy->pink_anim.xy, (uint32_t *)wh2);
+			&data->xpm[enemy->pink_anim.dir]->texture, enemy->pink_anim.xy, (uint32_t *)wh2);
 	if (mlx_image_to_window(data->mlx, data->enemy_diff.pink_img[i], x, y) == -1)
 		(free_close_window(data, data->enemy_diff.pink_img[i], "image_to_window failed"));
 	mlx_set_instance_depth(data->enemy_diff.pink_img[i]->instances, GHOSTCOUNT + 100 + i);
-	if (data->count[FRAME] % 15 == 0)
+	if (data->count[FRAME] % 7 == 0)
 		enemy->pink_anim.xy[0] += 30;
 }

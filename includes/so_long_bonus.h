@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/27 16:05:05 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/27 22:20:51 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define GHOSTCOUNT 2
-# define PINKCOUNT 2
+# define GHOSTCOUNT 5
+# define PINKCOUNT 7
 # define BLOK 32 		// pixel width/height of one image
 # define LIVES 7
 # define ACCEL 1 		// starting value of the acceleration of a jump
@@ -60,6 +60,7 @@ typedef enum mlx_images
 	BRICK,
 	GHOST,
 	PINK,
+	PINK_L,
 	SCREEN,
 	GREY,
 	RED,

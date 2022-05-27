@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/27 16:09:46 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/27 22:17:33 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i, size_t j)
 	{
 		if (j == 0)
 			animate_ghosts(data, enemy->ghost, enemy, i, j);
+		else
+			enemy->pink_anim.dir = PINK_L;
+		if (j == 0 || (j == 1 && (data->map[enemy->y[0] / BLOK + 1][enemy->x[0] / BLOK- 1] != '0')))
 		(data->enemy_diff.lal[j])[i]->instances[0].x -= BLOK / FATBOO;
 	}
 	else if (enemy->move[j][i] == 1 && enemy->x[0] + (BLOK / FATBOO) \
@@ -39,7 +42,10 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i, size_t j)
 	{
 		if (j == 0)
 			animate_ghosts(data, enemy->ghost_r, enemy, i, j);
-		(data->enemy_diff.lal[j])[i]->instances[0].x += (BLOK / FATBOO);
+		else
+			enemy->pink_anim.dir = PINK;
+		if (j == 0 || (j == 1 && (data->map[enemy->y[0] / BLOK + 1][enemy->x[0] / BLOK + 1] != '0')))
+			(data->enemy_diff.lal[j])[i]->instances[0].x += (BLOK / FATBOO);
 	}
 	else if (enemy->move[j][i] == 2 && enemy->y[0] + (BLOK / FATBOO) \
 									< data->height - (BLOK * 2))
@@ -133,13 +139,6 @@ void	enemies(t_imgdata *data, t_enemy *enemy, \
 		enemy->y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
 		if (enemy->excep[j][i] == false)
 		{
-			// if (j == 1 && data->map[(enemy->y[0] / BLOK) + 1][enemy->x[0] / BLOK] != '1')
-			// {
-			// 	(data->enemy_diff.lal[j])[i]->instances[0].y += 3;
-			// 	enemy->fall_lock = true;
-			// }
-			// else 
-			// 	enemy->fall_lock = false;
 			check_damage(data, player, enemy, i, j);
 			enemy_move(data, enemy, i, j);
 			enemy->x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
@@ -155,5 +154,4 @@ void	enemies(t_imgdata *data, t_enemy *enemy, \
 		else
 			i++;
 	}
-	data->count[FRAME]++;
 }
