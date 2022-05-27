@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/27 16:57:24 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/27 22:33:36 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm)
 	data->mlx = mlx_init(data->width, data->height, "Waste of time", true);
 	if (!data->mlx)
 		return (0);
-	xpm[TILE] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/tile.xpm42");
+	xpm[TILE] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/tile2.xpm42");
 	if (!xpm[TILE])
 		return (ft_putendl_fd("tile was not found", STDOUT_FILENO), false);
 	xpm[WALL] = mlx_load_xpm42("/Users/mialbert/Documents/so_long/textures/wall.xpm42");
