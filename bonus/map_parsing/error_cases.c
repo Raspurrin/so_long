@@ -6,11 +6,23 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 19:09:44 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/23 19:16:33 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/28 04:02:16 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+void	error_output2(t_error *errors)
+{
+	if (errors->morecharacters == true)
+		ft_putendl_fd("Map contains too many characters", STDOUT_FILENO);
+	if (errors->enemyoverflow == true)
+		ft_putendl_fd("Enemy request too fucking large", STDOUT_FILENO);
+	if (errors->enemyunderflow == true)
+		ft_putendl_fd("Enemy request too smol", STDOUT_FILENO);
+	if (errors->wrong_diffcount == true)
+		ft_putendl_fd("diffcount macro is set wrong", STDOUT_FILENO);
+}
 
 /**
  * I made this to be able to output multiple error messages for the map
@@ -37,13 +49,5 @@ map exit and starting position", STDOUT_FILENO);
 		ft_putendl_fd("Map is not not_rectangular", STDOUT_FILENO);
 	if (errors->walls == true)
 		ft_putendl_fd("Map is not surrounded by walls", STDOUT_FILENO);
-	if (errors->morecharacters == true)
-		ft_putendl_fd("Map contains too many characters", STDOUT_FILENO);
-	if (errors->enemyoverflow == true)
-		ft_putendl_fd("Enemy request too fucking large", STDOUT_FILENO);
-	if (errors->enemyunderflow == true)
-		ft_putendl_fd("Enemy request too smol", STDOUT_FILENO);
-	if (errors->wrong_diffcount == true)
-		ft_putendl_fd("diffcount macro is set wrong", STDOUT_FILENO);
-	return ;
+	error_output2(errors);
 }

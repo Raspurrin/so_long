@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_spawn.c                                      :+:      :+:    :+:   */
+/*   spawn.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 23:11:37 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/24 22:59:21 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/28 04:03:13 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line)
 	ssize_t	index;
 
 	i = 0;
-	// enemy->ghost_spawn = calloc(GHOSTCOUNT, sizeof(ssize_t));
 	while (i < GHOSTCOUNT)
 	{
 		index = (rand() % ((line->size + 1) * (line->count - 1)) \
@@ -37,7 +36,8 @@ void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line)
 			if (!(data->bigass[index]))
 				index = 0;
 		}
-		while (index != 0 && enemy->ghost_spawn[j] && enemy->ghost_spawn[j] != index)
+		while (index != 0 && enemy->ghost_spawn[j] \
+					&& enemy->ghost_spawn[j] != index)
 			j++;
 		if (enemy->ghost_spawn[j])
 			index = 0;

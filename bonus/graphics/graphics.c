@@ -6,46 +6,13 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/27 21:10:55 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/28 03:37:11 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-/**
- * Initialising certain variables before the game loop starts
- * because if you initialise things in the loop, it will reset
- * to said value every frame.
- */
-
-// static void	img_order(t_imgdata *data, t_enemy *enemy)
-// {
-// 	size_t	i;
-// 	size_t	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	enemy->img_order = malloc(sizeof(mlx_image_t **) * DIFFCOUNT);
-// 	while (i < DIFFCOUNT)
-// 		enemy->img_order[i] = malloc(sizeof(mlx_image_t *) \
-// 										* enemy->counts[i++]);
-// 	i = 0;
-// 	while (enemy->img_order[j])
-// 	{
-// 		while (enemy->img_order[j][i])
-// 		{
-// 			if (j == 0)
-// 				enemy->img_order[j][i] = enemy->ghost_img[i];
-// 			else
-// 				enemy->img_order[j][i] = enemy->pink_img[i];
-// 			i++;
-// 		}
-// 		i = 0;
-// 		j++;
-// 	}
-// }
-
-static void	init(t_imgdata *data)
+static void	init_data(t_imgdata *data)
 {
 	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
@@ -94,6 +61,22 @@ static void	hook(void	*data)
 	}
 }
 
+static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
+{
+	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
+	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
+	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
+	GHOSTCOUNT, data->enemy_diff.ghost_img)) || \
+	!(enemy_to_window(data, enemy->pink_spawn, \
+	PINKCOUNT, data->enemy_diff.pink_img)))
+		return (false);
+	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
+		return (free_close_window(data, data->img[BG], \
+						"image_to_window failed"), false);
+	mlx_set_instance_depth(data->img[BG]->instances, -999);
+	return (true);
+}
+
 /**
  * I am forking because otherwise the background music takes over the process
  * of the game. If I wanted to use sounds while the game runs, I would need
@@ -101,23 +84,11 @@ static void	hook(void	*data)
  */
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
-
 	const char	*args[] = {"/usr/bin/afplay", "--volume", "0", \
 	"/Users/cdahlhof/Documents/so_far/audio/scape.mp3", NULL};
 
-
-	// ft_bzero(enemy->excep, sizeof(enemy->excep));
-	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
-	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
-	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
-	GHOSTCOUNT, data->enemy_diff.ghost_img)) || !(enemy_to_window(data, enemy->pink_spawn, \
-	PINKCOUNT, data->enemy_diff.pink_img)))
-		return (0);
-	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
-		return (free_close_window(data, data->img[BG], \
-						"image_to_window failed"), 0);
-	mlx_set_instance_depth(data->img[BG]->instances, -999);
-	init(data);
+	init_graphics(data, line, enemy);
+	init_data(data);
 	data->pid = fork();
 	if (data->pid == 0)
 		execvp(args[0], (char **)args);

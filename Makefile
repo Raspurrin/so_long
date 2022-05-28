@@ -2,24 +2,25 @@
 CFLAGS = -Wall -Werror -Wextra -g
 NAME = so_long
 BONUS =	./libs/libft/srcs/*.c \
-  		./bonus/input_handler.c \
-		./bonus/error_cases.c  \
+		./bonus/enemy/damage.c \
+		./bonus/enemy/init.c \
+		./bonus/enemy/interaction.c \
+		./bonus/enemy/spawn.c \
+		./bonus/graphics/animation.c \
+		./bonus/graphics/display.c \
+		./bonus/graphics/end.c \
+		./bonus/graphics/graphics.c \
+		./bonus/graphics/images_to_window.c \
+		./bonus/graphics/loading_images.c \
+		./bonus/map_parsing/check_player_amount.c \
+		./bonus/map_parsing/error_cases.c  \
+  		./bonus/map_parsing/input_handler.c \
+		./bonus/map_parsing/read_map.c \
+		./bonus/player/gravity_jump.c \
+		./bonus/player/movement.c \
+		./bonus/utils.c \
 		./bonus/main.c \
-		./bonus/graphics.c \
-		./bonus/loading_images.c \
-		./bonus/enemy_interaction.c \
-		./bonus/enemy_spawn.c \
-		./bonus/collectible.c \
-		./bonus/read_map.c \
-		./bonus/display.c \
-		./bonus/gravity_jump.c \
-		./bonus/movement.c \
-		./bonus/check_player_amount.c \
-		./bonus/images_to_window.c \
-		./bonus/animation.c \
-		./bonus/end.c \
-		./bonus/enemy_init.c \
-		./bonus/utils.c
+		./bonus/collectible.c
 
 all : $(NAME)
 OS := $(shell uname -s)
@@ -55,8 +56,6 @@ install linux:
 xpm42:
 	python3 libs/MLX/tools/xpm3_conv.py textures/$(IMG).xpm
 
-# -fsanitize=address
-# ./libs/MLX42/lib-x86_64/libglfw3.a
 clean: 
 	rm -rf $(OBJS)
 

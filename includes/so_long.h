@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 05:25:14 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/28 00:16:13 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ void	free_2d(char **map);
 bool	free_array(void *arr, char *str);
 void	free_close_window(t_imgdata *data, void *var, char *str);
 void	gravity(t_imgdata *data, size_t x, size_t y);
-size_t	getncount(char *str, uint8_t chr);
 size_t	getncount(char *str, uint8_t chr);
 int32_t	graphics(t_imgdata *data, t_line *line);
 bool	images_to_window(t_imgdata *data, mlx_image_t **img, size_t i);

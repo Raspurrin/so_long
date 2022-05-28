@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 20:20:48 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 05:25:02 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/27 23:41:00 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ char	*read_file(int32_t fd)
 		buf[buflen] = '\0';
 		line = gnl_strjoin(line, buf);
 	}
+	close(fd);
 	return (line);
 }

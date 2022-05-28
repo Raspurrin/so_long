@@ -6,11 +6,19 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 15:48:14 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/28 03:52:42 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+static void	exec_functions(t_imgdata *data)
+{
+	get_ghost_spawn(data, &data->enemy, &data->line);
+	get_pink_spawn(data, &data->line, &data->enemy);
+	if (!graphics(data, &data->line, &data->enemy))
+		free_2d(data->map);
+}
 
 /**
  * Will receive a map as input and will have to determine whether the map
@@ -40,9 +48,6 @@ int32_t	main(int32_t argc, char **argv)
 	else
 		return (ft_putendl_fd("Error\nNot enough arguments dude", \
 				STDOUT_FILENO), EXIT_FAILURE);
-	get_ghost_spawn(&data, &data.enemy, &data.line);
-	get_pink_spawn(&data, &data.line, &data.enemy);
-	if (!graphics(&data, &data.line, &data.enemy))
-		free_2d(data.map);
+	exec_functions(&data);
 	return (0);
 }
