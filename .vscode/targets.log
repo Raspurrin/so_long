@@ -8,12 +8,12 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sat May 28 04:20:26 2022
+# Make data base, printed on Sat May 28 07:25:11 2022
 
 # Variables
+ 
 
 # automatic
- 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -33,13 +33,17 @@ SHELL = /bin/sh
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
-# makefile (from `Makefile', line 2)
+# makefile (from `Makefile', line 13)
 CFLAGS = -Wall -Werror -Wextra -g
+# makefile (from `Makefile', line 44)
+BLUE := \033[1;34m
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
+# makefile (from `Makefile', line 18)
+DEBUG = -fsanitize=address
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from `Makefile', line 4)
+# makefile (from `Makefile', line 20)
 BONUS = ./libs/libft/srcs/*.c ./bonus/enemy/damage.c ./bonus/enemy/init.c ./bonus/enemy/interaction.c ./bonus/enemy/spawn.c ./bonus/graphics/animation.c ./bonus/graphics/display.c ./bonus/graphics/end.c ./bonus/graphics/graphics.c ./bonus/graphics/images_to_window.c ./bonus/graphics/loading_images.c ./bonus/map_parsing/check_player_amount.c ./bonus/map_parsing/error_cases.c ./bonus/map_parsing/input_handler.c ./bonus/map_parsing/read_map.c ./bonus/player/gravity_jump.c ./bonus/player/movement.c ./bonus/utils.c ./bonus/main.c ./bonus/collectible.c
 # environment
 VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000ccy800337k/T/vscode-ipc-6fba574c-0e3b-4609-8f7c-66fcf040dbc7.sock
@@ -55,6 +59,10 @@ VSCODE_LOG_STACK = true
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# makefile (from `Makefile', line 45)
+PURPLE := \033[35;1m
+# makefile (from `Makefile', line 16)
+LIBMLX = ./libs/MLX
 # environment
 SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.PoWom8QIeW/Listeners
 # automatic
@@ -69,6 +77,8 @@ VSCODE_PIPE_LOGGING = true
 PWD = /Users/mialbert/Documents/so_long
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# makefile (from `Makefile', line 43)
+GREEN := \033[1;32m
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -81,6 +91,8 @@ VSCODE_CODE_CACHE_PATH = /Users/mialbert/Library/Application Support/Code - Insi
 LOGNAME = mialbert
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# makefile (from `Makefile', line 17)
+HEADERS = -I includes -I libs/libft/srcs -I libs/MLX/include
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -95,31 +107,38 @@ MAKECMDGOALS := all
 HOMEBREW_CACHE = /tmp/mialbert/Homebrew/Caches
 # environment
 SHLVL = 1
-# makefile (from `Makefile', line 30)
+# makefile (from `Makefile', line 52)
 GLFW := libs/MLX/lib/lib-x86_64/libglfw3.a
+# makefile (from `Makefile', line 15)
+LIBFT = ./libs/libft/srcs
 # default
 MAKE_VERSION := 3.81
+ 
 # environment
 USER = mialbert
 # makefile
 .DEFAULT_GOAL := all
-# makefile (from `Makefile', line 3)
+# makefile (from `Makefile', line 14)
 NAME = so_long
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
+# makefile (from `Makefile', line 41)
+NC := \033[0m
 # default
 .VARIABLES := 
 # environment
 TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n000ccy800337k/T/
 # automatic
 *F = $(notdir $*)
-# makefile (from `Makefile', line 26)
+# makefile (from `Makefile', line 47)
 OS := Darwin
 # environment
 VSCODE_IPC_HOOK = /Users/mialbert/Library/Application Support/Code - Insiders/1.67.0-insider-main.sock
-# makefile (from `Makefile', line 27)
+# makefile (from `Makefile', line 42)
+RED := \033[1;31m
+# makefile (from `Makefile', line 48)
 ARCH := x86_64
 # makefile
 MAKEFLAGS = Rrqp
@@ -141,6 +160,8 @@ MAKEFILES :=
 <F = $(notdir $<)
 # environment
 LC_ALL = C
+# makefile (from `Makefile', line 61)
+LIBS := -framework Cocoa -framework OpenGL, -framework IOKit libs/MLX/lib/lib-x86_64/libglfw3.a
 # environment
 SECURITYSESSIONID = 186a8
 # automatic
@@ -156,7 +177,7 @@ LANG = C
 # environment
 VSCODE_PID = 1276
 # variable set hash-table stats:
-# Load=71/1024=7%, Rehash=0, Collisions=1/103=1%
+# Load=81/1024=8%, Rehash=0, Collisions=3/120=2%
 
 # Pattern-specific Variable Values
 
@@ -165,209 +186,97 @@ VSCODE_PID = 1276
 # Directories
 
 # . (device 16777225, inode 1020539): 17 files, no impossibilities.
-# libs/libft/srcs (device 16777225, inode 1021033): 98 files, no impossibilities.
 
-# 115 files, no impossibilities in 2 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
-# No implicit rules.
+%.o: %.c
+#  commands to execute (from `Makefile', line 67):
+	@$(CC) $(CFLAGS) $< -o $@
+	
+
+# 1 implicit rules, 0 (0.0%) terminal.
 
 # Files
 
-# Not a target:
-bonus/enemy/spawn.c:
-#  Implicit rule search has been done.
- 
-#  Last modified 2022-05-28 04:03:13
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+all,:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
 
-# Not a target:
-libs/libft/srcs/ft_lstadd_back.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_putendl_fd.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+xpm42,:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
 
 xpm42:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 57):
-	python3 libs/MLX/tools/xpm3_conv.py textures/$(IMG).xpm
+#  commands to execute (from `Makefile', line 89):
+	@python3 libs/MLX/tools/xpm3_conv.py textures/$(IMG).xpm
 	
 
-# Not a target:
-libs/libft/srcs/ft_lstiter.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_abs.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:57
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-all: so_long
+all: libft libmlx compile
 #  Command-line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/7=0%
 
-# Not a target:
-libs/libft/srcs/ft_memcpy.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_itoa.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-.PHONY: clean fclean re
+on:
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
-#  Modification time never checked.
+#  File does not exist.
 #  File has not been updated.
-
-# Not a target:
-libs/libft/srcs/ft_memcmp.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_strlen.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_isdigit.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_isspace.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_lstlast.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/graphics/end.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-27 23:14:16
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/graphics/graphics.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-28 03:37:11
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_memchr.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_memset.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_tolower.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-linux:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  commands to execute (from `Makefile', line 53):
-	sudo apt update 
-	sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
+#  commands to execute (from `Makefile', line 85):
+	@sudo apt update && sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 	
 
-# Not a target:
-libs/libft/srcs/ft_strrchr.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
+.PHONY: all, libft, libmlx, compile, install on linux, xpm42, clean, fclean, re
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+libft,:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+libft:
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: `'
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := libft
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=8/32=25%, Rehash=0, Collisions=4/15=27%
+#  commands to execute (from `Makefile', line 72):
+	@echo "\n${BLUE}======== libft ========${NC}"
+	@$(MAKE) -C $(LIBFT)
+	
 
 # Not a target:
 .SUFFIXES:
@@ -376,258 +285,59 @@ libs/libft/srcs/ft_strrchr.c:
 #  File has not been updated.
 
 # Not a target:
-libs/libft/srcs/ft_strjoin.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_split.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_lstclear.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-28 04:20:07
+#  Last modified 2022-05-28 07:24:54
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-# Not a target:
-bonus/graphics/images_to_window.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-20 05:24:40
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_strlcat.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/map_parsing/input_handler.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-23 18:56:27
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/graphics/loading_images.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-28 03:41:42
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_bzero.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:57
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/enemy/init.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-28 03:59:36
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_isprint.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
- 
-bonus/player/gravity_jump.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-26 01:52:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_intlen.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:57
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-Darwin:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  commands to execute (from `Makefile', line 43):
-	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX/include \
-	-framework Cocoa -framework OpenGL, -framework IOKit $(BONUS) ./libs/MLX/libmlx42.a \
-	./libs/libft/srcs/libft.a $(GLFW) -fsanitize=address -o $(NAME)
-	
-
-# Not a target:
-bonus/graphics/display.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-20 05:24:12
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_strmapi.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/map_parsing/error_cases.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-28 04:02:16
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_striteri.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/map_parsing/check_player_amount.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-20 05:24:04
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_lstnew.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-fclean: clean
+fclean,:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 63):
-	rm -rf $(NAME)
+
+libmlx,:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+fclean: clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 97):
+	@rm -rf $(NAME)
+	@$(MAKE) -C $(LIBFT) fclean
+	@$(MAKE) -C $(LIBMLX) fclean
 	
 
-# Not a target:
-bonus/player/movement.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-20 05:24:57
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+compile,:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
 
-# Not a target:
-libs/libft/srcs/ft_isascii.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:57
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+libmlx:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 76):
+	@echo "\n${BLUE}======== MLX42 ========${NC}"
+	@$(MAKE) -C $(LIBMLX)
+	
 
-# Not a target:
-bonus/main.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-28 03:52:42
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_putnbr_fd.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/get_next_line_utils.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_calloc.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:57
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_substr.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+compile:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 80):
+	@echo "\n${PURPLE}so_long compiling!${NC}"
+	@$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
+	
 
 # Not a target:
 .DEFAULT:
@@ -635,23 +345,11 @@ libs/libft/srcs/ft_substr.c:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-libs/libft/srcs/ft_isalpha.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:57
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_lstsize.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+clean,:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
 
 re: fclean all
 #  Phony target (prerequisite of .PHONY).
@@ -659,275 +357,41 @@ re: fclean all
 #  File does not exist.
 #  File has not been updated.
 
-# Not a target:
-bonus/collectible.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-20 05:24:08
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
 clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 92):
+	@rm -rf $(OBJS)
+	@$(MAKE) -C $(LIBFT) clean
+	@$(MAKE) -C $(LIBMLX) clean
+	
+
+linux,:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 60):
-	rm -rf $(OBJS)
-	
 
-# Not a target:
-bonus/enemy/damage.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-28 02:25:43
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_strlcpy.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/map_parsing/read_map.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-27 23:41:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_lstmap.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_strncmp.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_pow.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_isalnum.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:57
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_wcount.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_realloc.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_lstadd_front.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_strdup.c:
- 
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_lstdelone.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_memmove.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-Linux:
+linux:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 48):
-	$(CC) $(CFLAGS) -g -I includes -I libs/libft/srcs -I libs/MLX/include \
-	$(BONUS) ./libs/MLX/libmlx42.a -ldl -lglfw \
-	./libs/libft/srcs/libft.a -fsanitize=address -o $(NAME)
+#  commands to execute (from `Makefile', line 85):
+	@sudo apt update && sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 	
-
-# Not a target:
-libs/libft/srcs/ft_strchr.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/graphics/animation.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-28 03:30:43
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_toupper.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-so_long: libs/libft/srcs/ft_abs.c libs/libft/srcs/ft_atoi.c libs/libft/srcs/ft_bzero.c libs/libft/srcs/ft_calloc.c libs/libft/srcs/ft_intlen.c libs/libft/srcs/ft_isalnum.c libs/libft/srcs/ft_isalpha.c libs/libft/srcs/ft_isascii.c libs/libft/srcs/ft_isdigit.c libs/libft/srcs/ft_isprint.c libs/libft/srcs/ft_isspace.c libs/libft/srcs/ft_itoa.c libs/libft/srcs/ft_lstadd_back.c libs/libft/srcs/ft_lstadd_front.c libs/libft/srcs/ft_lstclear.c libs/libft/srcs/ft_lstdelone.c libs/libft/srcs/ft_lstiter.c libs/libft/srcs/ft_lstlast.c libs/libft/srcs/ft_lstmap.c libs/libft/srcs/ft_lstnew.c libs/libft/srcs/ft_lstsize.c libs/libft/srcs/ft_memchr.c libs/libft/srcs/ft_memcmp.c libs/libft/srcs/ft_memcpy.c libs/libft/srcs/ft_memmove.c libs/libft/srcs/ft_memset.c libs/libft/srcs/ft_pow.c libs/libft/srcs/ft_putchar_fd.c libs/libft/srcs/ft_putendl_fd.c libs/libft/srcs/ft_putnbr_fd.c libs/libft/srcs/ft_putstr_fd.c libs/libft/srcs/ft_realloc.c libs/libft/srcs/ft_split.c libs/libft/srcs/ft_strchr.c libs/libft/srcs/ft_strdup.c libs/libft/srcs/ft_striteri.c libs/libft/srcs/ft_strjoin.c libs/libft/srcs/ft_strlcat.c libs/libft/srcs/ft_strlcpy.c libs/libft/srcs/ft_strlen.c libs/libft/srcs/ft_strmapi.c libs/libft/srcs/ft_strncmp.c libs/libft/srcs/ft_strnstr.c libs/libft/srcs/ft_strrchr.c libs/libft/srcs/ft_strtrim.c libs/libft/srcs/ft_substr.c libs/libft/srcs/ft_tolower.c libs/libft/srcs/ft_toupper.c libs/libft/srcs/ft_wcount.c libs/libft/srcs/get_next_line.c libs/libft/srcs/get_next_line_utils.c bonus/enemy/damage.c bonus/enemy/init.c bonus/enemy/interaction.c bonus/enemy/spawn.c bonus/graphics/animation.c bonus/graphics/display.c bonus/graphics/end.c bonus/graphics/graphics.c bonus/graphics/images_to_window.c bonus/graphics/loading_images.c bonus/map_parsing/check_player_amount.c bonus/map_parsing/error_cases.c bonus/map_parsing/input_handler.c bonus/map_parsing/read_map.c bonus/player/gravity_jump.c bonus/player/movement.c bonus/utils.c bonus/main.c bonus/collectible.c
-#  Implicit rule search has not been done.
-#  Last modified 2022-05-28 04:20:10
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 38):
-	$(MAKE) -C ./libs/libft/srcs
-	$(MAKE) -C ./libs/MLX
-	$(MAKE) $(OS)
-	
-
-# Not a target:
-libs/libft/srcs/ft_strnstr.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_putstr_fd.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/get_next_line.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/utils.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-26 01:52:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_putchar_fd.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-libs/libft/srcs/ft_atoi.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:57
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-bonus/enemy/interaction.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-28 02:24:50
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 install:
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
-#  Modification time never checked.
+#  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 53):
-	sudo apt update 
-	sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
+#  commands to execute (from `Makefile', line 85):
+	@sudo apt update && sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 	
 
-# Not a target:
-libs/libft/srcs/ft_strtrim.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-13 22:50:58
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
 # files hash-table stats:
-# Load=84/1024=8%, Rehash=0, Collisions=8/174=5%
+# Load=23/1024=2%, Rehash=0, Collisions=0/54=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -939,6 +403,6 @@ libs/libft/srcs/ft_strtrim.c:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat May 28 04:20:26 2022
+# Finished Make data base on Sat May 28 07:25:11 2022
 
  
