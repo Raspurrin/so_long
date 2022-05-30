@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:51:24 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 05:24:12 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/28 22:55:34 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod)
 	else
 		mlx_put_string(data->mlx, "Press any key to continue...", \
 										display_x, display_y + 100);
-	usleep(10);
 }
 
 /**

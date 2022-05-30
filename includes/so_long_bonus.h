@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/28 02:27:03 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:22:09 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <signal.h>
 # define GHOSTCOUNT 5
 # define PINKCOUNT 7
 # define BLOK 32 		// pixel width/height of one image
@@ -152,6 +153,7 @@ typedef struct image_data
 	size_t			old_x;
 	size_t			old_y;
 	int32_t			pid;
+	int32_t			pid2;
 	uint8_t			*pixel;
 	uint8_t			startingpoint;
 	char			*str[STR_COUNT];
@@ -175,12 +177,10 @@ typedef struct error_cases
 }	t_error;
 
 void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y);
-void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
-								t_enemy *enemy, size_t i, size_t j);
-void	animate_pinks(t_imgdata *data, t_enemy *enemy, size_t i, size_t x, \
-																	size_t y);
-void	check_damage(t_imgdata *data, int32_t *player, \
-									t_enemy *enemy, size_t i, size_t j);
+void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, size_t i, \
+																size_t j);
+void	animate_pinks(t_imgdata *data, size_t i, size_t x, size_t y);
+void	check_damage(t_imgdata *data, int32_t *player, size_t i, size_t j);
 void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error errors);
 bool	check_ext(char *file_name, char *ext);
 void	check_player_amount(t_error *errors, t_imgdata *data);
@@ -208,8 +208,7 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy);
 bool	images_to_window(t_imgdata *data, size_t i);
 char	**input_handler(int32_t fd, t_imgdata *data, \
 						t_line *line, t_enemy *enemy);
-void	kill_enemy(t_imgdata *data, int32_t *player, \
-								t_enemy *enemy, size_t i, size_t j);
+void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j);
 bool	loading_images(t_imgdata *data, xpm_t **xpm);
 void	movement(t_imgdata *data, size_t x, size_t y);
 void	movecounter(t_imgdata *data, t_animate *animate, size_t x, size_t y);

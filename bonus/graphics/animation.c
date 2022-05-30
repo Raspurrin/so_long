@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:49:47 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/28 03:30:43 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:35:33 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,26 @@ void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y)
  * in enemy_interactions.c
  */
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
-								t_enemy *enemy, size_t i, size_t j)
+											size_t i, size_t j)
 {
 	mlx_delete_image(data->mlx, (data->enemy_diff.lal[j])[i]);
 	(data->enemy_diff.lal[j])[i] = mlx_texture_to_image(data->mlx, ghost);
 	mlx_image_to_window(data->mlx, (data->enemy_diff.lal[j])[i], \
-							enemy->x[0], enemy->y[0]);
+							data->enemy.x[0], data->enemy.y[0]);
 	mlx_set_instance_depth((data->enemy_diff.lal[j])[i]->instances, i + 100);
 }
 
-void	animate_pinks(t_imgdata *data, t_enemy *enemy, size_t i, \
-												size_t x, size_t y)
+void	animate_pinks(t_imgdata *data, size_t i, size_t x, size_t y)
 {
 	const uint32_t	wh2[] = {32, 32};
 
-	if ((enemy->pink_anim.xy[0] - enemy->pink_anim.start) >= \
-										enemy->pink_anim.length)
-		enemy->pink_anim.xy[0] = enemy->pink_anim.start;
+	if ((data->enemy.pink_anim.xy[0] - data->enemy.pink_anim.start) >= \
+										data->enemy.pink_anim.length)
+		data->enemy.pink_anim.xy[0] = data->enemy.pink_anim.start;
 	mlx_delete_image(data->mlx, data->enemy_diff.pink_img[i]);
 	data->enemy_diff.pink_img[i] = mlx_texture_area_to_image(data->mlx, \
-							&data->xpm[enemy->pink_anim.dir]->texture, \
-								enemy->pink_anim.xy, (uint32_t *)wh2);
+							&data->xpm[data->enemy.pink_anim.dir]->texture, \
+								data->enemy.pink_anim.xy, (uint32_t *)wh2);
 	if (mlx_image_to_window(data->mlx, data->enemy_diff.pink_img[i], \
 														x, y) == -1)
 		(free_close_window(data, data->enemy_diff.pink_img[i], \
@@ -71,5 +70,5 @@ void	animate_pinks(t_imgdata *data, t_enemy *enemy, size_t i, \
 	mlx_set_instance_depth(data->enemy_diff.pink_img[i]->instances, \
 												GHOSTCOUNT + 100 + i);
 	if (data->count[FRAME] % 7 == 0)
-		enemy->pink_anim.xy[0] += 30;
+		data->enemy.pink_anim.xy[0] += 30;
 }

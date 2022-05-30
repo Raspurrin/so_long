@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_interaction.c                                :+:      :+:    :+:   */
+/*   interaction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/28 02:24:50 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/29 00:35:59 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	enemy_move2(t_imgdata *data, t_enemy *enemy, size_t i, size_t j)
 											< data->width - (BLOK * 2))
 	{
 		if (j == 0)
-			animate_ghosts(data, enemy->ghost_r, enemy, i, j);
+			animate_ghosts(data, enemy->ghost_r, i, j);
 		else
 			enemy->pink_anim.dir = PINK_R;
 		if (((data->map[enemy->y[0] / BLOK + 1][enemy->x[0] / BLOK + 1] != '0') \
@@ -51,7 +51,7 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i, size_t j)
 	if (enemy->move[j][i] == 0 && enemy->x[0] - (BLOK / FATBOO) > 0 + BLOK)
 	{
 		if (j == 0)
-			animate_ghosts(data, enemy->ghost, enemy, i, j);
+			animate_ghosts(data, enemy->ghost, i, j);
 		else
 			enemy->pink_anim.dir = PINK_L;
 		if (((data->map[enemy->y[0] / BLOK + 1][enemy->x[0] / BLOK - 1] != '0') \
@@ -82,15 +82,14 @@ void	red_filter(t_imgdata *data, t_enemy *enemy)
 	}
 }
 
-void	enemy_exec(t_imgdata *data, t_enemy *enemy, size_t i, size_t j, \
-														int32_t	*player)
+void	enemy_exec(t_imgdata *data, size_t i, size_t j, int32_t	*player)
 {
-	check_damage(data, player, enemy, i, j);
-	enemy_move(data, enemy, i, j);
-	enemy->x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
-	enemy->y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
+	check_damage(data, player, i, j);
+	enemy_move(data, &data->enemy, i, j);
+	data->enemy.x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
+	data->enemy.y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
 	if (j == 1)
-		animate_pinks(data, enemy, i, enemy->x[0], enemy->y[0]);
+		animate_pinks(data, i, data->enemy.x[0], data->enemy.y[0]);
 }
 
 /**
@@ -115,7 +114,7 @@ void	enemies(t_imgdata *data, t_enemy *enemy, \
 		enemy->x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
 		enemy->y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
 		if (enemy->excep[j][i] == false)
-			enemy_exec(data, enemy, i, j, player);
+			enemy_exec(data, i, j, player);
 		if (i == (enemy->counts[j] - 1))
 		{
 			j++;

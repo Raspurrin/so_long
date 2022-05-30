@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/05/28 07:24:54 by mialbert         ###   ########.fr        #
+#    Updated: 2022/05/30 17:43:57 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,9 @@ BONUS 	= ./libs/libft/srcs/*.c \
 		  ./bonus/player/gravity_jump.c \
 		  ./bonus/player/movement.c \
 		  ./bonus/utils.c \
-		  ./bonus/main.c \
-		  ./bonus/collectible.c
+		  ./bonus/collectible.c \
+		  ./bonus/main.c
+OBJS	= $(BONUS:.c=.o)
 
 NC		:= \033[0m
 RED 	:= \033[1;31m
@@ -63,10 +64,10 @@ else ifeq ($(OS), Linux)
 LIBS	:= -ldl -lglfw
 endif
 
+all : libft libmlx compile
+
 %.o : %.c # IT NOT WORK !!
 	@$(CC) $(CFLAGS) $< -o $@
-
-all : $(OBJS) libft libmlx compile 
 
 libft:
 	@echo "\n${BLUE}======== libft ========${NC}"
@@ -78,7 +79,7 @@ libmlx:
 
 compile:
 	@echo "\n${PURPLE}so_long compiling!${NC}"
-	@$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
+	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
 
 # run this to install the required packages for Linux
 install on linux:
