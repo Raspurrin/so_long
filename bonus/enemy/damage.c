@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 02:23:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/29 00:24:29 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/30 20:42:20 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j)
 {
 	if (player[Y] == (data->enemy.y[1] - 1) && player[X] == data->enemy.x[1] \
-							&& KILL == 1 && data->enemy.time_lock == false)
+								&& KILL == 1 && data->enemy.time_lock == false)
 	{
 		if (player[Y] - 1 > 1)
 			data->img[CHAR]->instances[0].y -= BLOK;

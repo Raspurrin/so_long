@@ -54,3 +54,4 @@ dkms.conf
 # vscode
 *.log
 .vscode/*
+.DS_Store

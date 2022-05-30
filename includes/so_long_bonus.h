@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/29 00:22:09 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/30 20:41:36 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,8 @@ typedef struct error_cases
 }	t_error;
 
 void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y);
-void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, size_t i, \
-																size_t j);
+void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
+											size_t i, size_t j);
 void	animate_pinks(t_imgdata *data, size_t i, size_t x, size_t y);
 void	check_damage(t_imgdata *data, int32_t *player, size_t i, size_t j);
 void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error errors);
