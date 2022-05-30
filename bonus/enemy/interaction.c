@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_interaction.c                                :+:      :+:    :+:   */
+/*   interaction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/28 02:24:50 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/30 20:24:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,14 @@ void	red_filter(t_imgdata *data, t_enemy *enemy)
 	}
 }
 
-void	enemy_exec(t_imgdata *data, t_enemy *enemy, size_t i, size_t j, \
-														int32_t	*player)
+void	enemy_exec(t_imgdata *data, size_t i, size_t j, int32_t	*player)
 {
-	check_damage(data, player, enemy, i, j);
-	enemy_move(data, enemy, i, j);
-	enemy->x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
-	enemy->y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
+	check_damage(data, player, i, j);
+	enemy_move(data, &data->enemy, i, j);
+	data->enemy.x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
+	data->enemy.y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
 	if (j == 1)
-		animate_pinks(data, enemy, i, enemy->x[0], enemy->y[0]);
+		animate_pinks(data, i, data->enemy.x[0], data->enemy.y[0]);
 }
 
 /**
@@ -115,7 +114,7 @@ void	enemies(t_imgdata *data, t_enemy *enemy, \
 		enemy->x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
 		enemy->y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
 		if (enemy->excep[j][i] == false)
-			enemy_exec(data, enemy, i, j, player);
+			enemy_exec(data, i, j, player);
 		if (i == (enemy->counts[j] - 1))
 		{
 			j++;
