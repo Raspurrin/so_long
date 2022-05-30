@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 23:11:37 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/28 04:03:13 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:40:18 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line)
 	}
 }
 
-static ssize_t	*avail_ground_spawn(t_imgdata *data, t_line *line, \
-												ssize_t *spawn_count)
+static ssize_t	*calloc_compare(t_imgdata *data, t_line *line)
 {
 	ssize_t	*compare;
 	ssize_t	i;
@@ -64,8 +63,19 @@ static ssize_t	*avail_ground_spawn(t_imgdata *data, t_line *line, \
 		}
 	}
 	compare = calloc(j + 1, sizeof(ssize_t));
+	return (compare);
+}
+
+static ssize_t	*avail_ground_spawn(t_imgdata *data, t_line *line, \
+												ssize_t *spawn_count)
+{
+	ssize_t	*compare;
+	ssize_t	i;
+	ssize_t	j;
+
 	i = 0;
 	j = 0;
+	compare = calloc_compare(data, &data->line);
 	while (data->bigass[i++])
 	{
 		if (data->bigass[i] == '1' && i - (line->size + 1) > 0)
