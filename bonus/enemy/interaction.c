@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/30 20:24:14 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/30 21:52:41 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	enemy_move2(t_imgdata *data, t_enemy *enemy, size_t i, size_t j)
 											< data->width - (BLOK * 2))
 	{
 		if (j == 0)
-			animate_ghosts(data, enemy->ghost_r, enemy, i, j);
+			animate_ghosts(data, enemy->ghost_r, i, j);
 		else
 			enemy->pink_anim.dir = PINK_R;
 		if (((data->map[enemy->y[0] / BLOK + 1][enemy->x[0] / BLOK + 1] != '0') \
@@ -51,7 +51,7 @@ static void	enemy_move(t_imgdata *data, t_enemy *enemy, size_t i, size_t j)
 	if (enemy->move[j][i] == 0 && enemy->x[0] - (BLOK / FATBOO) > 0 + BLOK)
 	{
 		if (j == 0)
-			animate_ghosts(data, enemy->ghost, enemy, i, j);
+			animate_ghosts(data, enemy->ghost, i, j);
 		else
 			enemy->pink_anim.dir = PINK_L;
 		if (((data->map[enemy->y[0] / BLOK + 1][enemy->x[0] / BLOK - 1] != '0') \
