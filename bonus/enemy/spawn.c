@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 23:11:37 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/30 22:40:18 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/31 02:31:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,5 @@ void	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy)
 		if (index != 0)
 		enemy->pink_spawn[i++] = compare[index];
 	}
+	free(compare);
 }

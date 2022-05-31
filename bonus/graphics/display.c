@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:51:24 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 05:24:12 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/31 03:15:59 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod)
  * Setting the instance depth because every time a new image is displayed,
  * the instance depth iterates and it cannot do so ad infinitum.
  * Also cannot use ft_itoa and strjoin at the same time bc memory leaks. 
+ * data->count[str_img]    - counter in integers      	 -  int     2
+ * data->str[str_img]      - integer in string form   	 -  char * "2"
+ * data->combstr[str_img]  - combined with text,   		 -  char * "lives: 2"
+ * data->img[str_img] 	   - image pointer to the string -  mlx_image_t *
  */
 void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str)
 {
@@ -92,7 +96,9 @@ void	display_string(t_imgdata *data, int32_t str_img, size_t x, char *str)
 	if (!(data->combstr[str_img]))
 		return (free_close_window(data, data->combstr, \
 									"Error\nFailed string"));
+	free(data->str[str_img]);
 	data->img[str_img] = mlx_put_string(data->mlx, \
 								data->combstr[str_img], x, 0);
+	free(data->combstr[str_img]);
 	mlx_set_instance_depth(data->img[str_img]->instances, 200);
 }
