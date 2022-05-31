@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:49:47 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/30 20:25:48 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/31 04:21:37 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	animate_pinks(t_imgdata *data, size_t i, size_t x, size_t y)
 	if ((data->enemy.pink_anim.xy[0] - data->enemy.pink_anim.start) >= \
 										data->enemy.pink_anim.length)
 		data->enemy.pink_anim.xy[0] = data->enemy.pink_anim.start;
-	mlx_delete_image(data->mlx, data->enemy_diff.pink_img[i]);
+	mlx_delete_image(data->mlx, data->enemy_diff.pink_img[i]); 
 	data->enemy_diff.pink_img[i] = mlx_texture_area_to_image(data->mlx, \
 							&data->xpm[data->enemy.pink_anim.dir]->texture, \
 								data->enemy.pink_anim.xy, (uint32_t *)wh2);

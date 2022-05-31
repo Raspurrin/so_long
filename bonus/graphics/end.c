@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:42:31 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/31 03:24:05 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/31 03:39:44 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 void	terminate(t_imgdata *data)
 {
 	kill(data->pid, SIGKILL);
-	exit(0);
 	mlx_delete_image(data->mlx, data->img[GREY]);
 	mlx_delete_image(data->mlx, data->img[SCREEN]);
 	mlx_close_window(data->mlx);
 	mlx_terminate(data->mlx);
 	free_2d(data->map);
 	free(data->bigass);
+	exit(0);
 }
 
 /**
