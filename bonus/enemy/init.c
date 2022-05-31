@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:55:25 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/28 03:59:36 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/31 01:57:29 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static void	enemy_init(t_enemy *enemy)
 	enemy->pink_anim.dir = PINK_R;
 }
 
-void	check_enemy_error(t_imgdata *data, t_enemy *enemy, \
-											t_error errors)
+void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error *errors)
 {
 	size_t			i;
 	size_t			walls;
@@ -39,12 +38,12 @@ void	check_enemy_error(t_imgdata *data, t_enemy *enemy, \
 	while (enemy->counts[i] != 0)
 		enemy->total_enemies += enemy->counts[i++];
 	if (DIFFCOUNT != i)
-		errors.wrong_diffcount = true;
+		errors->wrong_diffcount = true;
 	walls = getncount(data->bigass, '1');
 	enemy->max = ((data->line.size) * (data->line.count + 1)) \
 									- (data->collect + 2 + walls);
 	if (enemy->total_enemies > enemy->max)
-		errors.enemyoverflow = true;
+		errors->enemyoverflow = true;
 	if (GHOSTCOUNT < 1 || PINKCOUNT < 1)
-		errors.enemyunderflow = true;
+		errors->enemyunderflow = true;
 }

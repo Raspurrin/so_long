@@ -6,15 +6,17 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/30 20:26:07 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/31 02:01:48 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_BONUS_H
 # define SO_LONG_BONUS_H
 
+
 # include "libft.h"
 # include "MLX42/MLX42.h"
+
 # include <stdlib.h>
 # include <stdio.h>
 # include <signal.h>
@@ -178,8 +180,9 @@ void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y);
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
 											size_t i, size_t j);
 void	animate_pinks(t_imgdata *data, size_t i, size_t x, size_t y);
+void	audio(void);
 void	check_damage(t_imgdata *data, int32_t *player, size_t i, size_t j);
-void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error errors);
+void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error *errors);
 bool	check_ext(char *file_name, char *ext);
 void	check_player_amount(t_error *errors, t_imgdata *data);
 void	collect(t_imgdata *data, size_t x, size_t y);

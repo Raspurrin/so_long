@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/28 03:41:42 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/31 01:54:32 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,8 @@ static bool	enemy_texture(t_imgdata *data, mlx_image_t **img, \
 
 bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 {
-	ssize_t				i;
 	const uint32_t		wh2[] = {32, 32};
 
-	i = -1;
 	data->animate.xy[0] = 60;
 	data->animate.xy[1] = 40;
 	data->char_start = data->xy[0];

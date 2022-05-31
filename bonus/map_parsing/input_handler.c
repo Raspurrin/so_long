@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/23 18:56:27 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/05/31 02:02:01 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ char	**input_handler(int32_t fd, t_imgdata *data, t_line *line, \
 	check_cases(&errors, data);
 	check_walls(data->map, line, &errors);
 	error_output(&errors, line);
-	check_enemy_error(data, enemy, errors);
+	check_enemy_error(data, enemy, &errors);
 	if (errors.error == true)
 		return (free_2d(data->map), NULL);
 	return (data->map);
