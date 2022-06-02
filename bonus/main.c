@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 05:12:51 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:41:38 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static bool	exec_functions(t_imgdata *data)
 	if (!get_pink_spawn(data, &data->line, &data->enemy))
 		return (0);
 	get_ghost_spawn(data, &data->enemy, &data->line);
+	obstacle_pickup(data);
 	if (!graphics(data, &data->line, &data->enemy))
 		free_2d(data->map);
 	return (true);
@@ -42,7 +43,7 @@ int32_t	main(int32_t argc, char **argv)
 		if (!check_ext(argv[1], ".ber"))
 			return (EXIT_FAILURE);
 		if (!(input_handler(fd, &data, &data.line, &data.enemy)))
-			return (free_2d(data.map), EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	else if (argc > 2)
 		return (ft_putendl_fd("Error\nToo many arguments dude", \

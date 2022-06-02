@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:55:25 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 03:37:13 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 06:27:51 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error *errors)
 		errors->wrong_diffcount = true;
 	walls = getncount(data->bigass, '1');
 	enemy->max = ((data->line.size) * (data->line.count + 1)) \
-									- (data->collect + 2 + walls);
+									- (data->pickup_max + 2 + walls);
 	if (enemy->total_enemies > enemy->max)
 		errors->enemyoverflow = true;
 	if (GHOSTCOUNT < 1 || PINKCOUNT < 1)

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:59:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 00:24:19 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 07:34:42 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static bool	check_cases(t_error *errors, t_imgdata *data)
 	while (data->bigass[i])
 	{
 		if (data->bigass[i] == 'C')
-			data->collect++;
+			data->pickup_max++;
 		if (!(ft_strchr("01CEP\n", data->bigass[i++])))
 			errors->different_input = true;
 	}

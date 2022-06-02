@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/01 17:54:08 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/02 19:11:55 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME 	= so_long
 LIBFT	= ./libs/libft/srcs
 LIBMLX 	= ./libs/MLX
 HEADERS = -I includes -I libs/libft/srcs -I libs/MLX/include -I libs/miniaudio
-DEBUG 	= 
+DEBUG 	= -fsanitize=address
 # -fsanitizer=address
 BONUS 	= ./libs/libft/srcs/*.c \
 		  ./bonus/enemy/damage.c \
@@ -32,11 +32,12 @@ BONUS 	= ./libs/libft/srcs/*.c \
 		  ./bonus/map_parsing/error_cases.c  \
   		  ./bonus/map_parsing/input_handler.c \
 		  ./bonus/map_parsing/read_map.c \
+		  ./bonus/map_parsing/obstacle.c \
 		  ./bonus/player/gravity_jump.c \
 		  ./bonus/player/movement.c \
 		  ./bonus/utils.c \
 		  ./bonus/main.c \
-		  ./bonus/collectible.c 
+		  ./bonus/collectible.c \
 
 NC		:= \033[0m
 RED 	:= \033[1;31m

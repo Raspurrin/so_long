@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 05:15:15 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 08:11:18 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,16 @@ typedef enum mlx_images
 	IMG_COUNT,
 }	t_images;
 
+typedef enum obs_enum
+{
+	OBS_PICKUP,
+	OBS_GHOST,
+	OBS_PINK,
+	OBS_EXIT,
+	OBS_WALL,
+	OBSCOUNT
+}	t_obs_enum;
+
 typedef enum string
 {
 	LIFE,
@@ -103,6 +113,15 @@ typedef struct animate
 	uint32_t	start;
 	uint32_t	xy[XY];
 }	t_animate;
+
+typedef struct obstacle
+{
+	size_t	x_start;
+	size_t	x_end;
+	size_t	y_start;
+	size_t	y_end;
+	int32_t	instance;
+}	t_obstacle;
 
 typedef struct enemy
 {
@@ -137,7 +156,8 @@ typedef struct image_data
 	float			accel;
 	char			*bigass;
 	uint32_t		char_start;
-	size_t			collect;
+	size_t			pickup_max;
+	size_t			pickup_count;
 	char			*combstr[STR_COUNT];
 	int32_t			count[STR_COUNT];
 	bool			counter_lock;
@@ -151,10 +171,12 @@ typedef struct image_data
 	t_line			line;
 	char			**map;
 	mlx_t			*mlx;
+	t_obstacle		*obs;
 	size_t			old_x;
 	size_t			old_y;
 	int32_t			pid;
 	uint8_t			*pixel;
+	bool			*pickup_excep;
 	uint8_t			startingpoint;
 	char			*str[STR_COUNT];
 	int32_t			width;
@@ -213,6 +235,7 @@ void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j);
 bool	loading_images(t_imgdata *data, xpm_t **xpm);
 void	movement(t_imgdata *data, size_t x, size_t y);
 void	movecounter(t_imgdata *data, t_animate *animate, size_t x, size_t y);
+void	obstacle_pickup(t_imgdata *data);
 char	*read_file(int32_t fd);
 void	terminate(t_imgdata *data);
 bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img);

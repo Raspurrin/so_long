@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/01 19:02:08 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 13:26:09 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	init_data(t_imgdata *data)
 	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
 	data->enemy.time_lock = false;
-	data->old_x = (data->img[CHAR]->instances[0].x);
-	data->old_y = (data->img[CHAR]->instances[0].y);
+	// data->old_x = (data->img[CHAR]->instances[0].x);
+	// data->old_y = (data->img[CHAR]->instances[0].y);
 	data->animate.xy[0] = 60;
 	data->animate.dir = CHAR;
 	data->enemy.total_enemies = PINKCOUNT + GHOSTCOUNT;
@@ -41,18 +41,18 @@ static void	hook(void	*data)
 	x = (data2->img[CHAR]->instances[0].x / BLOK);
 	y = (data2->img[CHAR]->instances[0].y / BLOK);
 	if (data2->count[LIFE] <= 0 || \
-		(data2->map[y][x] == 'E' && data2->collect == 0))
+		(data2->map[y][x] == 'E' && data2->pickup_count >= data2->pickup_max))
 		end_message(data2);
 	else
 	{
 		if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
 			terminate(data);
 		movement(data2, x, y);
-		collect(data2, x, y);
 		gravity(data2, x, y);
 		enemies(data2, &data2->enemy, x, y);
 		x = (data2->img[CHAR]->instances[0].x);
 		y = (data2->img[CHAR]->instances[0].y);
+		collect(data2, x, y);
 		animate_char(data2, &data2->animate, x, y);
 		movecounter(data2, &data2->animate, x, y);
 		display_string(data2, STRMOVE, 10, "movement: ");
@@ -87,7 +87,8 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	const char	*args[] = {"/usr/bin/afplay", "--volume", \
 	"0", "./audio/scape.mp3", NULL};
 
-	init_graphics(data, line, enemy);
+	if (!init_graphics(data, line, enemy))
+		return (false);
 	init_data(data);
 	data->pid = fork();
 	if (data->pid == 0)
