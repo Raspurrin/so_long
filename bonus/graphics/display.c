@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:51:24 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/31 03:15:59 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/01 19:32:21 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod)
 
 	display_x = data->width / x_mod;
 	display_y = data->height / y_mod;
-	colour_screen(data, GREY, 0x303331);
+	// death = false;
 	if (death == true)
 		data->xpm[SCREEN] = mlx_load_xpm42("textures/gameover.xpm42");
 	else
@@ -70,7 +70,6 @@ void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod)
 	else
 		mlx_put_string(data->mlx, "Press any key to continue...", \
 										display_x, display_y + 100);
-	usleep(10);
 }
 
 /**

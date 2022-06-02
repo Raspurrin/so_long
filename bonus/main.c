@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/28 03:52:42 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 02:49:52 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int32_t	main(int32_t argc, char **argv)
 	{
 		fd = open(argv[1], O_RDONLY);
 		if (fd == -1)
-			return (ft_putendl_fd("Error\n Invalid file", STDOUT_FILENO) \
+			return (ft_putendl_fd("Error\nInvalid file", STDOUT_FILENO) \
 					, EXIT_FAILURE);
 		if (!check_ext(argv[1], ".ber"))
 			return (EXIT_FAILURE);

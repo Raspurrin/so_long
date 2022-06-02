@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:42:31 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/31 03:39:44 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/01 19:34:20 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,15 @@ void	end(mlx_key_data_t keydata, void *data)
  */
 void	end_message(t_imgdata *data)
 {
-	if (data->count[LIFE] <= 0)
-		display_message(data, true, 3.5, 3);
-	else
-		display_message(data, false, 3, 3);
-	mlx_key_hook(data->mlx, &end, data);
+	if (!data->img[SCREEN])
+	{
+		colour_screen(data, GREY, 0x303331);
+		if (data->count[LIFE] <= 0)
+			display_message(data, true, 3.5, 3);
+		else
+			display_message(data, false, 3, 3);
+	}
+	if (data->count[ENDFRAME] >= 20)
+		mlx_key_hook(data->mlx, &end, data);
+	data->count[ENDFRAME]++;
 }

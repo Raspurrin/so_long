@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/05/30 23:59:56 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/01 17:54:08 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME 	= so_long
 LIBFT	= ./libs/libft/srcs
 LIBMLX 	= ./libs/MLX
 HEADERS = -I includes -I libs/libft/srcs -I libs/MLX/include -I libs/miniaudio
-DEBUG 	= -fsanitize=address
-
+DEBUG 	= 
+# -fsanitizer=address
 BONUS 	= ./libs/libft/srcs/*.c \
 		  ./bonus/enemy/damage.c \
 		  ./bonus/enemy/init.c \

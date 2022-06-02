@@ -6,13 +6,12 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/31 02:01:48 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 03:12:04 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_BONUS_H
 # define SO_LONG_BONUS_H
-
 
 # include "libft.h"
 # include "MLX42/MLX42.h"
@@ -22,10 +21,10 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define GHOSTCOUNT 5
-# define PINKCOUNT 7
+# define GHOSTCOUNT 1
+# define PINKCOUNT 1
 # define BLOK 32 		// pixel width/height of one image
-# define LIVES 7
+# define LIVES 5
 # define ACCEL 1 		// starting value of the acceleration of a jump
 # define ACCEL_MOD 1.3 	// the value accel is multiplied with every frame
 # define JUMP_CAP 100	// the value accel needs to get to stop a jump
@@ -79,6 +78,7 @@ typedef enum string
 	LIFE,
 	MOVE,
 	FRAME,
+	ENDFRAME,
 	TEST,
 	STR_COUNT,
 }	t_string;
