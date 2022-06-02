@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 03:12:04 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 05:15:15 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void	gravity(t_imgdata *data, size_t x, size_t y);
 size_t	getncount(char *str, uint8_t chr);
 size_t	getncount(char *str, uint8_t chr);
 void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line);
-void	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy);
+bool	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy);
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy);
 bool	images_to_window(t_imgdata *data, size_t i);
 char	**input_handler(int32_t fd, t_imgdata *data, \

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 23:11:37 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 02:43:20 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 05:31:57 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
  */
 void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line)
 {
-	size_t	i;
+	ssize_t	i;
 	size_t	j;
 	ssize_t	index;
 
 	i = 0;
+	ft_memset(enemy->ghost_spawn, -1, sizeof(enemy->ghost_spawn));
 	while (i < GHOSTCOUNT)
 	{
 		index = (rand() % ((line->size + 1) * (line->count - 1)) \
@@ -36,14 +37,14 @@ void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line)
 		{
 			index++;
 			if (!(data->bigass[index]))
-				index = 0;
+				index = -1;
 		}
-		while (index != 0 && enemy->ghost_spawn[j] \
+		while (index != -1 && enemy->ghost_spawn[j] \
 					&& enemy->ghost_spawn[j] != index)
 			j++;
 		if (enemy->ghost_spawn[j])
-			index = 0;
-		if (index != 0)
+			index = -1;
+		if (index != -1)
 			enemy->ghost_spawn[i++] = index;
 	}
 }
@@ -64,6 +65,9 @@ static ssize_t	*calloc_avail(t_imgdata *data, t_line *line)
 				j++;
 		}
 	}
+	if (j < PINKCOUNT)
+		return (ft_putendl_fd("Error\nNot enough spawn locations for pink", \
+						STDOUT_FILENO), NULL);
 	avail = calloc(j + 1, sizeof(ssize_t));
 	return (avail);
 }
@@ -78,6 +82,8 @@ static ssize_t	*avail_ground_spawn(t_imgdata *data, t_line *line, \
 	i = 0;
 	j = 0;
 	avail = calloc_avail(data, &data->line);
+	if (!avail)
+		return (0);
 	while (data->bigass[i++])
 	{
 		if (data->bigass[i] == '1' && i - (line->size + 1) > 0)
@@ -90,7 +96,7 @@ static ssize_t	*avail_ground_spawn(t_imgdata *data, t_line *line, \
 	return (avail);
 }
 
-void	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy)
+bool	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
 	size_t	i;
 	size_t	j;
@@ -99,7 +105,10 @@ void	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy)
 	ssize_t	index;
 
 	i = 0;
+	ft_memset(enemy->pink_spawn, -1, sizeof(enemy->pink_spawn));
 	avail = avail_ground_spawn(data, line, &spawn_count);
+	if (!avail)
+		return (false);
 	while (i < PINKCOUNT)
 	{
 		j = 0;
@@ -107,9 +116,10 @@ void	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy)
 		while (enemy->pink_spawn[j] && enemy->pink_spawn[j] != avail[index])
 			j++;
 		if (enemy->pink_spawn[j])
-			index = 0;
-		if (index != 0)
+			index = -1;
+		if (index != -1)
 			enemy->pink_spawn[i++] = avail[index];
 	}
 	free(avail);
+	return (true);
 }
