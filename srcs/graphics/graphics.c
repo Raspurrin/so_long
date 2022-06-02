@@ -6,22 +6,19 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 20:54:40 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 21:46:54 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "so_long.h"
 
 static void	init_data(t_imgdata *data)
 {
-	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
-	data->enemy.time_lock = false;
 	data->old_x = (data->img[CHAR]->instances[0].x);
 	data->old_y = (data->img[CHAR]->instances[0].y);
 	data->animate.xy[0] = 60;
 	data->animate.dir = CHAR;
-	data->enemy.total_enemies = PINKCOUNT + GHOSTCOUNT;
 	data->xy[0] = 60;
 	data->xy[1] = 40;
 }
@@ -40,8 +37,7 @@ static void	hook(void	*data)
 
 	x = (data2->img[CHAR]->instances[0].x / BLOK);
 	y = (data2->img[CHAR]->instances[0].y / BLOK);
-	if (data2->count[LIFE] <= 0 || \
-		(data2->map[y][x] == 'E' && data2->pickup_count >= data2->pickup_max))
+	if (data2->map[y][x] == 'E' && data2->pickup_count >= data2->pickup_max)
 		end_message(data2);
 	else
 	{
@@ -49,7 +45,6 @@ static void	hook(void	*data)
 			terminate(data);
 		movement(data2, x, y);
 		gravity(data2, x, y);
-		enemies(data2, &data2->enemy, x, y);
 		x = (data2->img[CHAR]->instances[0].x);
 		y = (data2->img[CHAR]->instances[0].y);
 		collect(data2, x, y);
@@ -61,14 +56,11 @@ static void	hook(void	*data)
 	}
 }
 
-static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
+static bool	init_graphics(t_imgdata *data, t_line *line)
 {
 	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
 	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
-	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
-	GHOSTCOUNT, data->enemy_diff.ghost_img)) || \
-	!(enemy_to_window(data, enemy->pink_spawn, \
-	PINKCOUNT, data->enemy_diff.pink_img)))
+	!(images_to_window(data, 0)))
 		return (false);
 	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
 		return (free_close_window(data, data->img[BG], \
@@ -82,25 +74,15 @@ static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
  * of the game. If I wanted to use sounds while the game runs, I would need
  * threads. If the game loop is running in two processes, OpenGL complains. 
  */
-int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
+int32_t	graphics(t_imgdata *data, t_line *line)
 {
-	const char	*args[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/scape.mp3", NULL};
-
-	if (!init_graphics(data, line, enemy))
+	if (!init_graphics(data, line))
 		return (false);
 	init_data(data);
-	data->pid = fork();
-	if (data->pid == 0)
-		execvp(args[0], (char **)args);
-	else
-	{
-		if (!(mlx_loop_hook(data->mlx, &hook, data)))
-			(error_close_window(data, "loop hook failed"));
-		mlx_loop(data->mlx);
-	}
+	if (!(mlx_loop_hook(data->mlx, &hook, data)))
+		(error_close_window(data, "loop hook failed"));
+	mlx_loop(data->mlx);
 	if (data->bigass)
 		free (data->bigass);
-	kill(data->pid, SIGKILL);
 	return (0);
 }

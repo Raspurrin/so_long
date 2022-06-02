@@ -8,12 +8,13 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Thu Jun  2 12:59:13 2022
+# Make data base, printed on Thu Jun  2 21:52:53 2022
 
 # Variables
 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
+ 
 # automatic
 ?F = $(notdir $?)
 # environment
@@ -34,10 +35,12 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 _ = /usr/bin/make
 # makefile (from `Makefile', line 13)
 CFLAGS = -Wall -Werror -Wextra -g
-# makefile (from `Makefile', line 45)
+# makefile (from `Makefile', line 63)
 BLUE := \033[1;34m
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
+# makefile (from `Makefile', line 42)
+SRCS = ./libs/libft/srcs/*.c ./srcs/graphics/animation.c ./srcs/graphics/display.c ./srcs/graphics/end.c ./srcs/graphics/graphics.c ./srcs/graphics/images_to_window.c ./srcs/graphics/loading_images.c ./srcs/map_parsing/check_player_amount.c ./srcs/map_parsing/error_cases.c ./srcs/map_parsing/input_handler.c ./srcs/map_parsing/read_map.c ./srcs/map_parsing/obstacle.c ./srcs/player/gravity_jump.c ./srcs/player/movement.c ./srcs/utils.c ./srcs/main.c ./srcs/collectible.c
 # makefile (from `Makefile', line 18)
 DEBUG = 
 # environment
@@ -45,38 +48,38 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from `Makefile', line 20)
 BONUS = ./libs/libft/srcs/*.c ./bonus/enemy/damage.c ./bonus/enemy/init.c ./bonus/enemy/interaction.c ./bonus/enemy/spawn.c ./bonus/graphics/animation.c ./bonus/graphics/display.c ./bonus/graphics/end.c ./bonus/graphics/graphics.c ./bonus/graphics/images_to_window.c ./bonus/graphics/loading_images.c ./bonus/map_parsing/check_player_amount.c ./bonus/map_parsing/error_cases.c ./bonus/map_parsing/input_handler.c ./bonus/map_parsing/read_map.c ./bonus/map_parsing/obstacle.c ./bonus/player/gravity_jump.c ./bonus/player/movement.c ./bonus/utils.c ./bonus/main.c ./bonus/collectible.c 
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000ccy800337k/T/vscode-ipc-8290fafc-d367-4464-bc47-8a233728d011.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000ccy800337k/T/vscode-ipc-45de17bb-931e-432d-8eae-b10c96efea03.sock
 # environment
 VSCODE_CWD = /
 # environment
 PATH = /Users/mialbert/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin
 # environment
-LaunchInstanceID = 9D5C7B01-90C4-4B48-9CBF-155EB70F8DB7
+LaunchInstanceID = 05BF0FB6-DDFF-4E44-851B-327B756B0544
 # environment
 VSCODE_LOG_STACK = true
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
-# makefile (from `Makefile', line 46)
+# makefile (from `Makefile', line 64)
 PURPLE := \033[35;1m
 # makefile (from `Makefile', line 16)
 LIBMLX = ./libs/MLX
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.HJ2aUmmxeY/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.OzyyHqEMCj/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
 HOMEBREW_TEMP = /tmp/mialbert/Homebrew/Temp
 # environment
-DISPLAY = /private/tmp/com.apple.launchd.r8jwQOmDC3/org.xquartz:0
+DISPLAY = /private/tmp/com.apple.launchd.LQHoFcDFpX/org.xquartz:0
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /Users/mialbert/Documents/so_long
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
-# makefile (from `Makefile', line 44)
+# makefile (from `Makefile', line 62)
 GREEN := \033[1;32m
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
@@ -106,7 +109,7 @@ MAKECMDGOALS := all
 HOMEBREW_CACHE = /tmp/mialbert/Homebrew/Caches
 # environment
 SHLVL = 1
-# makefile (from `Makefile', line 53)
+# makefile (from `Makefile', line 71)
 GLFW := libs/MLX/lib/lib-x86_64/libglfw3.a
 # makefile (from `Makefile', line 15)
 LIBFT = ./libs/libft/srcs
@@ -122,7 +125,7 @@ NAME = so_long
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
-# makefile (from `Makefile', line 42)
+# makefile (from `Makefile', line 60)
 NC := \033[0m
 # default
 .VARIABLES := 
@@ -130,13 +133,13 @@ NC := \033[0m
 TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n000ccy800337k/T/
 # automatic
 *F = $(notdir $*)
-# makefile (from `Makefile', line 48)
+# makefile (from `Makefile', line 66)
 OS := Darwin
 # environment
 VSCODE_IPC_HOOK = /Users/mialbert/Library/Application Support/Code - Insiders/1.67.0-insider-main.sock
-# makefile (from `Makefile', line 43)
+# makefile (from `Makefile', line 61)
 RED := \033[1;31m
-# makefile (from `Makefile', line 49)
+# makefile (from `Makefile', line 67)
 ARCH := x86_64
 # makefile
 MAKEFLAGS = Rrqp
@@ -158,7 +161,7 @@ MAKEFILES :=
 <F = $(notdir $<)
 # environment
 LC_ALL = C
-# makefile (from `Makefile', line 62)
+# makefile (from `Makefile', line 80)
 LIBS := -framework Cocoa -framework OpenGL, -framework IOKit libs/MLX/lib/lib-x86_64/libglfw3.a
 # environment
 SECURITYSESSIONID = 186a8
@@ -173,9 +176,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 12999
+VSCODE_PID = 704
 # variable set hash-table stats:
-# Load=81/1024=8%, Rehash=0, Collisions=3/120=2%
+# Load=82/1024=8%, Rehash=0, Collisions=4/121=3%
 
 # Pattern-specific Variable Values
 
@@ -183,15 +186,15 @@ VSCODE_PID = 12999
 
 # Directories
 
-# . (device 16777225, inode 1020539): 17 files, no impossibilities.
+# . (device 16777225, inode 1020539): 18 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 %.o: %.c
-#  commands to execute (from `Makefile', line 68):
-	@$(CC) $(CFLAGS) $< -o $@
+#  commands to execute (from `Makefile', line 86):
+	@$(CC) $(CFLAGS) -c $< -o $@
 	
 
 # 1 implicit rules, 0 (0.0%) terminal.
@@ -214,7 +217,7 @@ xpm42:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 90):
+#  commands to execute (from `Makefile', line 112):
 	@python3 libs/MLX/tools/xpm3_conv.py textures/$(IMG).xpm
 	
 
@@ -232,11 +235,12 @@ on:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 86):
+#  commands to execute (from `Makefile', line 108):
 	@sudo apt update && sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 	
 
-.PHONY: all, libft, libmlx, compile, install on linux, xpm42, clean, fclean, re
+.PHONY: all, libft, libmlx, compile, install on linux, xpm42, clean, fclean, re, bonus
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -271,7 +275,7 @@ libft:
 # ? := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=4/15=27%
-#  commands to execute (from `Makefile', line 73):
+#  commands to execute (from `Makefile', line 91):
 	@echo "\n${BLUE}======== libft ========${NC}"
 	@$(MAKE) -C $(LIBFT)
 	
@@ -285,7 +289,7 @@ libft:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-02 06:01:18
+#  Last modified 2022-06-02 21:52:40
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -303,12 +307,21 @@ libmlx,:
 #  File does not exist.
 #  File has not been updated.
 
+bonus:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 103):
+	@echo "\n${PURPLE}so_long compiling!${NC}"
+	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
+	
+
 fclean: clean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
-#  commands to execute (from `Makefile', line 98):
+#  commands to execute (from `Makefile', line 120):
 	@rm -rf $(NAME)
 	@$(MAKE) -C $(LIBFT) fclean
 	@$(MAKE) -C $(LIBMLX) fclean
@@ -324,7 +337,7 @@ libmlx:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 77):
+#  commands to execute (from `Makefile', line 95):
 	@echo "\n${BLUE}======== MLX42 ========${NC}"
 	@$(MAKE) -C $(LIBMLX)
 	
@@ -333,15 +346,21 @@ compile:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 81):
+#  commands to execute (from `Makefile', line 99):
 	@echo "\n${PURPLE}so_long compiling!${NC}"
-	@$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
+	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(SRCS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
 	
 
 # Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+#  File has not been updated.
+
+re,:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
 #  File has not been updated.
 
 clean,:
@@ -351,16 +370,15 @@ clean,:
 #  File has not been updated.
 
 re: fclean all
-#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
-#  File does not exist.
+#  Modification time never checked.
 #  File has not been updated.
 
 clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 93):
+#  commands to execute (from `Makefile', line 115):
 	@rm -rf $(OBJS)
 	@$(MAKE) -C $(LIBFT) clean
 	@$(MAKE) -C $(LIBMLX) clean
@@ -376,7 +394,7 @@ linux:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 86):
+#  commands to execute (from `Makefile', line 108):
 	@sudo apt update && sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 	
 
@@ -385,12 +403,12 @@ install:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 86):
+#  commands to execute (from `Makefile', line 108):
 	@sudo apt update && sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 	
 
 # files hash-table stats:
-# Load=23/1024=2%, Rehash=0, Collisions=0/54=0%
+# Load=25/1024=2%, Rehash=0, Collisions=0/57=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -402,6 +420,6 @@ install:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Jun  2 12:59:13 2022
+# Finished Make data base on Thu Jun  2 21:52:53 2022
 
  

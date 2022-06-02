@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/02 19:11:55 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/02 21:57:03 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME 	= so_long
 LIBFT	= ./libs/libft/srcs
 LIBMLX 	= ./libs/MLX
 HEADERS = -I includes -I libs/libft/srcs -I libs/MLX/include -I libs/miniaudio
-DEBUG 	= -fsanitize=address
-# -fsanitizer=address
+DEBUG 	= 
+
 BONUS 	= ./libs/libft/srcs/*.c \
 		  ./bonus/enemy/damage.c \
 		  ./bonus/enemy/init.c \
@@ -37,7 +37,25 @@ BONUS 	= ./libs/libft/srcs/*.c \
 		  ./bonus/player/movement.c \
 		  ./bonus/utils.c \
 		  ./bonus/main.c \
-		  ./bonus/collectible.c \
+		  ./bonus/collectible.c 
+
+SRCS	= ./libs/libft/srcs/*.c \
+		  ./srcs/graphics/animation.c \
+		  ./srcs/graphics/display.c \
+		  ./srcs/graphics/end.c \
+		  ./srcs/graphics/graphics.c \
+		  ./srcs/graphics/images_to_window.c \
+		  ./srcs/graphics/loading_images.c \
+		  ./srcs/map_parsing/check_player_amount.c \
+		  ./srcs/map_parsing/error_cases.c  \
+  		  ./srcs/map_parsing/input_handler.c \
+		  ./srcs/map_parsing/read_map.c \
+		  ./srcs/map_parsing/obstacle.c \
+		  ./srcs/player/gravity_jump.c \
+		  ./srcs/player/movement.c \
+		  ./srcs/utils.c \
+		  ./srcs/main.c \
+		  ./srcs/collectible.c
 
 NC		:= \033[0m
 RED 	:= \033[1;31m
@@ -64,8 +82,8 @@ else ifeq ($(OS), Linux)
 LIBS	:= -ldl -lglfw
 endif
 
-%.o : %.c # IT NOT WORK !!
-	@$(CC) $(CFLAGS) $< -o $@
+%.o : %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all : $(OBJS) libft libmlx compile 
 
@@ -78,8 +96,12 @@ libmlx:
 	@$(MAKE) -C $(LIBMLX)
 
 compile:
-	@echo "\n${PURPLE}so_long compiling!${NC}"
-	@$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
+	@echo "\n${PURPLE}So_long compiling!${NC}"
+	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(SRCS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
+
+bonus: 
+	@echo "\n${PURPLE}So_long + bonus compiling!${NC}"
+	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
 
 # run this to install the required packages for Linux
 install on linux:
@@ -101,4 +123,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all, libft, libmlx, compile, install on linux, xpm42, clean, fclean, re
+.PHONY: all, libft, libmlx, compile, install on linux, xpm42, clean, fclean, re, bonus

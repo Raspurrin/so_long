@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 08:11:18 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 21:53:40 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define GHOSTCOUNT 1
-# define PINKCOUNT 1
+# define GHOSTCOUNT 10
+# define PINKCOUNT 10
 # define BLOK 32 		// pixel width/height of one image
 # define LIVES 5
 # define ACCEL 1 		// starting value of the acceleration of a jump

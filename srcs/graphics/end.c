@@ -6,11 +6,11 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:42:31 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 21:49:33 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 21:48:50 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "so_long.h"
 
 /**
  * Kills the child process with background music, deleting some images, 
@@ -20,7 +20,6 @@
  */
 void	terminate(t_imgdata *data)
 {
-	kill(data->pid, SIGKILL);
 	mlx_delete_image(data->mlx, data->img[GREY]);
 	mlx_delete_image(data->mlx, data->img[SCREEN]);
 	mlx_close_window(data->mlx);
@@ -51,10 +50,7 @@ void	end_message(t_imgdata *data)
 	if (!data->img[SCREEN])
 	{
 		colour_screen(data, GREY, 0x303388);
-		if (data->count[LIFE] <= 0)
-			display_message(data, true, 3.5, 3);
-		else
-			display_message(data, false, 3, 3);
+		display_message(data, false, 3, 3);
 	}
 	if (data->count[ENDFRAME] >= 20)
 		mlx_key_hook(data->mlx, &end, data);

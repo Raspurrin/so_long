@@ -6,19 +6,16 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 21:54:06 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/02 21:23:23 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "so_long.h"
 
 static bool	exec_functions(t_imgdata *data)
 {
-	if (!get_pink_spawn(data, &data->line, &data->enemy))
-		return (0);
-	get_ghost_spawn(data, &data->enemy, &data->line);
 	obstacle_pickup(data);
-	if (!graphics(data, &data->line, &data->enemy))
+	if (!graphics(data, &data->line))
 		free_2d(data->map);
 	return (true);
 }
@@ -42,7 +39,7 @@ int32_t	main(int32_t argc, char **argv)
 					, EXIT_FAILURE);
 		if (!check_ext(argv[1], ".ber"))
 			return (EXIT_FAILURE);
-		if (!(input_handler(fd, &data, &data.line, &data.enemy)))
+		if (!(input_handler(fd, &data, &data.line)))
 			return (EXIT_FAILURE);
 	}
 	else if (argc > 2)
