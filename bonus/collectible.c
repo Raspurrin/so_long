@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 12:46:02 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/03 01:47:24 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	collect(t_imgdata *data, size_t x, size_t y)
 	i = 0;
 	while (i < data->pickup_max)
 	{
-		if ((x >= data->obs[i].x_start && x <= data->obs[i].x_end) && \
-			(y >= data->obs[i].y_start && y <= data->obs[i].y_end) && \
-			data->pickup_excep[i] == false)
+		if ((x >= data->obs_pickup[i].x_start && x <= data->obs_pickup[i].x_end) && \
+			(y >= data->obs_pickup[i].y_start && y <= data->obs_pickup[i].y_end) && \
+			data->obs_pickup->excep[i] == false)
 		{
 			mlx_set_instance_depth(&data->img[PICKUP]->instances[i], -1100);
 			data->pickup_count++;
-			data->pickup_excep[i] = true;
+			data->obs_pickup->excep[i] = true;
 		}
 		i++;
 	}

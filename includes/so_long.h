@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 21:26:23 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/03 00:11:19 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ typedef struct image_data
 	size_t			old_y;
 	int32_t			pid;
 	uint8_t			*pixel;
-	bool			*pickup_excep;
 	uint8_t			startingpoint;
 	char			*str[STR_COUNT];
 	int32_t			width;

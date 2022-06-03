@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 21:54:06 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/03 01:44:07 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	exec_functions(t_imgdata *data)
 	if (!get_pink_spawn(data, &data->line, &data->enemy))
 		return (0);
 	get_ghost_spawn(data, &data->enemy, &data->line);
-	obstacle_pickup(data);
+	obstacle_pickup(data, 'C', &data->obs_pickup);
 	if (!graphics(data, &data->line, &data->enemy))
 		free_2d(data->map);
 	return (true);

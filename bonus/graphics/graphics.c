@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 20:54:40 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/03 00:13:55 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
 	const char	*args[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/scape.mp3", NULL};
+	"0", "./audio/scape.mp3", NULL};
 
 	if (!init_graphics(data, line, enemy))
 		return (false);

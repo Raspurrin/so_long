@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 21:53:40 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/03 02:23:04 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct obstacle
 	size_t	y_start;
 	size_t	y_end;
 	int32_t	instance;
+	bool	*excep;
 }	t_obstacle;
 
 typedef struct enemy
@@ -171,12 +172,11 @@ typedef struct image_data
 	t_line			line;
 	char			**map;
 	mlx_t			*mlx;
-	t_obstacle		*obs;
+	t_obstacle		*obs_pickup;
 	size_t			old_x;
 	size_t			old_y;
 	int32_t			pid;
 	uint8_t			*pixel;
-	bool			*pickup_excep;
 	uint8_t			startingpoint;
 	char			*str[STR_COUNT];
 	int32_t			width;
@@ -235,7 +235,7 @@ void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j);
 bool	loading_images(t_imgdata *data, xpm_t **xpm);
 void	movement(t_imgdata *data, size_t x, size_t y);
 void	movecounter(t_imgdata *data, t_animate *animate, size_t x, size_t y);
-void	obstacle_pickup(t_imgdata *data);
+void	obstacle_pickup(t_imgdata *data, char c, t_obstacle **obs);
 char	*read_file(int32_t fd);
 void	terminate(t_imgdata *data);
 bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img);
