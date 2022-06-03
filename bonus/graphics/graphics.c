@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/03 00:13:55 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 01:10:05 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static void	init_data(t_imgdata *data)
 {
+	data->obs_amount[OBS_1] = data->tile_count + ((data->width * 2) + \
+						(data->height - 2) * 2);
+	obstacle_pickup(data, &data->line);
 	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
 	data->enemy.time_lock = false;
@@ -24,6 +27,22 @@ static void	init_data(t_imgdata *data)
 	data->enemy.total_enemies = PINKCOUNT + GHOSTCOUNT;
 	data->xy[0] = 60;
 	data->xy[1] = 40;
+}
+
+static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
+{
+	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
+	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
+	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
+	GHOSTCOUNT, data->enemy_diff.ghost_img)) || \
+	!(enemy_to_window(data, enemy->pink_spawn, \
+	PINKCOUNT, data->enemy_diff.pink_img)))
+		return (false);
+	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
+		return (free_close_window(data, data->img[BG], \
+						"image_to_window failed"), false);
+	mlx_set_instance_depth(data->img[BG]->instances, -999);
+	return (true);
 }
 
 /**
@@ -47,11 +66,11 @@ static void	hook(void	*data)
 	{
 		if (mlx_is_key_down(data2->mlx, MLX_KEY_ESCAPE))
 			terminate(data);
-		movement(data2, x, y);
 		gravity(data2, x, y);
 		enemies(data2, &data2->enemy, x, y);
 		x = (data2->img[CHAR]->instances[0].x);
 		y = (data2->img[CHAR]->instances[0].y);
+		movement(data2, x, y);
 		collect(data2, x, y);
 		animate_char(data2, &data2->animate, x, y);
 		movecounter(data2, &data2->animate, x, y);
@@ -61,22 +80,6 @@ static void	hook(void	*data)
 	}
 }
 
-static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
-{
-	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
-	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
-	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
-	GHOSTCOUNT, data->enemy_diff.ghost_img)) || \
-	!(enemy_to_window(data, enemy->pink_spawn, \
-	PINKCOUNT, data->enemy_diff.pink_img)))
-		return (false);
-	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
-		return (free_close_window(data, data->img[BG], \
-						"image_to_window failed"), false);
-	mlx_set_instance_depth(data->img[BG]->instances, -999);
-	return (true);
-}
-
 /**
  * I am forking because otherwise the background music takes over the process
  * of the game. If I wanted to use sounds while the game runs, I would need
@@ -84,17 +87,23 @@ static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
  */
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
-	const char	*args[] = {"/usr/bin/afplay", "--volume", \
-	"0", "./audio/scape.mp3", NULL};
+	const char			*args[] = {"/usr/bin/afplay", "--volume", \
+	"1", "./audio/scape.mp3", NULL};
 
+	// data->sa.sa_handler = &audio;
+	// sa.sa_flags = SIGINFO;
 	if (!init_graphics(data, line, enemy))
 		return (false);
 	init_data(data);
 	data->pid = fork();
 	if (data->pid == 0)
+	{
 		execvp(args[0], (char **)args);
+		// exit(1);
+	}
 	else
 	{
+		// signal(SIGUSR1, &handler);
 		if (!(mlx_loop_hook(data->mlx, &hook, data)))
 			(error_close_window(data, "loop hook failed"));
 		mlx_loop(data->mlx);

@@ -2,10 +2,8 @@ make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/mialbert/Documents/so_long'
 echo "\n\033[1;34m======== libft ========\033[0m"
 /Applications/Xcode.app/Contents/Developer/usr/bin/make -C ./libs/libft/srcs
- 
 make[1]: Entering directory `/Users/mialbert/Documents/so_long/libs/libft/srcs'
 gcc -Wall -Wextra -Werror -c ft_memmove.c -o ft_memmove.o
- 
 gcc -Wall -Wextra -Werror -c ft_strjoin.c -o ft_strjoin.o
 gcc -Wall -Wextra -Werror -c ft_isalnum.c -o ft_isalnum.o
 gcc -Wall -Wextra -Werror -c ft_isdigit.c -o ft_isdigit.o
@@ -51,16 +49,13 @@ ar rcs libft.a ft_memmove.o ft_strjoin.o ft_isalnum.o ft_isdigit.o ft_substr.o f
 make[1]: Leaving directory `/Users/mialbert/Documents/so_long/libs/libft/srcs'
 echo "\n\033[1;34m======== MLX42 ========\033[0m"
 /Applications/Xcode.app/Contents/Developer/usr/bin/make -C ./libs/MLX
- 
 make[1]: Entering directory `/Users/mialbert/Documents/so_long/libs/MLX'
 echo "\033[32;1m\033[1mShader to C: shaders/default.frag -> src/mlx_frag_shader.c\033[0m"
- 
 bash tools/compile_shader.sh shaders/default.frag > src/mlx_frag_shader.c
 echo "\033[32;1m\033[1mShader to C: shaders/default.vert -> src/mlx_vert_shader.c\033[0m"
 bash tools/compile_shader.sh shaders/default.vert > src/mlx_vert_shader.c
 echo "\033[32;1m\033[1mCompiling: glad.c\033[0m"
 cc -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Ofast -D NDEBUG -o lib/glad/glad.o -c lib/glad/glad.c -I include -I /Users/mialbert/.brew/opt/glfw/include
- 
 echo "\033[32;1m\033[1mCompiling: lodepng.c\033[0m"
 cc -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Ofast -D NDEBUG -o lib/png/lodepng.o -c lib/png/lodepng.c -I include -I /Users/mialbert/.brew/opt/glfw/include
 echo "\033[32;1m\033[1mCompiling: mlx_font.c\033[0m"
@@ -96,6 +91,7 @@ cc -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Ofast -D NDEBU
 echo "\033[32;1m\033[1mCompiling: mlx_xpm42.c\033[0m"
 cc -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Ofast -D NDEBUG -o src/textures/mlx_xpm42.o -c src/textures/mlx_xpm42.c -I include -I /Users/mialbert/.brew/opt/glfw/include
 echo "\033[32;1m\033[1mCompiling: mlx_error.c\033[0m"
+ 
 cc -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Ofast -D NDEBUG -o src/utils/mlx_error.o -c src/utils/mlx_error.c -I include -I /Users/mialbert/.brew/opt/glfw/include
 echo "\033[32;1m\033[1mCompiling: mlx_list.c\033[0m"
 cc -Wextra -Wall -Werror -Wunreachable-code -Wno-char-subscripts -Ofast -D NDEBUG -o src/utils/mlx_list.o -c src/utils/mlx_list.c -I include -I /Users/mialbert/.brew/opt/glfw/include

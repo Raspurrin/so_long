@@ -8,12 +8,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Fri Jun  3 02:09:05 2022
+# Make data base, printed on Fri Jun  3 19:09:55 2022
 
 # Variables
 
 # automatic
- 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -46,13 +45,11 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from `Makefile', line 20)
 BONUS = ./libs/libft/srcs/*.c ./bonus/enemy/damage.c ./bonus/enemy/init.c ./bonus/enemy/interaction.c ./bonus/enemy/spawn.c ./bonus/graphics/animation.c ./bonus/graphics/display.c ./bonus/graphics/end.c ./bonus/graphics/graphics.c ./bonus/graphics/images_to_window.c ./bonus/graphics/loading_images.c ./bonus/map_parsing/check_player_amount.c ./bonus/map_parsing/error_cases.c ./bonus/map_parsing/input_handler.c ./bonus/map_parsing/read_map.c ./bonus/map_parsing/obstacle.c ./bonus/player/gravity_jump.c ./bonus/player/movement.c ./bonus/utils.c ./bonus/main.c ./bonus/collectible.c 
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000ccy800337k/T/vscode-ipc-cff78f75-20f4-4337-bf58-890091546d32.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000ccy800337k/T/vscode-ipc-73abad6a-4d65-48e9-9888-f375e1218a94.sock
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /Users/mialbert/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin
-# environment
-LaunchInstanceID = 3D0D9605-5BEE-47D7-B9AA-DC6B723F333C
+PATH = /Users/mialbert/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # environment
 VSCODE_LOG_STACK = true
 # environment
@@ -64,13 +61,11 @@ PURPLE := \033[35;1m
 # makefile (from `Makefile', line 16)
 LIBMLX = ./libs/MLX
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.3WsvTxcPRM/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.H9WMdrdGcQ/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
 HOMEBREW_TEMP = /tmp/mialbert/Homebrew/Temp
-# environment
-DISPLAY = /private/tmp/com.apple.launchd.WNfZvS13ux/org.xquartz:0
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -86,11 +81,11 @@ HOME = /Users/mialbert
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/mialbert/Library/Application Support/Code - Insiders/CachedData/57fd6d0195bb9b9d1b49f6da5db789060795de47
+VSCODE_CODE_CACHE_PATH = /Users/mialbert/Library/Application Support/Code - Insiders/CachedData/40840d1d58f4a84b0b3cb6ab5433124274bf3ca1
 # environment
 LOGNAME = mialbert
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # makefile (from `Makefile', line 17)
 HEADERS = -I includes -I libs/libft/srcs -I libs/MLX/include -I libs/miniaudio
 # environment
@@ -134,7 +129,7 @@ TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n000ccy800337k/T/
 # makefile (from `Makefile', line 66)
 OS := Darwin
 # environment
-VSCODE_IPC_HOOK = /Users/mialbert/Library/Application Support/Code - Insiders/1.67.0-insider-main.sock
+VSCODE_IPC_HOOK = /Users/mialbert/Library/Application Support/Code - Insiders/1.68.0-insider-main.sock
 # makefile (from `Makefile', line 61)
 RED := \033[1;31m
 # makefile (from `Makefile', line 67)
@@ -146,7 +141,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCodeInsiders.2356
+XPC_SERVICE_NAME = com.microsoft.VSCodeInsiders.2364
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -161,8 +156,6 @@ MAKEFILES :=
 LC_ALL = C
 # makefile (from `Makefile', line 80)
 LIBS := -framework Cocoa -framework OpenGL, -framework IOKit libs/MLX/lib/lib-x86_64/libglfw3.a
-# environment
-SECURITYSESSIONID = 186a8
 # automatic
 ^F = $(notdir $^)
 # default
@@ -174,9 +167,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 2260
+VSCODE_PID = 3418
 # variable set hash-table stats:
-# Load=81/1024=8%, Rehash=0, Collisions=3/120=2%
+# Load=78/1024=8%, Rehash=0, Collisions=3/117=3%
 
 # Pattern-specific Variable Values
 
@@ -309,9 +302,9 @@ bonus:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
- 
 #  commands to execute (from `Makefile', line 103):
 	@echo "\n${PURPLE}So_long + bonus compiling!${NC}"
+ 
 	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
 	
 
@@ -418,6 +411,6 @@ install:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Jun  3 02:09:05 2022
+# Finished Make data base on Fri Jun  3 19:09:55 2022
 
  

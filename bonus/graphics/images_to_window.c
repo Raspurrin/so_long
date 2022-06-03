@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 05:24:40 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:25:38 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ bool	walls_and_tiles(t_imgdata *data, size_t i, ssize_t x, ssize_t y)
 															data), false);
 		}
 		else
+		{
 			if (mlx_image_to_window(data->mlx, data->img[TILE], \
 												x * BLOK, y * BLOK) == -1)
 				return (free_array(data->img, "image_to_window failed", \
 															data), false);
+			data->tile_count++;
+		}
 	}
 	return (true);
 }

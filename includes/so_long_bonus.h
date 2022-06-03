@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/03 02:23:04 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 00:13:46 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef enum obs_enum
 	OBS_GHOST,
 	OBS_PINK,
 	OBS_EXIT,
-	OBS_WALL,
+	OBS_1,
 	OBSCOUNT
 }	t_obs_enum;
 
@@ -121,7 +121,6 @@ typedef struct obstacle
 	size_t	y_start;
 	size_t	y_end;
 	int32_t	instance;
-	bool	*excep;
 }	t_obstacle;
 
 typedef struct enemy
@@ -153,35 +152,42 @@ typedef struct enemy
 
 typedef struct image_data
 {
-	t_animate		animate;
-	float			accel;
-	char			*bigass;
-	uint32_t		char_start;
-	size_t			pickup_max;
-	size_t			pickup_count;
-	char			*combstr[STR_COUNT];
-	int32_t			count[STR_COUNT];
-	bool			counter_lock;
-	t_enemy			enemy;
-	t_enemy_diff	enemy_diff;
-	bool			fly;
-	int32_t			height;
-	mlx_image_t		*img[IMG_COUNT];
-	mlx_key_data_t	*keydata;
-	bool			jump_lock;
-	t_line			line;
-	char			**map;
-	mlx_t			*mlx;
-	t_obstacle		*obs_pickup;
-	size_t			old_x;
-	size_t			old_y;
-	int32_t			pid;
-	uint8_t			*pixel;
-	uint8_t			startingpoint;
-	char			*str[STR_COUNT];
-	int32_t			width;
-	xpm_t			*xpm[IMG_COUNT];
-	uint32_t		xy[2];
+	struct sigaction	sa;
+	t_animate			animate;
+	float				accel;
+	char				*bigass;
+	uint32_t			char_start;
+	bool				*excep_pickup;
+	size_t				pickup_max;
+	size_t				pickup_count;
+	char				*combstr[STR_COUNT];
+	int32_t				count[STR_COUNT];
+	bool				counter_lock;
+	t_enemy				enemy;
+	t_enemy_diff		enemy_diff;
+	bool				fly;
+	int32_t				height;
+	mlx_image_t			*img[IMG_COUNT];
+	size_t				obs_amount[OBSCOUNT];
+	mlx_key_data_t		*keydata;
+	bool				jump_lock;
+	t_line				line;
+	char				**map;
+	mlx_t				*mlx;
+	t_obstacle			*obs_pickup;
+	t_obstacle			*obs_tile;
+	t_obstacle			*obs_1;
+	size_t				old_x;
+	size_t				old_y;
+	int32_t				pid;
+	int32_t				pid2;
+	uint8_t				*pixel;
+	uint8_t				startingpoint;
+	char				*str[STR_COUNT];
+	size_t				tile_count;
+	int32_t				width;
+	xpm_t				*xpm[IMG_COUNT];
+	uint32_t			xy[2];
 }	t_imgdata;
 
 typedef struct error_cases
@@ -198,11 +204,11 @@ typedef struct error_cases
 	bool	wrong_diffcount;
 }	t_error;
 
+void	audio(void);
 void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y);
 void	animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
 											size_t i, size_t j);
 void	animate_pinks(t_imgdata *data, size_t i, size_t x, size_t y);
-void	audio(void);
 void	check_damage(t_imgdata *data, int32_t *player, size_t i, size_t j);
 void	check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error *errors);
 bool	check_ext(char *file_name, char *ext);
@@ -235,7 +241,7 @@ void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j);
 bool	loading_images(t_imgdata *data, xpm_t **xpm);
 void	movement(t_imgdata *data, size_t x, size_t y);
 void	movecounter(t_imgdata *data, t_animate *animate, size_t x, size_t y);
-void	obstacle_pickup(t_imgdata *data, char c, t_obstacle **obs);
+void	obstacle_pickup(t_imgdata *data, t_line *line);
 char	*read_file(int32_t fd);
 void	terminate(t_imgdata *data);
 bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img);

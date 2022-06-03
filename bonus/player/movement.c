@@ -6,11 +6,37 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:37:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/20 05:24:57 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/03 23:16:15 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+void	move_compare(t_imgdata *data, size_t x, size_t y, int16_t move)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < data->obs_amount[OBS_1])
+	{
+		if (move == 1 && y + BLOK < data->obs_1[i].y_start)
+			data->img[CHAR]->instances[0].y += BLOK / FATASS;
+		else if (move == 2 && x - BLOK > data->obs_1[i].x_end)
+		{
+			data->animate.dir = CHAR_L;
+			data->img[CHAR]->instances[0].x -= BLOK / FATASS;
+		}
+		else if (move == 3 && x + BLOK < data->obs_1[i].x_start)
+		{
+			data->animate.dir = CHAR;
+			data->img[CHAR]->instances[0].x += BLOK / FATASS;
+		}
+		else if (move == 4 && y - BLOK > data->obs_1[i].y_end &&
+			data->fly == true || GRAV == 0)
+			data->img[CHAR]->instances[0].y -= BLOK / FATASS;
+		i++;
+	}
+}
 
 /**
  * Will change position of the character depending on 
@@ -20,25 +46,14 @@
  */
 void	movement(t_imgdata *data, size_t x, size_t y)
 {
-	if (mlx_is_key_down(data->mlx, MLX_KEY_S) \
-						&& data->map[y + 1][x] != '1')
-		data->img[CHAR]->instances[0].y += BLOK / FATASS;
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_A) \
-							&& data->map[y][x] != '1')
-	{
-		data->animate.dir = CHAR_L;
-		data->img[CHAR]->instances[0].x -= BLOK / FATASS;
-	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_D) \
-							&& data->map[y][x + 1] != '1')
-	{
-		data->animate.dir = CHAR;
-		data->img[CHAR]->instances[0].x += BLOK / FATASS;
-	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_W) \
-		&& data->map[y][x] != '1' && (data->fly == true || \
-		GRAV == 0))
-		data->img[CHAR]->instances[0].y -= BLOK / FATASS;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		move_compare(data, x, y, 1);
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		move_compare(data, x, y, 2);
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		move_compare(data, x, y, 3);
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		move_compare(data, x, y, 4);
 }
 
 /**

@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/03 00:13:22 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/04 00:13:21 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ BONUS 	= ./libs/libft/srcs/*.c \
 		  ./bonus/player/movement.c \
 		  ./bonus/utils.c \
 		  ./bonus/main.c \
-		  ./bonus/collectible.c 
+		  ./bonus/collectible.c \
+		  ./bonus/audio.c
 
 # SRCS	= ./libs/libft/srcs/*.c \
 # 		  ./srcs/graphics/animation.c \

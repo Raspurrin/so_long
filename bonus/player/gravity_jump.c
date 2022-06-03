@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/31 01:55:12 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 01:13:43 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ static void	jump(t_imgdata *data)
 	}
 }
 
+static void	kurwa_jump(void)
+{
+	const char	*args[] = {"/usr/bin/afplay", "--volume", \
+	"1", "./audio/jump.wav", NULL};
+	int32_t		status;
+	int32_t		pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		execvp(args[0], (char **)args);
+		waitpid(pid, &status, 0);
+		kill(pid, SIGKILL);
+	}
+}
+
 /**
  * Pulls down the character every frame a certain amount unless he jumps.
  * Jumping only works if the character is right above a wall or tile. 
@@ -56,5 +72,8 @@ void	gravity(t_imgdata *data, size_t x, size_t y)
 		data->img[CHAR]->instances[0].y += 3;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_W) && GRAV == 1 \
 			&& data->map[y - 1][x] != '1' && data->map[y + 1][x] == '1')
+	{
+		kurwa_jump();
 		data->jump_lock = true;
+	}
 }
