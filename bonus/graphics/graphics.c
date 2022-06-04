@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 01:10:05 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 06:02:22 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	init_data(t_imgdata *data)
 {
-	data->obs_amount[OBS_1] = data->tile_count + ((data->width * 2) + \
-						(data->height - 2) * 2);
+	data->obs_amount[OBS_1] = data->tile_count + ((data->line.size * 2) + \
+						(data->line.count - 1) * 2);
 	obstacle_pickup(data, &data->line);
 	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
@@ -71,6 +71,8 @@ static void	hook(void	*data)
 		x = (data2->img[CHAR]->instances[0].x);
 		y = (data2->img[CHAR]->instances[0].y);
 		movement(data2, x, y);
+		x = (data2->img[CHAR]->instances[0].x);
+		y = (data2->img[CHAR]->instances[0].y);
 		collect(data2, x, y);
 		animate_char(data2, &data2->animate, x, y);
 		movecounter(data2, &data2->animate, x, y);
@@ -88,7 +90,7 @@ static void	hook(void	*data)
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
 	const char			*args[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/scape.mp3", NULL};
+	"0", "./audio/scape.mp3", NULL};
 
 	// data->sa.sa_handler = &audio;
 	// sa.sa_flags = SIGINFO;

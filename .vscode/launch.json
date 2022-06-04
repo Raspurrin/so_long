@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/Users/mialbert/Documents/so_long/so_long",
-            "args": ["/Users/mialbert/Documents/so_long/input/large_map.ber"],
+            "args": ["/Users/mialbert/Documents/so_long/input/count_map.ber"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
