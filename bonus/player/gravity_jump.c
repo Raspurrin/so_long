@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 01:13:43 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 02:18:04 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ static void	jump(t_imgdata *data)
 	}
 }
 
-static void	kurwa_jump(void)
+void	kurwa_audio(char *args[])
 {
-	const char	*args[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/jump.wav", NULL};
 	int32_t		status;
 	int32_t		pid;
 
@@ -67,13 +65,16 @@ static void	kurwa_jump(void)
  */
 void	gravity(t_imgdata *data, size_t x, size_t y)
 {
+	const char	*jump_audio[] = {"/usr/bin/afplay", "--volume", \
+	"1", "./audio/jump.wav", NULL};
+
 	jump(data);
 	if (data->map[y + 1][x] != '1' && GRAV == 1)
 		data->img[CHAR]->instances[0].y += 3;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_W) && GRAV == 1 \
 			&& data->map[y - 1][x] != '1' && data->map[y + 1][x] == '1')
 	{
-		kurwa_jump();
+		kurwa_audio((char **)jump_audio);
 		data->jump_lock = true;
 	}
 }

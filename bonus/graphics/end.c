@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:42:31 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 21:49:33 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 02:42:26 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,24 @@ void	end(mlx_key_data_t keydata, void *data)
  */
 void	end_message(t_imgdata *data)
 {
+	const char	*victory_audio[] = {"/usr/bin/afplay", "--volume", \
+	"1", "./audio/victory.wav", NULL};
+	const char	*gameover_audio[] = {"/usr/bin/afplay", "--volume", \
+	"1", "./audio/jump.wav", NULL};
+
 	if (!data->img[SCREEN])
 	{
 		colour_screen(data, GREY, 0x303388);
 		if (data->count[LIFE] <= 0)
+		{
 			display_message(data, true, 3.5, 3);
+			kurwa_audio((char **)gameover_audio);
+		}
 		else
+		{
 			display_message(data, false, 3, 3);
+			kurwa_audio((char **)victory_audio);
+		}
 	}
 	if (data->count[ENDFRAME] >= 20)
 		mlx_key_hook(data->mlx, &end, data);

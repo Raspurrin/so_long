@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/03 19:43:34 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 03:31:28 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
  */
 void	collect(t_imgdata *data, size_t x, size_t y)
 {
-	size_t	i;
+	size_t		i;
+	const char	*pickup_audio[] = {"/usr/bin/afplay", "--volume", \
+	"1", "./audio/pickup.mp3", NULL};
 
 	i = 0;
 	while (i < data->pickup_max)
@@ -30,6 +32,7 @@ void	collect(t_imgdata *data, size_t x, size_t y)
 			(y >= data->obs_pickup[i].y_start && y <= data->obs_pickup[i].y_end) && \
 			data->excep_pickup[i] == false)
 		{
+			kurwa_audio((char **)pickup_audio);
 			mlx_set_instance_depth(&data->img[PICKUP]->instances[i], -1100);
 			data->pickup_count++;
 			data->excep_pickup[i] = true;

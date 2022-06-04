@@ -6,34 +6,44 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:37:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/03 23:16:15 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 03:49:19 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+static void	move_compare2(t_imgdata *data, int16_t move, size_t i)
+{
+	if (move == 1 && i == data->obs_amount[OBS_1] + 1)
+			data->img[CHAR]->instances[0].y += BLOK / FATASS;
+	else if (move == 2 && i == data->obs_amount[OBS_1] + 1)
+	{
+		data->animate.dir = CHAR_L;
+		data->img[CHAR]->instances[0].x -= BLOK / FATASS;
+	}
+	if (move == 3 && i == data->obs_amount[OBS_1] + 1)
+	{
+		data->animate.dir = CHAR;
+		data->img[CHAR]->instances[0].x += BLOK / FATASS;
+	}
+	else if (move == 4 && i == data->obs_amount[OBS_1] + 1 && \
+		data->fly == true || GRAV == 0)
+		data->img[CHAR]->instances[0].y -= BLOK / FATASS;
+}
 
 void	move_compare(t_imgdata *data, size_t x, size_t y, int16_t move)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < data->obs_amount[OBS_1])
+	while (i <= data->obs_amount[OBS_1])
 	{
-		if (move == 1 && y + BLOK < data->obs_1[i].y_start)
-			data->img[CHAR]->instances[0].y += BLOK / FATASS;
-		else if (move == 2 && x - BLOK > data->obs_1[i].x_end)
+		if (i < data->obs_amount[OBS_1])
 		{
-			data->animate.dir = CHAR_L;
-			data->img[CHAR]->instances[0].x -= BLOK / FATASS;
+			if ((move == 1 && y + BLOK > data->obs_1[i].y_start) || (move == 2 && x - BLOK < data->obs_1[i].x_end) || (move == 3 && x + BLOK > data->obs_1[i].x_start) || (move == 4 && y - BLOK < data->obs_1[i].y_end && data->fly == true || GRAV == 0))
+				move = false;
 		}
-		else if (move == 3 && x + BLOK < data->obs_1[i].x_start)
-		{
-			data->animate.dir = CHAR;
-			data->img[CHAR]->instances[0].x += BLOK / FATASS;
-		}
-		else if (move == 4 && y - BLOK > data->obs_1[i].y_end &&
-			data->fly == true || GRAV == 0)
-			data->img[CHAR]->instances[0].y -= BLOK / FATASS;
+		move_compare2(data, move, i);
 		i++;
 	}
 }
@@ -85,3 +95,30 @@ void	movecounter(t_imgdata *data, t_animate *animate, size_t x, size_t y)
 	}
 	animate->start = data->xy[0];
 }
+
+// void	move_compare(t_imgdata *data, size_t x, size_t y, int16_t move)
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (i < data->obs_amount[OBS_1])
+// 	{
+// 		if (move == 1 && y + BLOK < data->obs_1[i].y_start)
+// 			data->img[CHAR]->instances[0].y += BLOK / FATASS;
+// 		else if (move == 2 && x - BLOK > data->obs_1[i].x_end)
+// 		{
+// 			data->animate.dir = CHAR_L;
+// 			data->img[CHAR]->instances[0].x -= BLOK / FATASS;
+// 		}
+// 		else if (move == 3 && x + BLOK < data->obs_1[i].x_start)
+// 		{
+// 			data->animate.dir = CHAR;
+// 			data->img[CHAR]->instances[0].x += BLOK / FATASS;
+// 		}
+// 		else if (move == 4 && y - BLOK > data->obs_1[i].y_end && \
+// 			data->fly == true || GRAV == 0)
+// 			data->img[CHAR]->instances[0].y -= BLOK / FATASS;
+// 		i++;
+// 	}
+// }
+

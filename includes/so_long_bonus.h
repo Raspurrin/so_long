@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 00:13:46 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 02:18:53 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ bool	images_to_window(t_imgdata *data, size_t i);
 char	**input_handler(int32_t fd, t_imgdata *data, \
 						t_line *line, t_enemy *enemy);
 void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j);
+void	kurwa_audio(char *args[]);
 bool	loading_images(t_imgdata *data, xpm_t **xpm);
 void	movement(t_imgdata *data, size_t x, size_t y);
 void	movecounter(t_imgdata *data, t_animate *animate, size_t x, size_t y);
