@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 02:23:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 02:17:54 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:59:18 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,21 @@ void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j)
  */
 void	check_damage(t_imgdata *data, int32_t *player, size_t i, size_t j)
 {
+	const char	*hurt_audio[] = {"/usr/bin/afplay", "--volume", \
+	"1", "./audio/hurt.wav", NULL};
+	const char	*hurt2_audio[] = {"/usr/bin/afplay", "--volume", \
+	"1", "./audio/hurt2.wav", NULL};
+
 	data->enemy.x[1] = data->enemy.x[0] / BLOK;
 	data->enemy.y[1] = data->enemy.y[0] / BLOK;
 	kill_enemy(data, player, i, j);
 	if ((player[X] == data->enemy.x[1] && player[Y] == data->enemy.y[1]) \
 		&& data->enemy.time_lock == false && IMMORTAL == 0)
 	{
+		if (j == 0)
+			kurwa_audio((char **)hurt2_audio);
+		else
+			kurwa_audio((char **)hurt_audio);
 		data->jump_lock = false;
 		data->enemy.time = mlx_get_time();
 		data->enemy.time_lock = true;

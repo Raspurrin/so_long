@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/01 19:21:59 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:43:10 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void	red_filter(t_imgdata *data, t_enemy *enemy)
 
 void	enemy_exec(t_imgdata *data, size_t i, size_t j, int32_t	*player)
 {
-	check_damage(data, player, i, j);
 	enemy_move(data, &data->enemy, i, j);
+	check_damage(data, player, i, j);
 	data->enemy.x[0] = ((data->enemy_diff.lal[j])[i]->instances[0].x);
 	data->enemy.y[0] = ((data->enemy_diff.lal[j])[i]->instances[0].y);
 	if (j == 1)

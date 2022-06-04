@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/05/31 01:54:32 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 21:48:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm)
 	xpm[DOOR] = mlx_load_xpm42("textures/doortrans2.xpm42");
 	if (!xpm[DOOR])
 		return (ft_putendl_fd("door was not found", STDOUT_FILENO), false);
+	xpm[POTION] = mlx_load_xpm42("textures/potion.xpm42");
+	if (!xpm[POTION])
+		return (ft_putendl_fd("door was not found", STDOUT_FILENO), false);
 	if (!loading_images2(data, xpm))
 		return (false);
 	return (true);
@@ -125,6 +128,7 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 	img[WALL] = mlx_texture_to_image(data->mlx, &xpm[WALL]->texture);
 	img[PICKUP] = mlx_texture_to_image(data->mlx, &xpm[PICKUP]->texture);
 	img[DOOR] = mlx_texture_to_image(data->mlx, &xpm[DOOR]->texture);
+	img[POTION] = mlx_texture_to_image(data->mlx, &xpm[POTION]->texture);
 	if (!img[BG] || !img[CHAR] || !img[TILE] || !img[WALL] || !img[PICKUP] \
 	|| !img[DOOR] || !enemy_texture(data, data->enemy_diff.ghost_img, \
 	GHOSTCOUNT, data->enemy.ghost) || !enemy_texture(data, \

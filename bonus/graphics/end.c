@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:42:31 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 02:42:26 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:50:48 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ void	end_message(t_imgdata *data)
 	const char	*victory_audio[] = {"/usr/bin/afplay", "--volume", \
 	"1", "./audio/victory.wav", NULL};
 	const char	*gameover_audio[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/jump.wav", NULL};
+	"1", "./audio/game_over.wav", NULL};
 
 	if (!data->img[SCREEN])
 	{
+		kill(data->pid, SIGKILL);
 		colour_screen(data, GREY, 0x303388);
 		if (data->count[LIFE] <= 0)
 		{

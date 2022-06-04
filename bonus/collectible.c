@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 03:31:28 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 20:46:15 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,4 @@ void	collect(t_imgdata *data, size_t x, size_t y)
 		}
 		i++;
 	}
-}
-
-/**
- * itterates through the map and counts every occurance of the collectibles
- * until the position of the collectible that was interacted with.
- */
-int32_t	find_c_instance(t_imgdata *data, size_t index)
-{
-	size_t	i;
-	int32_t	instance;
-
-	i = 0;
-	instance = 0;
-	while (i <= index)
-	{
-		if (data->bigass[i] == 'C' || data->bigass[i] == 'K')
-			instance++;
-		i++;
-		if (i == index - 1)
-			break ;
-	}
-	return (instance);
 }

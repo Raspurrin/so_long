@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:10:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/03 17:44:34 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 21:43:09 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,18 @@
 
 static bool	exec_functions(t_imgdata *data)
 {
-	if (!get_pink_spawn(data, &data->line, &data->enemy))
+	ssize_t	*avail;
+	int		spawn_count;
+
+	avail = avail_ground_spawn(data, &data->line, &spawn_count);
+	if (!avail)
+		return (false);
+	if (!get_ground_spawn(&spawn_count, avail, data->enemy.pink_spawn, \
+														PINKCOUNT) || \
+		!get_ground_spawn(&spawn_count, avail, data->potion_spawn, \
+														POTIONCOUNT))
 		return (0);
+	free(avail);
 	get_ghost_spawn(data, &data->enemy, &data->line);
 	if (!graphics(data, &data->line, &data->enemy))
 		free_2d(data->map);

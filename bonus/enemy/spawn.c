@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 23:11:37 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 05:31:57 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 21:43:02 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ static ssize_t	*calloc_avail(t_imgdata *data, t_line *line)
 	return (avail);
 }
 
-static ssize_t	*avail_ground_spawn(t_imgdata *data, t_line *line, \
-												size_t *spawn_count)
+ssize_t	*avail_ground_spawn(t_imgdata *data, t_line *line, int *spawn_count)
 {
 	ssize_t	*avail;
 	ssize_t	i;
@@ -96,30 +95,25 @@ static ssize_t	*avail_ground_spawn(t_imgdata *data, t_line *line, \
 	return (avail);
 }
 
-bool	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy)
+bool	get_ground_spawn(int *spawn_count, ssize_t *avail, ssize_t *spawn, \
+														size_t max_count)
 {
 	size_t	i;
 	size_t	j;
-	size_t	spawn_count;
-	ssize_t	*avail;
 	ssize_t	index;
 
 	i = 0;
-	ft_memset(enemy->pink_spawn, -1, sizeof(enemy->pink_spawn));
-	avail = avail_ground_spawn(data, line, &spawn_count);
-	if (!avail)
-		return (false);
-	while (i < PINKCOUNT)
+	ft_memset(spawn, -1, sizeof(spawn));
+	while (i < max_count)
 	{
 		j = 0;
-		index = rand() % spawn_count;
-		while (enemy->pink_spawn[j] && enemy->pink_spawn[j] != avail[index])
+		index = rand() % *spawn_count;
+		while (spawn[j] && spawn[j] != avail[index])
 			j++;
-		if (enemy->pink_spawn[j])
+		if (spawn[j])
 			index = -1;
 		if (index != -1)
-			enemy->pink_spawn[i++] = avail[index];
+			spawn[i++] = avail[index];
 	}
-	free(avail);
 	return (true);
 }
