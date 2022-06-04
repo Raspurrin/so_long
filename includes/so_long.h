@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/03 00:11:19 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 06:10:46 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct obstacle
 	size_t	y_start;
 	size_t	y_end;
 	int32_t	instance;
-}	t_obstacle;
+}	t_coords;
 
 typedef struct image_data
 {
@@ -119,7 +119,7 @@ typedef struct image_data
 	t_line			line;
 	char			**map;
 	mlx_t			*mlx;
-	t_obstacle		*obs;
+	t_coords		*obs;
 	size_t			old_x;
 	size_t			old_y;
 	int32_t			pid;

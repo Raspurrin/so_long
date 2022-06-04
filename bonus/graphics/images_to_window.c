@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/03 17:25:38 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 06:14:36 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ bool	images_to_window(t_imgdata *data, size_t i)
 		else if (data->bigass[i] == 'C')
 			macro = PICKUP;
 		else if (data->bigass[i] == 'P')
+		{
 			macro = CHAR;
+			init_coords(data, i, 0, &data->player);
+		}
 		else if (data->map[y][x] == 'E')
 			macro = DOOR;
 		if (!(images_to_window2(data, x, y, macro)))

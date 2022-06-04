@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 05:30:36 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 06:14:25 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,14 @@ typedef struct animate
 	uint32_t	xy[XY];
 }	t_animate;
 
-typedef struct obstacle
+typedef struct coords
 {
 	size_t	x_start;
 	size_t	x_end;
 	size_t	y_start;
 	size_t	y_end;
 	int32_t	instance;
-}	t_obstacle;
+}	t_coords;
 
 typedef struct enemy
 {
@@ -174,9 +174,10 @@ typedef struct image_data
 	t_line				line;
 	char				**map;
 	mlx_t				*mlx;
-	t_obstacle			*obs_pickup;
-	t_obstacle			*obs_tile;
-	t_obstacle			*obs_1;
+	t_coords			*obs_pickup;
+	t_coords			*obs_tile;
+	t_coords			*obs_1;
+	t_coords			player;
 	size_t				old_x;
 	size_t				old_y;
 	int32_t				pid;
@@ -235,6 +236,8 @@ void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line);
 bool	get_pink_spawn(t_imgdata *data, t_line *line, t_enemy *enemy);
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy);
 bool	images_to_window(t_imgdata *data, size_t i);
+void	init_coords(t_imgdata *data, size_t index, int32_t obs_index, \
+																t_coords *obs);
 char	**input_handler(int32_t fd, t_imgdata *data, \
 						t_line *line, t_enemy *enemy);
 void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j);

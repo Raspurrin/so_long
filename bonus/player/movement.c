@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:37:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 05:57:36 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 06:06:05 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,25 @@ void	move_compare(t_imgdata *data, size_t x, size_t y, int16_t move)
 		if (move == 1 && y + BLOK < data->obs_1[i].y_start)
 		{
 			data->img[CHAR]->instances[0].y += BLOK / FATASS;
-			break;
+			break ;
 		}
-		else if (move == 2 && BLOK < data->obs_1[i].x_end)
+		else if (move == 2 && x - BLOK < data->obs_1[i].x_end)
 		{
 			data->animate.dir = CHAR_L;
 			data->img[CHAR]->instances[0].x -= BLOK / FATASS;
-			break;
+			break ;
 		}
 		else if (move == 3 && x + BLOK < data->obs_1[i].x_start)
 		{
 			data->animate.dir = CHAR;
 			data->img[CHAR]->instances[0].x += BLOK / FATASS;
-			break;
+			break ;
 		}
 		else if (move == 4 && y - BLOK > data->obs_1[i].y_end + 1 && \
 			data->fly == true || GRAV == 0)
 		{
 			data->img[CHAR]->instances[0].y -= BLOK / FATASS;
-			break;
+			break ;
 		}
 		i++;
 	}
