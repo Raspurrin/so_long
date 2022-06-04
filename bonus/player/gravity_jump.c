@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 02:18:04 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 23:41:08 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ static void	jump(t_imgdata *data)
 			data->fly = true;
 		else
 			data->fly = false;
-	}
-}
-
-void	kurwa_audio(char *args[])
-{
-	int32_t		status;
-	int32_t		pid;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		execvp(args[0], (char **)args);
-		waitpid(pid, &status, 0);
-		kill(pid, SIGKILL);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 21:48:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 22:45:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm)
 	xpm[DOOR] = mlx_load_xpm42("textures/doortrans2.xpm42");
 	if (!xpm[DOOR])
 		return (ft_putendl_fd("door was not found", STDOUT_FILENO), false);
-	xpm[POTION] = mlx_load_xpm42("textures/potion.xpm42");
+	xpm[POTION] = mlx_load_xpm42("textures/potion16.xpm42");
 	if (!xpm[POTION])
 		return (ft_putendl_fd("door was not found", STDOUT_FILENO), false);
 	if (!loading_images2(data, xpm))
@@ -123,7 +123,7 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 	data->char_start = data->xy[0];
 	img[BG] = mlx_texture_to_image(data->mlx, &xpm[BG]->texture);
 	img[CHAR] = mlx_texture_area_to_image(data->mlx, \
-						&xpm[CHAR]->texture, data->xy, (uint32_t *)wh2);
+						&xpm[CHAR]->texture, data->animate.xy, (uint32_t *)wh2);
 	img[TILE] = mlx_texture_to_image(data->mlx, &xpm[TILE]->texture);
 	img[WALL] = mlx_texture_to_image(data->mlx, &xpm[WALL]->texture);
 	img[PICKUP] = mlx_texture_to_image(data->mlx, &xpm[PICKUP]->texture);

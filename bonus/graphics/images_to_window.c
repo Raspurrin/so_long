@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 21:52:36 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 22:11:42 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,19 +98,23 @@ bool	images_to_window(t_imgdata *data, size_t i)
  * Will use the established positions from arrays initialised in 
  * get_ghost_spawn and put those images on the screen
  */
-bool	enemy_to_window(t_imgdata *data, ssize_t *index, size_t enemy_max, \
+bool	random_to_window(t_imgdata *data, ssize_t *index, size_t max_count, \
 															mlx_image_t **img)
 {
 	size_t	i;
+	size_t	j;
 	size_t	x;
 	size_t	y;
 
 	i = 0;
-	while (i < enemy_max)
+	while (i < max_count)
 	{
+		j = i;
+		if (!img[i])
+			j = 0;
 		x = index[i] % (data->line.size + 1);
 		y = index[i] / (data->line.size + 1);
-		if (mlx_image_to_window(data->mlx, img[i], \
+		if (mlx_image_to_window(data->mlx, img[j], \
 												x * BLOK, y * BLOK) == -1)
 			return (free_array(data->img, "image_to_window failed", \
 														data), false);

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 06:49:56 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/05 01:08:44 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static void	init_data(t_imgdata *data)
 {
 	data->obs_amount[OBS_1] = data->tile_count + ((data->line.size * 2) + \
 						(data->line.count - 1) * 2);
-	obstacle_pickup(data, &data->line);
+	obstacle_pickup(data);
 	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
 	data->enemy.time_lock = false;
 	data->old_x = (data->img[CHAR]->instances[0].x);
 	data->old_y = (data->img[CHAR]->instances[0].y);
-	data->animate.xy[0] = 60;
+	// data->animate.xy[0] = 60;
 	data->animate.dir = CHAR;
 	data->enemy.total_enemies = PINKCOUNT + GHOSTCOUNT;
 	data->xy[0] = 60;
@@ -33,10 +33,11 @@ static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
 	if (!(windowdisplay(data, line, data->xpm)) || !(loading_images(data, \
 	data->xpm)) || !(texture_to_image(data, data->xpm, data->img)) || \
-	!(images_to_window(data, 0)) || !(enemy_to_window(data, enemy->ghost_spawn, \
-	GHOSTCOUNT, data->enemy_diff.ghost_img)) || \
-	!(enemy_to_window(data, enemy->pink_spawn, \
-	PINKCOUNT, data->enemy_diff.pink_img)))
+	!(images_to_window(data, 0)) || !(random_to_window(data, \
+	enemy->ghost_spawn, GHOSTCOUNT, data->enemy_diff.ghost_img)) || \
+	!(random_to_window(data, enemy->pink_spawn, PINKCOUNT, \
+	data->enemy_diff.pink_img)) || !(random_to_window(data, \
+	data->potion_spawn, POTIONCOUNT, &data->img[POTION])))
 		return (false);
 	if (mlx_image_to_window(data->mlx, data->img[BG], 0, 0) == -1)
 		return (free_close_window(data, data->img[BG], \
@@ -90,7 +91,7 @@ static void	hook(void	*data)
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
 	const char			*args[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/scape.mp3", NULL};
+	"0", "./audio/scape.mp3", NULL};
 
 	// data->sa.sa_handler = &audio;
 	// sa.sa_flags = SIGINFO;
@@ -101,7 +102,7 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	if (data->pid == 0)
 	{
 		execvp(args[0], (char **)args);
-		// exit(1);
+		exit(1);
 	}
 	else
 	{
@@ -115,3 +116,4 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	kill(data->pid, SIGKILL);
 	return (0);
 }
+

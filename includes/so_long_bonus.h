@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 21:48:03 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/05 01:07:50 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define GHOSTCOUNT 50
-# define PINKCOUNT 20
+# define GHOSTCOUNT 20
+# define PINKCOUNT 1
 # define POTIONCOUNT 2
 # define BLOK 32 		// pixel width/height of one image
-# define LIVES 10
+# define LIVES 100
 # define ACCEL 1 		// starting value of the acceleration of a jump
 # define ACCEL_MOD 1.3 	// the value accel is multiplied with every frame
 # define JUMP_CAP 100	// the value accel needs to get to stop a jump
@@ -125,6 +125,16 @@ typedef struct coords
 	int32_t	instance;
 }	t_coords;
 
+/**
+ * So I should have written this in a way that I could have just 
+ * reused it for different enemies with different instances of this
+ * struct. Also I should have used linked lists, so I wouldn't need
+ * exception arrays, I could just take enemies out of the list.
+ * I have so many variables for the double exception array, 
+ * because I couldn't figure out how to initalise it otherwise. 
+ * (*excep[DIFFCOUNT + 1] + ghost_excep[GHOSTCOUNT] + pink_excep[PINKCOUNT])
+ */
+
 typedef struct enemy
 {
 	bool			fall_lock;
@@ -148,10 +158,13 @@ typedef struct enemy
 	size_t			time;
 	bool			time_lock;
 	size_t			total_enemies;
-	int32_t			x[GHOSTCOUNT + 1];
-	int32_t			y[GHOSTCOUNT + 1];
+	int32_t			x[GHOSTCOUNT + 1]; // should actually check for the biggest enemy
+	int32_t			y[GHOSTCOUNT + 1]; // and then malloc it. That will fix a bug!
 }	t_enemy;
 
+/**
+ * There should be a t_coords array. 
+ */
 typedef struct image_data
 {
 	struct sigaction	sa;
@@ -160,6 +173,7 @@ typedef struct image_data
 	char				*bigass;
 	uint32_t			char_start;
 	bool				*excep_pickup;
+	bool				excep_potion[POTIONCOUNT];
 	size_t				pickup_max;
 	size_t				pickup_count;
 	char				*combstr[STR_COUNT];
@@ -180,6 +194,7 @@ typedef struct image_data
 	t_coords			*obs_tile;
 	t_coords			*obs_1;
 	t_coords			player;
+	t_coords			obs_potion[POTIONCOUNT];
 	size_t				old_x;
 	size_t				old_y;
 	int32_t				pid;
@@ -214,7 +229,8 @@ void		animate_char(t_imgdata *data, t_animate *animate, size_t x, \
 void		animate_ghosts(t_imgdata *data, mlx_texture_t *ghost, \
 												size_t i, size_t j);
 void		animate_pinks(t_imgdata *data, size_t i, size_t x, size_t y);
-ssize_t		*avail_ground_spawn(t_imgdata *data, t_line *line, int *spawn_count);
+ssize_t		*avail_ground_spawn(t_imgdata *data, t_line *line, \
+												int *spawn_count);
 void		check_damage(t_imgdata *data, int32_t *player, size_t i, size_t j);
 void		check_enemy_error(t_imgdata *data, t_enemy *enemy, t_error *errors);
 bool		check_ext(char *file_name, char *ext);
@@ -228,7 +244,7 @@ void		display_string(t_imgdata *data, int32_t str_img, size_t x, \
 void		end(mlx_key_data_t keydata, void *data);
 void		end_message(t_imgdata *data);
 void		enemies(t_imgdata *data, t_enemy *enemy, size_t x, size_t y);
-bool		enemy_to_window(t_imgdata *data, ssize_t *index, size_t enemy_max, \
+bool		random_to_window(t_imgdata *data, ssize_t *index, size_t max_count, \
 															mlx_image_t **img);
 void		error_output(t_error *errors, t_line *line);
 void		error_close_window(t_imgdata *data, char *str);
@@ -254,7 +270,7 @@ bool		loading_images(t_imgdata *data, xpm_t **xpm);
 void		movement(t_imgdata *data, size_t x, size_t y);
 void		movecounter(t_imgdata *data, t_animate *animate, size_t x, \
 																size_t y);
-void		obstacle_pickup(t_imgdata *data, t_line *line);
+void		obstacle_pickup(t_imgdata *data);
 char		*read_file(int32_t fd);
 void		terminate(t_imgdata *data);
 bool		texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img);
