@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 06:02:22 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/04 06:49:56 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	hook(void	*data)
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
 	const char			*args[] = {"/usr/bin/afplay", "--volume", \
-	"0", "./audio/scape.mp3", NULL};
+	"1", "./audio/scape.mp3", NULL};
 
 	// data->sa.sa_handler = &audio;
 	// sa.sa_flags = SIGINFO;
