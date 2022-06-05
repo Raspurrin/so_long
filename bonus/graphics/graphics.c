@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/05 01:08:44 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/05 05:00:21 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	init_data(t_imgdata *data)
 {
+	int32_t	fd;
+
 	data->obs_amount[OBS_1] = data->tile_count + ((data->line.size * 2) + \
 						(data->line.count - 1) * 2);
 	obstacle_pickup(data);
@@ -27,6 +29,8 @@ static void	init_data(t_imgdata *data)
 	data->enemy.total_enemies = PINKCOUNT + GHOSTCOUNT;
 	data->xy[0] = 60;
 	data->xy[1] = 40;
+	fd = open("youwon.xpm42", O_RDONLY);
+	data->you_won = read_file(fd);
 }
 
 static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)

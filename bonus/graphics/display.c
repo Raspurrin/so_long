@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:51:24 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/02 20:28:12 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/05 05:21:02 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ void	colour_screen(t_imgdata *data, int32_t macro, int32_t colour)
 		y++;
 	}
 }
+
+// void	display_xpm42(t_imgdata *data, char *xpm_str)
+// {
+		// make resizeable images! 
+// }
 
 /**
  * Will colour the screen and display a certain message depending 

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/05 01:07:50 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/05 04:59:18 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define GHOSTCOUNT 20
+# define GHOSTCOUNT 10
 # define PINKCOUNT 1
 # define POTIONCOUNT 2
 # define BLOK 32 		// pixel width/height of one image
@@ -158,8 +158,8 @@ typedef struct enemy
 	size_t			time;
 	bool			time_lock;
 	size_t			total_enemies;
-	int32_t			x[GHOSTCOUNT + 1]; // should actually check for the biggest enemy
-	int32_t			y[GHOSTCOUNT + 1]; // and then malloc it. That will fix a bug!
+	int32_t			x[2]; // should actually check for the biggest enemy
+	int32_t			y[2]; // and then malloc it. That will fix a bug!
 }	t_enemy;
 
 /**
@@ -205,6 +205,7 @@ typedef struct image_data
 	char				*str[STR_COUNT];
 	size_t				tile_count;
 	int32_t				width;
+	char				*you_won;
 	xpm_t				*xpm[IMG_COUNT];
 	uint32_t			xy[2];
 }	t_imgdata;

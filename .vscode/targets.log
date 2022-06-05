@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Sat Jun  4 02:01:04 2022
+# Make data base, printed on Sun Jun  5 04:29:10 2022
 
 # Variables
 
@@ -44,7 +44,7 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from `Makefile', line 20)
 BONUS = ./libs/libft/srcs/*.c ./bonus/enemy/damage.c ./bonus/enemy/init.c ./bonus/enemy/interaction.c ./bonus/enemy/spawn.c ./bonus/graphics/animation.c ./bonus/graphics/display.c ./bonus/graphics/end.c ./bonus/graphics/graphics.c ./bonus/graphics/images_to_window.c ./bonus/graphics/loading_images.c ./bonus/map_parsing/check_player_amount.c ./bonus/map_parsing/error_cases.c ./bonus/map_parsing/input_handler.c ./bonus/map_parsing/read_map.c ./bonus/map_parsing/obstacle.c ./bonus/player/gravity_jump.c ./bonus/player/movement.c ./bonus/utils.c ./bonus/main.c ./bonus/collectible.c ./bonus/audio.c
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000ccy800337k/T/vscode-ipc-3b861162-b763-43d3-8465-47e24515082b.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000ccy800337k/T/vscode-ipc-133a7967-127c-40d0-8fd5-e4372fcd8aad.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -60,7 +60,7 @@ PURPLE := \033[35;1m
 # makefile (from `Makefile', line 16)
 LIBMLX = ./libs/MLX
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.bPkapt17X5/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.KFpsAWCIwA/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -80,7 +80,7 @@ HOME = /Users/mialbert
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/mialbert/Library/Application Support/Code - Insiders/CachedData/40840d1d58f4a84b0b3cb6ab5433124274bf3ca1
+VSCODE_CODE_CACHE_PATH = /Users/mialbert/Library/Application Support/Code - Insiders/CachedData/2260d7cca34384a2838c728850afdd38113ddb47
 # environment
 LOGNAME = mialbert
 # environment
@@ -140,7 +140,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCodeInsiders.2364
+XPC_SERVICE_NAME = com.microsoft.VSCodeInsiders.2332
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -166,7 +166,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 677
+VSCODE_PID = 9960
 # variable set hash-table stats:
 # Load=78/1024=8%, Rehash=0, Collisions=3/117=3%
 
@@ -278,7 +278,7 @@ libft:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-04 00:13:21
+#  Last modified 2022-06-04 22:35:04
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -410,6 +410,6 @@ install:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Jun  4 02:01:07 2022
+# Finished Make data base on Sun Jun  5 04:29:10 2022
 
  
