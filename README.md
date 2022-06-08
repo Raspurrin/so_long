@@ -1,9 +1,11 @@
-# so_long
+# <img width="80" alt="image" src="https://user-images.githubusercontent.com/13866954/172734156-4388b646-5a3a-4da7-934a-d8e8d323916a.png"> So_long
+
 
 My game was made in C with the graphical library <a href="https://github.com/codam-coding-college/MLX42">MLX42</a>
 
 The goal of the game is to collect all pickups and go through the exit and... Not get killed in the process.
 Usually this project is made with a top-down view, but I decided to make it a platformer instead!
+It should be able to run on any platform. If there are any issues with running it, refer to MLX42 for guidance. 
 
 ### It includes the following bonus features:
 - Smooth animation.
