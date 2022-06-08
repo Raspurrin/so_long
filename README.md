@@ -70,4 +70,4 @@ For now I want to focus on my other projects but at some point I want to improve
 - Make different levels. 
 - A scoreboard. 
 - A blog post/tutorial about the project.
-- Make additions to the MLX42 wiki. 
+- Additions to the MLX42 wiki. 
