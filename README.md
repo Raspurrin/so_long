@@ -62,11 +62,12 @@ like how many lives you have, the amount of enemies, to toggle gravity, damage, 
 For now I want to focus on my other projects but at some point I want to improve this game a little:
 
 - Make certain it runs on different platforms and if not adjust makefile accordingly.
-- Cleaning up my code. If you have any suggestions for this, don't hesistate to tell me, I would love to hear feedback!
+- Clean up my code. If you have any suggestions for this, don't hesistate to tell me, I would love to hear feedback!
 - Make my code more dynamic. 
-- Fixing the collision regarding the platforms and the left wall and making it more precise in general.
-- Making the background and ending message truly dynamic and scaleable.
-- Creating a menu where you can change the game settngs and a pause option. 
-- Making different levels. 
+- Fix the collision regarding the platforms and the left wall and making it more precise in general.
+- Make the background and ending message truly dynamic and scaleable.
+- Create a menu where you can change the game settngs and a pause option. 
+- Make different levels. 
 - A scoreboard. 
-- I also want to write a tutorial/blog about this in the future, to help others who want to make this project in a similar way. 
+- A blog post/tutorial about the project.
+- Make additions to the MLX42 wiki. 
