@@ -58,10 +58,10 @@ like how many lives you have, the amount of enemies, to toggle gravity, damage, 
 
 For now I want to focus on my other projects but at some point I want to improve this game a little:
 
+- Cleaning up my code. If you have any suggestions for this, don't hesistate to tell me, I would love to hear feedback!
+- Make my code more dynamic. 
 - Fixing the collision regarding the platforms and the left wall and making it more precise in general.
 - Making the background and ending message truly dynamic and scaleable.
-- Cleaning up my code.
-- Make my code more dynamic. 
 - Creating a menu where you can change the game settngs and a pause option. 
 - Making different levels. 
 - A scoreboard. 
