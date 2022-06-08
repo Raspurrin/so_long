@@ -65,3 +65,4 @@ For now I want to focus on my other projects but at some point I want to improve
 - Creating a menu where you can change the game settngs and a pause option. 
 - Making different levels. 
 - A scoreboard. 
+- I also want to write a tutorial/blog about this in the future, to help others who want to make this project in a similar way. 
