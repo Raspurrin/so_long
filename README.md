@@ -56,8 +56,7 @@ like how many lives you have, the amount of enemies, to toggle gravity, damage, 
 
 ## Future additions
 
-For now I want to focus on my other projects but at some point I want to improve this game a little.
-I won't add too much to it because I want to start from scratch and make something even better instead!:
+For now I want to focus on my other projects but at some point I want to improve this game a little:
 
 - Fixing the collision regarding the platforms and the left wall and making it more precise in general.
 - Making the background and ending message truly dynamic and scaleable.
@@ -65,3 +64,4 @@ I won't add too much to it because I want to start from scratch and make somethi
 - Make my code more dynamic. 
 - Creating a menu where you can change the game settngs and a pause option. 
 - Making different levels. 
+- A scoreboard. 
