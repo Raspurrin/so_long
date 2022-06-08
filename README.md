@@ -8,6 +8,7 @@ Usually this project is made with a top-down view, but I decided to make it a pl
 ### It includes the following bonus features:
 - Smooth animation.
 - Gravity.
+- Sound effects and background music.
 - The ability to jump.
 - Two types of enemies which spawn in random locations and have random movement:
   - Ghosts, flying enemies.
