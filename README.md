@@ -62,3 +62,5 @@ I won't add too much to it because I want to start from scratch and make somethi
 - Fixing the collision regarding the platforms and the left wall and making it more precise in general.
 - Making the background and ending message truly dynamic and scaleable.
 - Cleaning up my code.
+- Creating a menu where you can change the game settngs and a pause option. 
+- Making different levels. 
