@@ -8,7 +8,7 @@ Usually this project is made with a top-down view, but I decided to make it a pl
 It should be able to run on any platform. If there are any issues with running it, refer to MLX42 for guidance. 
 
 ### It includes the following bonus features:
-- Smooth animation.
+- Smooth animations.
 - Gravity.
 - Sound effects and background music.
 - The ability to jump.
