@@ -70,3 +70,6 @@ For now I want to focus on my other projects but at some point I want to improve
 - Make different levels. 
 - A scoreboard. 
 - A blog post/tutorial about the project.
+
+<img width="1088" alt="image" src="https://user-images.githubusercontent.com/13866954/172896950-619911f6-ddbf-47ff-a81d-b2c7792b7374.png">
+
