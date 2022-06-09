@@ -16,7 +16,7 @@ It should be able to run on any platform. If there are any issues with running i
   - Ghosts, flying enemies.
   - Pink monsters, ground enemies. 
 - Lives with a cooldown period upon getting hit and a red filter to indicate that.
-- Movement counter and life counter on the screen.
+- Movement counter and lives counter on the screen.
 - Ability to kill enemies by jumping on them.
 - An ending message with a game over or winning screen at the end.
 
