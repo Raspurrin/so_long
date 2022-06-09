@@ -67,7 +67,7 @@ For now I want to focus on my other projects but at some point I want to improve
 - Make my code more dynamic. 
 - Fix the collision regarding the platforms and the left wall and making it more precise in general.
 - Make the background and ending message truly dynamic and scaleable.
-- Create a menu where you can change the game settngs and a pause option. 
+- Create a menu where you can change the game settings and a pause option. 
 - Make different levels. 
 - A scoreboard. 
 - A blog post/tutorial about the project.
