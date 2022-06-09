@@ -19,8 +19,8 @@ It should be able to run on any platform. If there are any issues with running i
 - Ability to kill enemies by jumping on them.
 - An ending message with a game over or winning screen at the end.
 
-https://user-images.githubusercontent.com/13866954/172726956-90b16493-c178-4039-beb6-f9a9fb15fbda.mov
 
+https://user-images.githubusercontent.com/13866954/172744088-48f9b5ca-bb5f-45f2-b644-9dd0d4923bdc.mov
 
 
 The main character has a different animation for moving and standing still.
