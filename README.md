@@ -65,7 +65,7 @@ For now I want to focus on my other projects but at some point I want to improve
 - Make certain it runs on different platforms and if not adjust makefile accordingly.
 - Clean up my code. If you have any suggestions for this, don't hesistate to tell me, I would love to hear feedback!
 - Fix the collision regarding the platforms and the left wall and making it more precise in general.
-- Make the background and ending message truly dynamic and scaleable.
+- Make the background and ending message truly dynamic and scalable.
 - Create a menu where you can change the game settings and a pause option. 
 - Make different levels. 
 - A scoreboard. 
