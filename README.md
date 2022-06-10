@@ -1,5 +1,15 @@
 # <img width="80" alt="image" src="https://user-images.githubusercontent.com/13866954/172734156-4388b646-5a3a-4da7-934a-d8e8d323916a.png"> So_long
 
+## Index:
+
++ [Description](#description) 
++ [Bonus features](#bonus-features) 
++ [How to compile and run the game](#how-to-compile-and-run-the-game)
++ [Input maps](#input-maps)
++ [Changing game settings](#changing-game-settings)
++ [Future additions](#future-additions)
+
+## Description
 
 My game was made in C with the graphical library <a href="https://github.com/codam-coding-college/MLX42">MLX42</a>
 
@@ -7,7 +17,7 @@ The goal of the game is to collect all pickups and go through the exit and... No
 Usually this project is made with a top-down view, but I decided to make it a platformer instead!
 It should be able to run on any platform. If there are any issues with running it, refer to MLX42 for guidance. 
 
-### It includes the following bonus features:
+## Bonus features
 - Smooth animations.
 - Gravity.
 - Sound effects and background music.
@@ -29,7 +39,7 @@ And also switches between a reversed spritesheet when going in a different direc
 
 https://user-images.githubusercontent.com/13866954/172726896-85649e64-340c-49c6-bf62-05342e95acee.mov
 
-### How to compile and run the game: 
+## How to compile and run the game 
 
 First up clone the project with `git clone --recurse-submodules <git url>`
   If you already cloned it without it you can include the submodules by using: 
@@ -48,7 +58,7 @@ And then run the game by typing:
   ./so_long input/large_map.ber
 ```
 
-### Input maps:
+## Input maps:
 
 It can take different maps as input to generate different levels, provided it passes all requirements. 
 I provided valid and some invalid maps in the input folder. 
@@ -56,7 +66,7 @@ You can make your own maps provided they are rectangular, use the .ber extension
 include only one P, contains at least one C and E character. 
 0 = empty space, E = exit, P = player starting location, 1 = wall or platform, C = collectible 
 
-### Changing game settings: 
+## Changing game settings: 
 In the header in the includes folder you can change macros to change the game, 
 like how many lives you have, the amount of enemies, to toggle gravity, damage, change the jump modifiers and so on.
 Make sure to recompile everything by using `make re` to apply the changes.
@@ -65,10 +75,11 @@ Make sure to recompile everything by using `make re` to apply the changes.
 
 For now I want to focus on my other projects but at some point I want to improve this game a little:
 
-- Make certain it runs on different platforms and if not adjust makefile accordingly.
+- Make certain it runs on different platforms.
 - Clean up my code. If you have any suggestions for this, don't hesistate to tell me, I would love to hear feedback!
-- Fix the collision regarding the platforms and the left wall and making it more precise in general.
-- Make the background and ending message truly dynamic and scalable.
+- Fix the collision.
+- Make the background and ending messages dynamic and scalable.
+- Timer with decreasing visibility.
 - Create a menu where you can change the game settings and a pause option. 
 - Make different levels. 
 - A scoreboard. 
