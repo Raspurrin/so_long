@@ -54,4 +54,4 @@ dkms.conf
 
 # vscode
 *.log
-.vscode/*
+.vscode

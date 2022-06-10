@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/05 05:00:21 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/10 02:57:28 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,19 @@
 
 static void	init_data(t_imgdata *data)
 {
-	int32_t	fd;
-
 	data->obs_amount[OBS_1] = data->tile_count + ((data->line.size * 2) + \
 						(data->line.count - 1) * 2);
 	obstacle_pickup(data);
 	data->count[LIFE] = LIVES;
 	data->accel = ACCEL;
 	data->enemy.time_lock = false;
+	data->enemy.total_enemies = PINKCOUNT + GHOSTCOUNT;
+	data->animate.dir = CHAR;
+	data->animate.xy[0] = 60;
 	data->old_x = (data->img[CHAR]->instances[0].x);
 	data->old_y = (data->img[CHAR]->instances[0].y);
-	// data->animate.xy[0] = 60;
-	data->animate.dir = CHAR;
-	data->enemy.total_enemies = PINKCOUNT + GHOSTCOUNT;
 	data->xy[0] = 60;
 	data->xy[1] = 40;
-	fd = open("youwon.xpm42", O_RDONLY);
-	data->you_won = read_file(fd);
 }
 
 static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
@@ -73,8 +69,6 @@ static void	hook(void	*data)
 			terminate(data);
 		gravity(data2, x, y);
 		enemies(data2, &data2->enemy, x, y);
-		x = (data2->img[CHAR]->instances[0].x);
-		y = (data2->img[CHAR]->instances[0].y);
 		movement(data2, x, y);
 		x = (data2->img[CHAR]->instances[0].x);
 		y = (data2->img[CHAR]->instances[0].y);
@@ -97,8 +91,6 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	const char			*args[] = {"/usr/bin/afplay", "--volume", \
 	"0", "./audio/scape.mp3", NULL};
 
-	// data->sa.sa_handler = &audio;
-	// sa.sa_flags = SIGINFO;
 	if (!init_graphics(data, line, enemy))
 		return (false);
 	init_data(data);
@@ -110,7 +102,6 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	}
 	else
 	{
-		// signal(SIGUSR1, &handler);
 		if (!(mlx_loop_hook(data->mlx, &hook, data)))
 			(error_close_window(data, "loop hook failed"));
 		mlx_loop(data->mlx);
@@ -120,4 +111,3 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	kill(data->pid, SIGKILL);
 	return (0);
 }
-

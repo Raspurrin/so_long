@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 23:51:24 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/05 05:21:02 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/10 03:10:52 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	colour_screen(t_imgdata *data, int32_t macro, int32_t colour)
 		x = 0;
 		y++;
 	}
+	mlx_set_instance_depth(data->img[macro]->instances, 9999);
 }
 
 // void	display_xpm42(t_imgdata *data, char *xpm_str)
@@ -69,11 +70,13 @@ void	display_message(t_imgdata *data, bool death, float x_mod, float y_mod)
 										display_x, display_y) == -1)
 		(free_close_window(data, data->img[SCREEN], "image_to_window failed"));
 	if (death == true)
-		mlx_put_string(data->mlx, "Press any key to continue...", \
-									display_x + 70, display_y + 200);
+		data->img[KEY_STR] = mlx_put_string(data->mlx, \
+		"Press any key to continue...", display_x + 70, display_y + 200);
 	else
-		mlx_put_string(data->mlx, "Press any key to continue...", \
-										display_x, display_y + 100);
+		data->img[KEY_STR] = mlx_put_string(data->mlx, \
+		"Press any key to continue...", display_x, display_y + 100);
+	mlx_set_instance_depth(data->img[SCREEN]->instances, 10000);
+	mlx_set_instance_depth(data->img[KEY_STR]->instances, 10000);
 }
 
 /**

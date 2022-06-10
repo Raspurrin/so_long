@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 20:46:15 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/10 02:58:25 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ void	collect(t_imgdata *data, size_t x, size_t y)
 	i = 0;
 	while (i < data->pickup_max)
 	{
-		if ((x >= data->obs_pickup[i].x_start && x <= data->obs_pickup[i].x_end) && \
-			(y >= data->obs_pickup[i].y_start && y <= data->obs_pickup[i].y_end) && \
-			data->excep_pickup[i] == false)
+		if ((x >= data->obs_pickup[i].x_start && \
+				x <= data->obs_pickup[i].x_end) && \
+				(y >= data->obs_pickup[i].y_start \
+				&& y <= data->obs_pickup[i].y_end) && \
+				data->excep_pickup[i] == false)
 		{
 			kurwa_audio((char **)pickup_audio);
 			mlx_set_instance_depth(&data->img[PICKUP]->instances[i], -1100);

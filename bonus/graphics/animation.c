@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:49:47 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 23:55:21 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/10 03:00:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ void	animate_pinks(t_imgdata *data, size_t i, size_t x, size_t y)
 	mlx_set_instance_depth(data->enemy_diff.pink_img[i]->instances, \
 												GHOSTCOUNT + 100 + i);
 	if (data->count[FRAME] % 7 == 0)
-		data->enemy.pink_anim.xy[0] += 30;
+		data->enemy.pink_anim.xy[0] += 32;
 }

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/05 04:59:18 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/10 03:12:35 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # define GHOSTCOUNT 10
-# define PINKCOUNT 1
+# define PINKCOUNT 10
 # define POTIONCOUNT 2
 # define BLOK 32 		// pixel width/height of one image
-# define LIVES 100
+# define LIVES 5
 # define ACCEL 1 		// starting value of the acceleration of a jump
 # define ACCEL_MOD 1.3 	// the value accel is multiplied with every frame
 # define JUMP_CAP 100	// the value accel needs to get to stop a jump
@@ -72,6 +72,7 @@ typedef enum mlx_images
 	GREY,
 	RED,
 	POTION,
+	KEY_STR,
 	IMG_COUNT,
 }	t_images;
 
@@ -158,8 +159,8 @@ typedef struct enemy
 	size_t			time;
 	bool			time_lock;
 	size_t			total_enemies;
-	int32_t			x[2]; // should actually check for the biggest enemy
-	int32_t			y[2]; // and then malloc it. That will fix a bug!
+	int32_t			x[2];
+	int32_t			y[2];
 }	t_enemy;
 
 /**
