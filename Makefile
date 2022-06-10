@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/10 16:14:51 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/10 16:20:52 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ OS 		:= $(shell uname -s)
 ARCH 	:= $(shell uname -m)
 SUBM_STATE := $(shell find libs/libft -type f)
 
+# to automatically initialize the submodules for people who cannot read READMEs
 ifeq ($(SUBM_STATE),)
 SUBM_FLAG	= submodule
 else 
