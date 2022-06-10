@@ -30,6 +30,15 @@ And also switches between a reversed spritesheet when going in a different direc
 https://user-images.githubusercontent.com/13866954/172726896-85649e64-340c-49c6-bf62-05342e95acee.mov
 
 ### How to compile and run the game: 
+
+First up clone the project with `git clone --recurse-submodules <git url>`
+  If you already cloned it without it you can include the submodules by using: 
+  `git submodule init` and then `git submodule update` 
+ 
+```c
+  git clone --recurse-submodules https://github.com/Raspurrin/so_long.git 
+```
+
 To run the game type these commands: 
 ```c
   make
