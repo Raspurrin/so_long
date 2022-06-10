@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 06:10:46 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/10 03:28:13 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,8 @@ typedef enum mlx_images
 	DOOR,
 	TILE,
 	WALL,
-	SLIME,
 	BG,
 	BRICK,
-	PINK_R,
-	PINK_L,
 	SCREEN,
 	GREY,
 	RED,
@@ -60,10 +57,6 @@ typedef enum mlx_images
 typedef enum obs_enum
 {
 	OBS_PICKUP,
-	OBS_GHOST,
-	OBS_PINK,
-	OBS_EXIT,
-	OBS_WALL,
 	OBSCOUNT
 }	t_obs_enum;
 
@@ -83,14 +76,6 @@ typedef struct line
 	ssize_t	size;
 }	t_line;
 
-typedef struct animate
-{
-	size_t		dir;
-	uint32_t	length;
-	uint32_t	start;
-	uint32_t	xy[XY];
-}	t_animate;
-
 typedef struct obstacle
 {
 	size_t	x_start;
@@ -102,7 +87,6 @@ typedef struct obstacle
 
 typedef struct image_data
 {
-	t_animate		animate;
 	float			accel;
 	char			*bigass;
 	uint32_t		char_start;
@@ -119,7 +103,8 @@ typedef struct image_data
 	t_line			line;
 	char			**map;
 	mlx_t			*mlx;
-	t_coords		*obs;
+	t_coords		*obs_pickup;
+	bool			*excep_pickup;
 	size_t			old_x;
 	size_t			old_y;
 	int32_t			pid;
@@ -143,7 +128,6 @@ typedef struct error_cases
 	bool	wrong_diffcount;
 }	t_error;
 
-void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y);
 void	check_damage(t_imgdata *data, int32_t *player, size_t i, size_t j);
 bool	check_ext(char *file_name, char *ext);
 void	check_player_amount(t_error *errors, t_imgdata *data);
@@ -167,7 +151,7 @@ bool	images_to_window(t_imgdata *data, size_t i);
 char	**input_handler(int32_t fd, t_imgdata *data, t_line *line);
 bool	loading_images(t_imgdata *data, xpm_t **xpm);
 void	movement(t_imgdata *data, size_t x, size_t y);
-void	movecounter(t_imgdata *data, t_animate *animate, size_t x, size_t y);
+void	movecounter(t_imgdata *data, size_t x, size_t y);
 void	obstacle_pickup(t_imgdata *data);
 char	*read_file(int32_t fd);
 void	terminate(t_imgdata *data);

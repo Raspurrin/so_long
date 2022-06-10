@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/04 22:35:04 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/10 03:27:35 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CFLAGS 	= -Wall -Werror -Wextra -g
 NAME 	= so_long
 LIBFT	= ./libs/libft/srcs
 LIBMLX 	= ./libs/MLX
-HEADERS = -I includes -I libs/libft/srcs -I libs/MLX/include -I libs/miniaudio
+HEADERS = -I includes -I libs/libft/srcs -I libs/MLX/include 
 DEBUG 	= -fsanitize=address
 
 BONUS 	= ./libs/libft/srcs/*.c \
@@ -40,23 +40,21 @@ BONUS 	= ./libs/libft/srcs/*.c \
 		  ./bonus/collectible.c \
 		  ./bonus/audio.c
 
-# SRCS	= ./libs/libft/srcs/*.c \
-# 		  ./srcs/graphics/animation.c \
-# 		  ./srcs/graphics/display.c \
-# 		  ./srcs/graphics/end.c \
-# 		  ./srcs/graphics/graphics.c \
-# 		  ./srcs/graphics/images_to_window.c \
-# 		  ./srcs/graphics/loading_images.c \
-# 		  ./srcs/map_parsing/check_player_amount.c \
-# 		  ./srcs/map_parsing/error_cases.c  \
-#   		  ./srcs/map_parsing/input_handler.c \
-# 		  ./srcs/map_parsing/read_map.c \
-# 		  ./srcs/map_parsing/obstacle.c \
-# 		  ./srcs/player/gravity_jump.c \
-# 		  ./srcs/player/movement.c \
-# 		  ./srcs/utils.c \
-# 		  ./srcs/main.c \
-# 		  ./srcs/collectible.c
+SRCS	= ./libs/libft/srcs/*.c \
+		  ./srcs/graphics/end.c \
+		  ./srcs/graphics/graphics.c \
+		  ./srcs/graphics/images_to_window.c \
+		  ./srcs/graphics/loading_images.c \
+		  ./srcs/map_parsing/check_player_amount.c \
+		  ./srcs/map_parsing/error_cases.c  \
+  		  ./srcs/map_parsing/input_handler.c \
+		  ./srcs/map_parsing/read_map.c \
+		  ./srcs/map_parsing/obstacle.c \
+		  ./srcs/player/gravity_jump.c \
+		  ./srcs/player/movement.c \
+		  ./srcs/utils.c \
+		  ./srcs/main.c \
+		  ./srcs/collectible.c
 
 NC		:= \033[0m
 RED 	:= \033[1;31m
@@ -96,9 +94,13 @@ libmlx:
 	@echo "\n${BLUE}======== MLX42 ========${NC}"
 	@$(MAKE) -C $(LIBMLX)
 
+printf:
+	@echo "\n${BLUE}======== printf ========${NC}"
+	@$(MAKE) -C $(PRINTF)
+
 compile:
 	@echo "\n${PURPLE}So_long compiling!${NC}"
-	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
+	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(SRCS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a  $(DEBUG) -o $(NAME)
 
 bonus: 
 	@echo "\n${PURPLE}So_long + bonus compiling!${NC}"
