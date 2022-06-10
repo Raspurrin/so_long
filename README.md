@@ -41,9 +41,8 @@ https://user-images.githubusercontent.com/13866954/172726896-85649e64-340c-49c6-
 
 ## How to compile and run the game 
 
-First up clone the project with `git clone --recurse-submodules <git url>`
-  If you already cloned it without it you can include the submodules by using: 
-  `git submodule init` and then `git submodule update` 
+You could clone the project with `git clone --recurse-submodules <git url>`, but even without
+the submodules will be initialised and updated automatically. 
 
 To run only the mandatory part of the game use `make` and to include the bonus use `make bonus`
 
