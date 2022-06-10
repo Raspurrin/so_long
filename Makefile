@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/10 03:27:35 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/10 15:17:15 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,12 @@ PURPLE	:= \033[35;1m
 
 OS 		:= $(shell uname -s)
 ARCH 	:= $(shell uname -m)
+SUBM_STATE := $(shell cd libs/libft/srcs | ls)
+
+ifeq (SUBM_STATE, )
+SUBM_FLAG	=
+else 
+SUBM_FLAG	= submodule
 
 # determining architecture for the Mac
 ifeq ($(ARCH), x86_64)
@@ -80,6 +86,10 @@ LIBS	:= -framework Cocoa -framework OpenGL, -framework IOKit $(GLFW)
 else ifeq ($(OS), Linux)
 LIBS	:= -ldl -lglfw
 endif
+
+submodule: 
+	git submodule init 
+	git submodule update
 
 %.o : %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
