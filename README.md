@@ -35,10 +35,8 @@ First up clone the project with `git clone --recurse-submodules <git url>`
   If you already cloned it without it you can include the submodules by using: 
   `git submodule init` and then `git submodule update` 
 
-To run the game type these commands: 
-```c
-  make
-```
+To run only the mandatory part of the game use `make` and to include the bonus use `make bonus`
+
 If you are on Linux and simply typing make doesn't work, that means don't have all required libraries. 
 Use this command to install them:
 
@@ -60,8 +58,8 @@ include only one P, contains at least one C and E character.
 
 ### Changing game settings: 
 In the header in the includes folder you can change macros to change the game, 
-like how many lives you have, the amount of enemies, to toggle gravity, damage, change the jump modifiers and so on. 
-
+like how many lives you have, the amount of enemies, to toggle gravity, damage, change the jump modifiers and so on.
+Make sure to recompile everything by using `make re` to apply the changes.
 
 ## Future additions
 
