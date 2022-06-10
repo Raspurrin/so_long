@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/10 15:17:15 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/10 15:30:51 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,12 +64,13 @@ PURPLE	:= \033[35;1m
 
 OS 		:= $(shell uname -s)
 ARCH 	:= $(shell uname -m)
-SUBM_STATE := $(shell cd libs/libft/srcs | ls)
+SUBM_STATE := $(shell find libs/libft -type f)
 
-ifeq (SUBM_STATE, )
+ifeq (SUBM_STATE,)
 SUBM_FLAG	=
 else 
 SUBM_FLAG	= submodule
+endif
 
 # determining architecture for the Mac
 ifeq ($(ARCH), x86_64)
@@ -87,14 +88,14 @@ else ifeq ($(OS), Linux)
 LIBS	:= -ldl -lglfw
 endif
 
-submodule: 
-	git submodule init 
-	git submodule update
-
 %.o : %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 all : $(OBJS) libft libmlx compile 
+
+submodule: 
+	git submodule init 
+	git submodule update
 
 libft:
 	@echo "\n${BLUE}======== libft ========${NC}"
@@ -103,10 +104,6 @@ libft:
 libmlx:
 	@echo "\n${BLUE}======== MLX42 ========${NC}"
 	@$(MAKE) -C $(LIBMLX)
-
-printf:
-	@echo "\n${BLUE}======== printf ========${NC}"
-	@$(MAKE) -C $(PRINTF)
 
 compile:
 	@echo "\n${PURPLE}So_long compiling!${NC}"
