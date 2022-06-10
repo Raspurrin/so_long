@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/10 03:12:35 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/10 15:43:22 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "libft.h"
 # include "MLX42/MLX42.h"
-
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <signal.h>

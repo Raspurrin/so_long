@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/10 15:30:51 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/10 15:40:32 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,9 +67,9 @@ ARCH 	:= $(shell uname -m)
 SUBM_STATE := $(shell find libs/libft -type f)
 
 ifeq (SUBM_STATE,)
-SUBM_FLAG	=
-else 
 SUBM_FLAG	= submodule
+else 
+SUBM_FLAG	= 
 endif
 
 # determining architecture for the Mac
@@ -91,7 +91,7 @@ endif
 %.o : %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-all : $(OBJS) libft libmlx compile 
+all : $(SUBM_FLAG) $(OBJS) libft libmlx compile
 
 submodule: 
 	git submodule init 
