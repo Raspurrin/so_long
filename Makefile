@@ -6,18 +6,18 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/10 16:20:52 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/16 17:43:00 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS 	= -Wall -Werror -Wextra -g
-NAME 	= so_long
-LIBFT	= ./libs/libft/srcs
-LIBMLX 	= ./libs/MLX
-HEADERS = -I includes -I libs/libft/srcs -I libs/MLX/include 
-DEBUG 	= -fsanitize=address
+CFLAGS 	:= -Wall -Werror -Wextra
+NAME 	:= so_long
+LIBFT	:= ./libs/libft/srcs/
+LIBMLX 	:= ./libs/MLX/
+HEADERS := -I includes -I libs/libft/srcs -I libs/MLX/include 
+DEBUG 	:= -fsanitize=address
 
-BONUS 	= ./libs/libft/srcs/*.c \
+BONUS 	:= ./libs/libft/srcs/*.c \
 		  ./bonus/enemy/damage.c \
 		  ./bonus/enemy/init.c \
 		  ./bonus/enemy/interaction.c \
@@ -40,7 +40,7 @@ BONUS 	= ./libs/libft/srcs/*.c \
 		  ./bonus/collectible.c \
 		  ./bonus/audio.c
 
-SRCS	= ./libs/libft/srcs/*.c \
+SRCS	:= ./libs/libft/srcs/*.c \
 		  ./srcs/graphics/end.c \
 		  ./srcs/graphics/graphics.c \
 		  ./srcs/graphics/images_to_window.c \
@@ -56,37 +56,17 @@ SRCS	= ./libs/libft/srcs/*.c \
 		  ./srcs/main.c \
 		  ./srcs/collectible.c
 
-NC		:= \033[0m
-RED 	:= \033[1;31m
-GREEN 	:= \033[1;32m
-BLUE 	:= \033[1;34m
-PURPLE	:= \033[35;1m
-
-OS 		:= $(shell uname -s)
-ARCH 	:= $(shell uname -m)
-SUBM_STATE := $(shell find libs/libft -type f)
+ifeq ($(OS), Windows_NT)
+	include Makefile_windows.mk 
+else 
+	include Makefile_unix.mk
+endif
 
 # to automatically initialize the submodules for people who cannot read READMEs
 ifeq ($(SUBM_STATE),)
 SUBM_FLAG	= submodule
 else 
 SUBM_FLAG	= 
-endif
-
-# determining architecture for the Mac
-ifeq ($(ARCH), x86_64)
-GLFW 	:= libs/MLX/lib/lib-x86_64/libglfw3.a
-else ifeq ($(ARCH), arm)
-GLFW 	:= libs/MLX/lib/lib-arm64/libglfw3.a
-else 
-GLFW 	:= libs/MLX/lib/lib-universal/libglfw3.a
-endif
-
-# for cross-platform compatibility
-ifeq ($(OS), Darwin)
-LIBS	:= -framework Cocoa -framework OpenGL, -framework IOKit $(GLFW)
-else ifeq ($(OS), Linux)
-LIBS	:= -ldl -lglfw
 endif
 
 all : $(SUBM_FLAG) $(OBJS) libft libmlx compile
@@ -99,20 +79,20 @@ submodule:
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 libft:
-	@echo "\n${BLUE}======== libft ========${NC}"
+	@echo ${NL}${BLUE}======== libft ========${NC}
 	@$(MAKE) -C $(LIBFT)
 
 libmlx:
-	@echo "\n${BLUE}======== MLX42 ========${NC}"
+	@echo ${NL}${BLUE}======== MLX42 ========${NC}
 	@$(MAKE) -C $(LIBMLX)
 
 compile:
-	@echo "\n${PURPLE}So_long compiling!${NC}"
-	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(SRCS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a  $(DEBUG) -o $(NAME)
+	@echo ${NL}${PURPLE}So_long compiling!${NC}
+	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(SRCS) $(LIBMLX)libmlx42.a $(LIBFT)libft.a  $(DEBUG) -o $(NAME)
 
 bonus: 
-	@echo "\n${PURPLE}So_long + bonus compiling!${NC}"
-	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)/libmlx42.a $(LIBFT)/libft.a $(DEBUG) -o $(NAME)
+	@echo "${NL}${PURPLE}So_long + bonus compiling!${NC}"
+	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)libmlx42.a $(LIBFT)libft.a $(DEBUG) -o $(NAME)
 
 # run this to install the required packages for Linux
 install on linux:
