@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 02:23:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/05 04:47:20 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:24:49 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
  */
 void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j)
 {
-	const char	*bump_audio[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/bump.wav", NULL};
+	const char	*bump_audio[] = {AUDIO, "./audio/bump.wav", NULL};
 
 	if (player[Y] == (data->enemy.y[1] - 1) && player[X] == data->enemy.x[1] \
 								&& KILL == 1 && data->enemy.time_lock == false)
@@ -42,10 +41,8 @@ void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j)
  */
 void	check_damage(t_imgdata *data, int32_t *player, size_t i, size_t j)
 {
-	const char	*hurt_audio[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/hurt.wav", NULL};
-	const char	*hurt2_audio[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/hurt2.wav", NULL};
+	const char	*hurt_audio[] = {AUDIO, "./audio/hurt.wav", NULL};
+	const char	*hurt2_audio[] = {AUDIO, "./audio/hurt2.wav", NULL};
 
 	data->enemy.x[1] = data->enemy.x[0] / BLOK;
 	data->enemy.y[1] = data->enemy.y[0] / BLOK;

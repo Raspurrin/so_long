@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 23:11:37 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 21:43:02 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/17 21:59:32 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line)
 	ft_memset(enemy->ghost_spawn, -1, sizeof(enemy->ghost_spawn));
 	while (i < GHOSTCOUNT)
 	{
-		index = (rand() % ((line->size + 1) * (line->count - 1)) \
-													+ line->size + 1);
+		index = ((rand() % (line->size + 1 * line->count - 1)) + line->size + 1);
 		j = 0;
 		while ((data->bigass[index] != '0' && data->bigass[index]))
 		{

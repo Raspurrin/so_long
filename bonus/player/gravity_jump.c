@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/04 23:41:08 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:23:27 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ static void	jump(t_imgdata *data)
  */
 void	gravity(t_imgdata *data, size_t x, size_t y)
 {
-	const char	*jump_audio[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/jump.wav", NULL};
+	const char	*jump_audio[] = {AUDIO, "./audio/jump.wav", NULL};
 
 	jump(data);
 	if (data->map[y + 1][x] != '1' && GRAV == 1)

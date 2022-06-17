@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/10 15:43:22 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:22:06 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@
 # define GRAV 1 		// toggle gravity
 # define BUFFERSIZE 30	// How many characters are read in one loop, 
 						// used when reading the map
+#if defined(__linux__)
+    #define AUDIO "/usr/bin/aplay"
+#elif defined(__APPLE__)
+    #define AUDIO "/usr/bin/afplay", "--volume", "1"
+#endif
+
 // ---Do not touch this:--- //
 # define DIFFCOUNT 2
 

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:42:31 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/05 00:31:07 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:23:40 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ void	end(mlx_key_data_t keydata, void *data)
  */
 void	end_message(t_imgdata *data)
 {
-	const char	*victory_audio[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/victory.wav", NULL};
-	const char	*gameover_audio[] = {"/usr/bin/afplay", "--volume", \
-	"1", "./audio/game_over.wav", NULL};
+	const char	*victory_audio[] = {AUDIO, "./audio/victory.wav", NULL};
+	const char	*gameover_audio[] = {AUDIO, "./audio/game_over.wav", NULL};
 
 	if (!data->img[SCREEN])
 	{

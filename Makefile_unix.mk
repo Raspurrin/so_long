@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/16 14:57:47 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/16 14:57:47 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/17 22:06:28 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ ARCH 	:= $(shell uname -m)
 SUBM_STATE := $(shell find libs/libft -type f)
 
 NL		:= \n
+Q		:= "
 NC		:= \033[0m
 RED 	:= \033[1;31m
 GREEN 	:= \033[1;32m

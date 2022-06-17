@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/16 17:43:00 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/17 22:05:58 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,15 +79,15 @@ submodule:
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 libft:
-	@echo ${NL}${BLUE}======== libft ========${NC}
+	@echo ${Q}${NL}${BLUE}======== libft ========${NC}${Q}
 	@$(MAKE) -C $(LIBFT)
 
 libmlx:
-	@echo ${NL}${BLUE}======== MLX42 ========${NC}
+	@echo ${Q}${NL}${BLUE}======== MLX42 ========${NC}${Q}
 	@$(MAKE) -C $(LIBMLX)
 
 compile:
-	@echo ${NL}${PURPLE}So_long compiling!${NC}
+	@echo ${Q}${NL}${PURPLE}So_long compiling!${NC}${Q}
 	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(SRCS) $(LIBMLX)libmlx42.a $(LIBFT)libft.a  $(DEBUG) -o $(NAME)
 
 bonus: 
