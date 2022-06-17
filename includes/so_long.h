@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/10 03:28:13 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:58:42 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # define GRAV 1 		// toggle gravity
 # define BUFFERSIZE 30	// How many characters are read in one loop, 
 						// used when reading the map
+
+#ifndef STDOUT_FILENO
+	#define STDOUT_FILENO 2
+#endif
 
 typedef enum move
 {

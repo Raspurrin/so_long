@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/17 22:22:06 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:58:20 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@
     #define AUDIO "/usr/bin/aplay"
 #elif defined(__APPLE__)
     #define AUDIO "/usr/bin/afplay", "--volume", "1"
+#endif
+
+#ifndef STDOUT_FILENO
+	#define STDOUT_FILENO 2
 #endif
 
 // ---Do not touch this:--- //
