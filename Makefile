@@ -6,18 +6,18 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/17 22:53:37 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/17 23:37:11 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS 	:= -Wall -Werror -Wextra
-NAME 	:= so_long
-LIBFT	:= ./libs/libft/srcs/
-LIBMLX 	:= ./libs/MLX/
-HEADERS := -I includes -I libs/libft/srcs -I libs/MLX/include 
-DEBUG 	:= -fsanitize=address
-SRCDIR	:= srcs
-
+CFLAGS 		:= -Wall -Werror -Wextra
+NAME 		:= so_long
+LIBFT		:= ./libs/libft/srcs/
+LIBMLX 		:= ./libs/MLX/
+HEADERS 	:= -I includes -I libs/libft/srcs -I libs/MLX/include 
+DEBUG 		:= -fsanitize=address
+SRCDIR		:= srcs
+BONUSDIR 	:= bonus
 
 ifeq ($(OS), Windows_NT)
 	include Makefile_windows.mk 
