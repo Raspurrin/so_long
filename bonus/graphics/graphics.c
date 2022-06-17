@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/17 22:27:24 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:36:22 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	hook(void	*data)
  */
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
-	const char			*args[] = {AUDIO, "./audio/scape.mp3", NULL};
+	const char			*args[] = {AUDIO, "./audio/scape.wav", NULL};
 
 	if (!init_graphics(data, line, enemy))
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 01:26:45 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/17 22:25:12 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:37:22 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 void	collect(t_imgdata *data, size_t x, size_t y)
 {
 	size_t		i;
-	const char	*pickup_audio[] = {AUDIO, "./audio/pickup.mp3", NULL};
+	const char	*pickup_audio[] = {AUDIO, "./audio/pickup.wav", NULL};
 
 	i = 0;
 	while (i < data->pickup_max)
