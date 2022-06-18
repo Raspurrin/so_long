@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 00:37:26 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/06 03:05:13 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/18 02:15:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ void	movement(t_imgdata *data, size_t x, size_t y)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S) \
 						&& data->map[y + 1][x] != '1')
-		data->img[CHAR]->instances[0].y += BLOK / FATASS;
+		data->img[CHAR_R]->instances[0].y += BLOK / FATASS;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_A) \
 							&& data->map[y][x] != '1')
-		data->img[CHAR]->instances[0].x -= BLOK / FATASS;
+		data->img[CHAR_R]->instances[0].x -= BLOK / FATASS;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_D) \
 							&& data->map[y][x + 1] != '1')
-		data->img[CHAR]->instances[0].x += BLOK / FATASS;
+		data->img[CHAR_R]->instances[0].x += BLOK / FATASS;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_W) \
 		&& data->map[y][x] != '1' && (data->fly == true || \
 		GRAV == 0))
-		data->img[CHAR]->instances[0].y -= BLOK / FATASS;
+		data->img[CHAR_R]->instances[0].y -= BLOK / FATASS;
 }
 
 /**

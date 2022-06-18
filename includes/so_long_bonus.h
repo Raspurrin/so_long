@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/17 22:58:20 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/18 02:15:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,16 @@
 # include "libft.h"
 # include "MLX42/MLX42.h"
 # include <sys/types.h>
-# include <sys/wait.h>
+
+# ifndef _WIN32
+	# include <sys/wait.h>
+	# define WIN 0
+# else 
+	# include <windows.h>
+	# include <mmsystem.h>
+	# define WIN 1
+# endif 
+
 # include <stdlib.h>
 # include <stdio.h>
 # include <signal.h>
@@ -38,11 +47,13 @@
 # define GRAV 1 		// toggle gravity
 # define BUFFERSIZE 30	// How many characters are read in one loop, 
 						// used when reading the map
-#if defined(__linux__)
+# if defined(__linux__)
     #define AUDIO "/usr/bin/aplay"
-#elif defined(__APPLE__)
+# elif defined(__APPLE__)
     #define AUDIO "/usr/bin/afplay", "--volume", "1"
-#endif
+# else 
+	#define AUDIO ""
+# endif
 
 #ifndef STDOUT_FILENO
 	#define STDOUT_FILENO 2
@@ -69,7 +80,7 @@ typedef enum mlx_images
 	STRLIFE,
 	STRMOVE,
 	PICKUP,
-	CHAR,
+	CHAR_R,
 	CHAR_L,
 	DOOR,
 	TILE,
@@ -179,7 +190,6 @@ typedef struct enemy
  */
 typedef struct image_data
 {
-	struct sigaction	sa;
 	t_animate			animate;
 	float				accel;
 	char				*bigass;
@@ -265,6 +275,7 @@ int32_t		find_c_instance(t_imgdata *data, size_t index);
 void		free_2d(char **map);
 bool		free_array(mlx_image_t **arr, char *str, t_imgdata *data);
 void		free_close_window(t_imgdata *data, void *var, char *str);
+void		gameloop_unix(t_imgdata *data);
 void		gravity(t_imgdata *data, size_t x, size_t y);
 size_t		getncount(char *str, uint8_t chr);
 size_t		getncount(char *str, uint8_t chr);
@@ -272,11 +283,13 @@ void		get_ghost_spawn(t_imgdata *data, t_enemy *enemy, t_line *line);
 bool		get_ground_spawn(int *spawn_count, ssize_t *avail, ssize_t *spawn, \
 															size_t max_count);
 int32_t		graphics(t_imgdata *data, t_line *line, t_enemy *enemy);
+void		hook(void	*data);
 bool		images_to_window(t_imgdata *data, size_t i);
 void		init_coords(t_imgdata *data, size_t index, int32_t obs_index, \
 																t_coords *obs);
 char		**input_handler(int32_t fd, t_imgdata *data, \
 							t_line *line, t_enemy *enemy);
+void		kill(void);
 void		kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j);
 void		kurwa_audio(char *args[]);
 bool		loading_images(t_imgdata *data, xpm_t **xpm);

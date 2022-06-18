@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:40:13 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/06 00:15:14 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/18 02:15:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ bool	loading_images(t_imgdata *data, xpm_t **xpm)
 	xpm[DOOR] = mlx_load_xpm42("textures/doortrans2.xpm42");
 	if (!xpm[DOOR])
 		return (ft_putendl_fd("door was not found", STDOUT_FILENO), false);
-	xpm[CHAR] = mlx_load_xpm42("textures/main.xpm42");
-	if (!xpm[CHAR])
+	xpm[CHAR_R] = mlx_load_xpm42("textures/main.xpm42");
+	if (!xpm[CHAR_R])
 		return (ft_putendl_fd("char was not found", STDOUT_FILENO), false);
 	xpm[CHAR_L] = mlx_load_xpm42("textures/main_rev.xpm42");
 	if (!xpm[CHAR_L])
@@ -70,13 +70,13 @@ bool	texture_to_image(t_imgdata *data, xpm_t **xpm, mlx_image_t **img)
 	const uint32_t		xy[] = {60, 40};
 
 	img[BG] = mlx_texture_to_image(data->mlx, &xpm[BG]->texture);
-	img[CHAR] = mlx_texture_area_to_image(data->mlx, \
-						&xpm[CHAR]->texture, (uint32_t *)xy, (uint32_t *)wh2);
+	img[CHAR_R] = mlx_texture_area_to_image(data->mlx, \
+						&xpm[CHAR_R]->texture, (uint32_t *)xy, (uint32_t *)wh2);
 	img[TILE] = mlx_texture_to_image(data->mlx, &xpm[TILE]->texture);
 	img[WALL] = mlx_texture_to_image(data->mlx, &xpm[WALL]->texture);
 	img[PICKUP] = mlx_texture_to_image(data->mlx, &xpm[PICKUP]->texture);
 	img[DOOR] = mlx_texture_to_image(data->mlx, &xpm[DOOR]->texture);
-	if (!img[BG] || !img[CHAR] || !img[TILE] || !img[WALL] || !img[PICKUP] \
+	if (!img[BG] || !img[CHAR_R] || !img[TILE] || !img[WALL] || !img[PICKUP] \
 	|| !img[DOOR])
 		return (ft_putendl_fd("Texture to image failed", STDOUT_FILENO), false);
 	return (true);

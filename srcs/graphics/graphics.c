@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/06 03:08:19 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/18 02:15:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	init_data(t_imgdata *data)
 {
 	obstacle_pickup(data);
 	data->accel = ACCEL;
-	data->old_x = (data->img[CHAR]->instances[0].x);
-	data->old_y = (data->img[CHAR]->instances[0].y);
+	data->old_x = (data->img[CHAR_R]->instances[0].x);
+	data->old_y = (data->img[CHAR_R]->instances[0].y);
 }
 
 static bool	init_graphics(t_imgdata *data, t_line *line)
@@ -45,8 +45,8 @@ static void	hook(void	*data)
 	size_t				x;
 	size_t				y;
 
-	x = (data2->img[CHAR]->instances[0].x / BLOK);
-	y = (data2->img[CHAR]->instances[0].y / BLOK);
+	x = (data2->img[CHAR_R]->instances[0].x / BLOK);
+	y = (data2->img[CHAR_R]->instances[0].y / BLOK);
 	if ((data2->map[y][x] == 'E' && data2->pickup_count >= data2->pickup_max))
 		terminate(data);
 	else
@@ -55,8 +55,8 @@ static void	hook(void	*data)
 			terminate(data);
 		gravity(data2, x, y);
 		movement(data2, x, y);
-		x = (data2->img[CHAR]->instances[0].x);
-		y = (data2->img[CHAR]->instances[0].y);
+		x = (data2->img[CHAR_R]->instances[0].x);
+		y = (data2->img[CHAR_R]->instances[0].y);
 		collect(data2, x, y);
 		movecounter(data2, x, y);
 		data2->count[FRAME]++;

@@ -6,13 +6,14 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/16 14:57:47 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/17 22:52:21 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/18 00:10:52 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 OS 		:= $(shell uname -s)
 ARCH 	:= $(shell uname -m)
 SUBM_STATE := $(shell find libs/libft -type f)
+DEBUG 		:= -fsanitize=address
 
 BONUS 	:= ./libs/libft/srcs/*.c \
 		  ./bonus/enemy/damage.c \

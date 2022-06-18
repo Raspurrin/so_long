@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/17 23:37:11 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/18 01:49:59 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ NAME 		:= so_long
 LIBFT		:= ./libs/libft/srcs/
 LIBMLX 		:= ./libs/MLX/
 HEADERS 	:= -I includes -I libs/libft/srcs -I libs/MLX/include 
-DEBUG 		:= -fsanitize=address
-SRCDIR		:= srcs
-BONUSDIR 	:= bonus
+SRCDIR		:= ./srcs/
+BONUSDIR 	:= ./bonus/
+UNIXDIR		:= ./bonus/unix/
 
 ifeq ($(OS), Windows_NT)
 	include Makefile_windows.mk 
@@ -51,7 +51,7 @@ libmlx:
 
 compile:
 	@echo ${Q}${NL}${PURPLE}So_long compiling!${NC}${Q}
-	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(SRCS) $(LIBMLX)libmlx42.a $(LIBFT)libft.a  $(DEBUG) -o $(NAME)
+	$(CC) $(CFLAGS) -g $(HEADERS) $(SRCS) $(LIBMLX)libmlx42.a $(LIBFT)libft.a $(LIBS) $(DEBUG) -o $(NAME)
 
 bonus: 
 	@echo "${NL}${PURPLE}So_long + bonus compiling!${NC}"

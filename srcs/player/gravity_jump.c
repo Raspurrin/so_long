@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 21:51:55 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/05 23:53:46 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/18 02:15:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	jump(t_imgdata *data)
 {
 	size_t	y_blok;
 
-	y_blok = data->img[CHAR]->instances[0].y - (BLOK / data->accel);
+	y_blok = data->img[CHAR_R]->instances[0].y - (BLOK / data->accel);
 	if (data->jump_lock == false)
 		data->accel = ACCEL;
 	else
@@ -31,7 +31,7 @@ static void	jump(t_imgdata *data)
 			data->jump_lock = false;
 		else
 		{
-			data->img[CHAR]->instances[0].y -= BLOK / data->accel;
+			data->img[CHAR_R]->instances[0].y -= BLOK / data->accel;
 			data->accel *= ACCEL_MOD;
 		}
 	}
@@ -53,7 +53,7 @@ void	gravity(t_imgdata *data, size_t x, size_t y)
 {
 	jump(data);
 	if (data->map[y + 1][x] != '1' && GRAV == 1)
-		data->img[CHAR]->instances[0].y += 3;
+		data->img[CHAR_R]->instances[0].y += 3;
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_W) && GRAV == 1 \
 			&& data->map[y - 1][x] != '1' && data->map[y + 1][x] == '1')
 		data->jump_lock = true;

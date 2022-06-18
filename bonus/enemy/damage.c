@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 02:23:46 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/17 22:24:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/18 02:15:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j)
 	{
 		kurwa_audio((char **)bump_audio);
 		if (player[Y] - 1 > 1)
-			data->img[CHAR]->instances[0].y -= BLOK;
+			data->img[CHAR_R]->instances[0].y -= BLOK;
 		(data->enemy_diff.lal[j])[i]->instances[0].x += data->width;
 		data->enemy.excep[j][i] = true;
 	}

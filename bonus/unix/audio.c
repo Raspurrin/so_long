@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 22:34:32 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/17 22:19:57 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/18 01:54:32 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,4 @@ void	kurwa_audio(char *args[])
 		kill(pid, SIGKILL);
 	}
 }
+

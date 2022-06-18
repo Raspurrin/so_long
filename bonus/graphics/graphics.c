@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/17 22:36:22 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/18 02:18:55 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static void	init_data(t_imgdata *data)
 	data->accel = ACCEL;
 	data->enemy.time_lock = false;
 	data->enemy.total_enemies = PINKCOUNT + GHOSTCOUNT;
-	data->animate.dir = CHAR;
+	data->animate.dir = CHAR_R;
 	data->animate.xy[0] = 60;
-	data->old_x = (data->img[CHAR]->instances[0].x);
-	data->old_y = (data->img[CHAR]->instances[0].y);
+	data->old_x = (data->img[CHAR_R]->instances[0].x);
+	data->old_y = (data->img[CHAR_R]->instances[0].y);
 	data->xy[0] = 60;
 	data->xy[1] = 40;
 }
@@ -52,14 +52,14 @@ static bool	init_graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
  * from the rest of the game to make sure the game freezes at end conditions:
  * having collected all collectibles and exiting or having lost all lives.
  */
-static void	hook(void	*data)
+void	hook(void	*data)
 {
 	t_imgdata *const	data2 = data;
 	size_t				x;
 	size_t				y;
 
-	x = (data2->img[CHAR]->instances[0].x / BLOK);
-	y = (data2->img[CHAR]->instances[0].y / BLOK);
+	x = (data2->img[CHAR_R]->instances[0].x / BLOK);
+	y = (data2->img[CHAR_R]->instances[0].y / BLOK);
 	if (data2->count[LIFE] <= 0 || \
 		(data2->map[y][x] == 'E' && data2->pickup_count >= data2->pickup_max))
 		end_message(data2);
@@ -70,8 +70,8 @@ static void	hook(void	*data)
 		gravity(data2, x, y);
 		enemies(data2, &data2->enemy, x, y);
 		movement(data2, x, y);
-		x = (data2->img[CHAR]->instances[0].x);
-		y = (data2->img[CHAR]->instances[0].y);
+		x = (data2->img[CHAR_R]->instances[0].x);
+		y = (data2->img[CHAR_R]->instances[0].y);
 		collect(data2, x, y);
 		animate_char(data2, &data2->animate, x, y);
 		movecounter(data2, &data2->animate, x, y);
@@ -88,25 +88,19 @@ static void	hook(void	*data)
  */
 int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 {
-	const char			*args[] = {AUDIO, "./audio/scape.wav", NULL};
-
 	if (!init_graphics(data, line, enemy))
 		return (false);
 	init_data(data);
-	data->pid = fork();
-	if (data->pid == 0)
-	{
-		execvp(args[0], (char **)args);
-		exit(1);
-	}
+	if (!WIN)
+		gameloop_unix(data);
 	else
 	{
 		if (!(mlx_loop_hook(data->mlx, &hook, data)))
 			(error_close_window(data, "loop hook failed"));
-		mlx_loop(data->mlx);
 	}
 	if (data->bigass)
 		free (data->bigass);
-	kill(data->pid, SIGKILL);
+	if (!WIN)
+		kill();
 	return (0);
 }

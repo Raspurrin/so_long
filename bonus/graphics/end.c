@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 22:42:31 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/17 22:23:40 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/18 01:47:17 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
  */
 void	terminate(t_imgdata *data)
 {
-	kill(data->pid, SIGKILL);
+	if (!WIN)
+		kill();
 	mlx_delete_image(data->mlx, data->img[GREY]);
 	mlx_delete_image(data->mlx, data->img[SCREEN]);
 	mlx_close_window(data->mlx);
@@ -53,7 +54,8 @@ void	end_message(t_imgdata *data)
 
 	if (!data->img[SCREEN])
 	{
-		kill(data->pid, SIGKILL);
+		if (!WIN)
+			kill();
 		colour_screen(data, GREY, 0x303388);
 		if (data->count[LIFE] <= 0)
 		{

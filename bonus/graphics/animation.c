@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 21:49:47 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/10 03:00:49 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/18 02:15:14 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void	animate_char(t_imgdata *data, t_animate *animate, size_t x, size_t y)
 
 	if ((animate->xy[0] - animate->start) >= animate->length)
 		animate->xy[0] = animate->start;
-	mlx_delete_image(data->mlx, data->img[CHAR]);
-	data->img[CHAR] = mlx_texture_area_to_image(data->mlx, \
+	mlx_delete_image(data->mlx, data->img[CHAR_R]);
+	data->img[CHAR_R] = mlx_texture_area_to_image(data->mlx, \
 			&data->xpm[animate->dir]->texture, animate->xy, (uint32_t *)wh2);
-	if (mlx_image_to_window(data->mlx, data->img[CHAR], x, y) == -1)
-		(free_close_window(data, data->img[CHAR], "image_to_window failed"));
-	mlx_set_instance_depth(data->img[CHAR]->instances, \
+	if (mlx_image_to_window(data->mlx, data->img[CHAR_R], x, y) == -1)
+		(free_close_window(data, data->img[CHAR_R], "image_to_window failed"));
+	mlx_set_instance_depth(data->img[CHAR_R]->instances, \
 						data->enemy.total_enemies + 100);
 	if (data->count[FRAME] % 7 == 0)
 		animate->xy[0] += 50;
