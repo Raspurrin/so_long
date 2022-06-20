@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 21:19:30 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/18 02:15:14 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:26:30 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef enum mlx_images
 	RED,
 	POTION,
 	KEY_STR,
+	CIRCLE,
 	IMG_COUNT,
 }	t_images;
 
@@ -289,7 +290,7 @@ void		init_coords(t_imgdata *data, size_t index, int32_t obs_index, \
 																t_coords *obs);
 char		**input_handler(int32_t fd, t_imgdata *data, \
 							t_line *line, t_enemy *enemy);
-void		kill(void);
+void		kill_process(t_imgdata *data);
 void		kill_enemy(t_imgdata *data, int32_t *player, size_t i, size_t j);
 void		kurwa_audio(char *args[]);
 bool		loading_images(t_imgdata *data, xpm_t **xpm);

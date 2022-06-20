@@ -6,13 +6,13 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 01:43:56 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/18 01:43:56 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:25:25 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	kill(void)
+void	kill_process(t_imgdata *data)
 {
 	kill(data->pid, SIGKILL);
 }

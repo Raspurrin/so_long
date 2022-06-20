@@ -6,7 +6,7 @@
 /*   By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:27:12 by mialbert          #+#    #+#             */
-/*   Updated: 2022/06/18 02:18:55 by mialbert         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:26:09 by mialbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ int32_t	graphics(t_imgdata *data, t_line *line, t_enemy *enemy)
 	if (data->bigass)
 		free (data->bigass);
 	if (!WIN)
-		kill();
+		kill_process(data);
 	return (0);
 }
