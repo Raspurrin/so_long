@@ -6,7 +6,7 @@
 #    By: mialbert <mialbert@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 04:40:17 by mialbert          #+#    #+#              #
-#    Updated: 2022/06/18 01:49:59 by mialbert         ###   ########.fr        #
+#    Updated: 2022/06/24 10:51:20 by mialbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ compile:
 	@echo ${Q}${NL}${PURPLE}So_long compiling!${NC}${Q}
 	$(CC) $(CFLAGS) -g $(HEADERS) $(SRCS) $(LIBMLX)libmlx42.a $(LIBFT)libft.a $(LIBS) $(DEBUG) -o $(NAME)
 
-bonus: 
+bonus: $(SUBM_FLAG) libft libmlx
 	@echo "${NL}${PURPLE}So_long + bonus compiling!${NC}"
 	$(CC) $(CFLAGS) -g  $(HEADERS) $(LIBS) $(BONUS) $(LIBMLX)libmlx42.a $(LIBFT)libft.a $(DEBUG) -o $(NAME)
 
