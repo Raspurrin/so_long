@@ -15,7 +15,8 @@ My game was made in C with the graphical library <a href="https://github.com/cod
 
 The goal of the game is to collect all pickups and go through the exit and... Not get killed in the process.
 Usually this project is made with a top-down view, but I decided to make it a platformer instead!
-It should be able to run on any platform. If there are any issues with running it, refer to MLX42 for guidance. 
+It runs on Mac, Linux, and for Windows only the mandatory part works. 
+If there are any issues with running it, refer to MLX42 for guidance. 
 
 ## Bonus features
 - Smooth animations.
