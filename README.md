@@ -1,4 +1,4 @@
-# <img width="80" alt="image" src="https://user-images.githubusercontent.com/13866954/172734156-4388b646-5a3a-4da7-934a-d8e8d323916a.png"> So_long
+# <img width="80" alt="image" src="https://user-images.githubusercontent.com/13866954/172734156-4388b646-5a3a-4da7-934a-d8e8d323916a.png"> So_long 🔨 not working atm, will be fixed soon
 
 ### Index:
 
